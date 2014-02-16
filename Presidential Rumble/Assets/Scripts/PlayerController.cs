@@ -8,12 +8,23 @@ public class PlayerController : MonoBehaviour {
 	private bool grounded = false;
 	private Transform groundCheck;
 
+	protected Animator animator;
+
+	void Start(){
+				animator = GetComponent<Animator> ();
+	}
+
 	void Awake(){
 		groundCheck = transform.Find ("groundCheck");
 	}
 
 	void Update(){
 		grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
+
+		if (animator) {
+			//Get the current state
+			AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+		}
 
 		if (Input.GetKeyUp ("a") || Input.GetKeyUp ("d"))
 			stopHorizontal = true;

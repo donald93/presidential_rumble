@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour {
 	protected Animator animator;
 
 	void Start(){
-				animator = GetComponent<Animator> ();
+		animator = GetComponent<Animator> ();
 	}
 
 	void Awake(){
@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update(){
+		Debug.Log ("this is a test");
 		grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
 
 		if (animator) {
@@ -37,16 +38,18 @@ public class PlayerController : MonoBehaviour {
 	// Called each update
 	void FixedUpdate(){
 		float moveHorizontal;
+		Vector2 movement;
 
 		if (stopHorizontal) {
 			moveHorizontal = 0f;
 			stopHorizontal = false;
 		}
 
-		else		
+		else {
 			moveHorizontal = Input.GetAxis ("Horizontal");
+		}
 
-		Vector2 movement = new Vector2(moveHorizontal*50, rigidbody2D.velocity.y);
+		movement = new Vector2(moveHorizontal*50, rigidbody2D.velocity.y);
 		rigidbody2D.velocity = movement;
 
 		if (jump) {
@@ -54,6 +57,7 @@ public class PlayerController : MonoBehaviour {
 			jump = false;
 		}
 	}
+
 
 	void onCollisionEnter2D(Collision2D collision){
 

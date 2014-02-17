@@ -10,10 +10,16 @@ public class EnemyController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		Debug.Log ("this is a test");
+	}
+
 	
+	void onTriggerEnter(Collider2D collider){
+		
 	}
 
 	void OnCollisionEnter2D (Collision2D collision){
-		System.Console.WriteLine (collision.ToString ());
+		Debug.Log ("this is a test");
+		print ("attack");
 	}
 }

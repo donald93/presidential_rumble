@@ -13,8 +13,7 @@ public class EnemyController : MonoBehaviour {
 	
 	}
 
-	void OnTriggerEnter (Collider other){
-		if (other.tag.Equals("Player"))
-			Destroy (this.gameObject);
+	void OnCollisionEnter2D (Collision2D collision){
+		System.Console.WriteLine (collision.ToString ());
 	}
 }

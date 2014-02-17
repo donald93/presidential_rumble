@@ -54,4 +54,8 @@ public class PlayerController : MonoBehaviour {
 			jump = false;
 		}
 	}
+
+	void onCollisionEnter2D(Collision2D collision){
+
+	}
 }

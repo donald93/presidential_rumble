@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
-	public bool jump, stopHorizontal;
+	public bool jump;
 	public float jumpForce = 1000f;
 
 	private bool grounded = false;
@@ -23,12 +23,19 @@ public class PlayerController : MonoBehaviour {
 		grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
 
 		if (animator) {
+
 			//Get the current state
 			AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-		}
 
-		if (Input.GetKeyUp ("a") || Input.GetKeyUp ("d"))
-			stopHorizontal = true;
+			int k = Animator.StringToHash("Base Layer.Idle");
+			int j = stateInfo.nameHash;
+			if (stateInfo.nameHash == Animator.StringToHash("Base Layer.Idle")){
+				if (Input.GetKey ("f"))
+					animator.SetBool("Punching", true);
+				else
+					animator.SetBool("Punching", false);
+			}
+		}
 
 		if (Input.GetKeyDown ("space") && grounded) {
 			jump = true;		
@@ -37,20 +44,8 @@ public class PlayerController : MonoBehaviour {
 
 	// Called each update
 	void FixedUpdate(){
-		float moveHorizontal;
-		Vector2 movement;
-
-		if (stopHorizontal) {
-			moveHorizontal = 0f;
-			stopHorizontal = false;
-		}
-
-		else {
-			moveHorizontal = Input.GetAxis ("Horizontal");
-		}
-
-		movement = new Vector2(moveHorizontal*50, rigidbody2D.velocity.y);
-		rigidbody2D.velocity = movement;
+		float moveHorizontal = Input.GetAxis ("Horizontal");;
+		rigidbody2D.velocity = new Vector2(moveHorizontal*50, rigidbody2D.velocity.y);
 
 		if (jump) {
 			rigidbody2D.AddForce(new Vector2(0f, jumpForce));	

@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D (Collision2D collision){
-		Debug.Log ("this is a test");
-		print ("attack");
+		if (collision.gameObject.tag == "Player")
+			Destroy (this.gameObject);
 	}
 }

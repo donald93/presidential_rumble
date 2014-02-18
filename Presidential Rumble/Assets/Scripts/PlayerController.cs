@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
-	public bool jump;
+	public bool jump, punch, goingRight;
 	public float jumpForce = 1000f;
 
 	private bool grounded = false;
@@ -27,11 +27,20 @@ public class PlayerController : MonoBehaviour {
 			//Get the current state
 			AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-			int k = Animator.StringToHash("Base Layer.Idle");
-			int j = stateInfo.nameHash;
 			if (stateInfo.nameHash == Animator.StringToHash("Base Layer.Idle")){
-				if (Input.GetKey ("f"))
+				// Punch key was pushed
+				if (Input.GetKey ("f")){
 					animator.SetBool("Punching", true);
+
+					// loop through children and enable the punch colliders
+					Transform[] allChildren = GetComponentsInChildren<Transform>();
+					foreach (Transform child in allChildren){
+						if (child.tag == "Punch")
+							child.collider2D.enabled = true;
+						Invoke ("disablePunch", 1);
+					}
+				}
+
 				else
 					animator.SetBool("Punching", false);
 			}
@@ -40,11 +49,18 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKeyDown ("space") && grounded) {
 			jump = true;		
 		}
+
+		if (!goingRight && Input.GetAxis ("Horizontal") < 0 || goingRight && Input.GetAxis ("Horizontal") > 0){
+			Vector2 scale = transform.localScale;
+			scale.x *= -1;
+			transform.localScale = scale;
+			goingRight = !goingRight;
+		}
 	}
 
 	// Called each update
 	void FixedUpdate(){
-		float moveHorizontal = Input.GetAxis ("Horizontal");;
+		float moveHorizontal = Input.GetAxis ("Horizontal");
 		rigidbody2D.velocity = new Vector2(moveHorizontal*50, rigidbody2D.velocity.y);
 
 		if (jump) {
@@ -53,8 +69,19 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-
 	void onCollisionEnter2D(Collision2D collision){
 
+	}
+
+	void onTriggerEnter2D(Collider2D collider){
+
+	}
+
+	void disablePunch(){
+		Transform[] allChildren = GetComponentsInChildren<Transform>();
+		foreach (Transform child in allChildren){
+			if (child.tag == "Punch")
+				child.collider2D.enabled = false;
+		}
 	}
 }

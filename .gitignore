@@ -1,0 +1,8 @@
+#Unity Igonore Files#
+#####################
+/Temp
+/obj
+/library
+*.csproj
+*.unityproj
+*.sln

@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour {
 			}
 		}
 	}	
-	
+	//DICKSON CHIU
 	void onTriggerEnter2D(Collider2D collider){
 
 	}

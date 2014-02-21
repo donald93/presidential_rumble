@@ -21,8 +21,17 @@ public class EnemyController : MonoBehaviour {
 		}
 	}	
 	
-	void onTriggerEnter2D(Collider2D collider){
-
+	void OnTriggerEnter2D(Collider2D other) {
+		if (other.gameObject.tag == "Punch"){
+			if (animator) {			
+				//Get the current state
+				AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+				
+				if (stateInfo.nameHash == Animator.StringToHash("Base Layer.Idle")){
+					animator.SetBool("Hit", true);
+				}
+			}
+		}
 	}
 
 	void OnCollisionEnter2D (Collision2D collision){

@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update(){
-		Debug.Log ("this is a test");
 		grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
 
 		if (animator) {

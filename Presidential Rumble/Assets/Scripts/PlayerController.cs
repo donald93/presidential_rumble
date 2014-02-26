@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour {
 	protected Animator animator;
 
 	void Start(){
-		animator = GetComponent<Animator> ();
+		Transform a = transform.Find ("Character animation");
+		animator = a.GetComponent<Animator> ();
 	}
 
 	void Awake(){
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour {
 			if (stateInfo.nameHash == Animator.StringToHash("Base Layer.Idle")){
 				// Punch key was pushed
 				if (Input.GetKey ("f")){
-					animator.SetBool("Punching", true);
+					//animator.SetBool("Punching", true);
 
 					// loop through children and enable the punch colliders
 					Transform[] allChildren = GetComponentsInChildren<Transform>();
@@ -40,13 +41,14 @@ public class PlayerController : MonoBehaviour {
 					}
 				}
 
-				else
-					animator.SetBool("Punching", false);
-			}
-		}
+				//else
+					//animator.SetBool("Punching", false);
 
-		if (Input.GetKeyDown ("space") && grounded) {
-			jump = true;		
+				if (Input.GetKeyDown ("space") && grounded) {
+					jump = true;
+					animator.SetBool("Jumping", true);
+				}
+			}
 		}
 
 		if (!goingRight && Input.GetAxis ("Horizontal") < 0 || goingRight && Input.GetAxis ("Horizontal") > 0){

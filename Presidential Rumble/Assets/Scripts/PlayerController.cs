@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
 
 	private bool grounded = false;
 	private Transform groundCheck;
-
+	private int framesSinceJump = 0;
 	protected Animator animator;
 
 	void Start(){
@@ -24,10 +24,13 @@ public class PlayerController : MonoBehaviour {
 
 		if (animator) {
 
+			if (grounded && framesSinceJump > 0)
+				animator.SetBool("Jumping", false);
+
 			//Get the current state
 			AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-			if (stateInfo.nameHash == Animator.StringToHash("Base Layer.Idle")){
+			if (stateInfo.nameHash == Animator.StringToHash("Base Layer.Idle") || stateInfo.nameHash == Animator.StringToHash("Base Layer.Empty State")){
 				// Punch key was pushed
 				if (Input.GetKey ("f")){
 					//animator.SetBool("Punching", true);
@@ -47,6 +50,7 @@ public class PlayerController : MonoBehaviour {
 				if (Input.GetKeyDown ("space") && grounded) {
 					jump = true;
 					animator.SetBool("Jumping", true);
+					framesSinceJump = 0;
 				}
 			}
 		}
@@ -68,6 +72,8 @@ public class PlayerController : MonoBehaviour {
 			rigidbody2D.AddForce(new Vector2(0f, jumpForce));	
 			jump = false;
 		}
+
+		framesSinceJump++;		
 	}
 
 	void onCollisionEnter2D(Collision2D collision){

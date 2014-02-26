@@ -1,8 +1,2 @@
-#Unity Igonore Files#
-#####################
-/Temp
-/obj
-/library
-*.csproj
-*.unityproj
-*.sln
+
+Presidential Rumble/Assets/Scripts/EnemyController.cs

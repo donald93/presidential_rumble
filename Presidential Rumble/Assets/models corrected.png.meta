@@ -1,0 +1,198 @@
+fileFormatVersion: 2
+guid: 9a00e17dc4d473b428b91c27c6a31bc2
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: models corrected_0
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 512
+        width: 81
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: models corrected_1
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 481
+        width: 18
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: models corrected_2
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 0
+        width: 1198
+        height: 671
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: models corrected_3
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 310
+        width: 31
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: models corrected_4
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 388
+        width: 35
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: models corrected_5
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 305
+        width: 94
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: models corrected_6
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 388
+        width: 35
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: models corrected_7
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 309
+        width: 34
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: models corrected_8
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 188
+        width: 55
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: models corrected_9
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 295
+        width: 35
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: models corrected_10
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 295
+        width: 33
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: models corrected_11
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 183
+        width: 33
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: models corrected_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 195
+        width: 17
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: models corrected_13
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 73
+        width: 33
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: models corrected_14
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 73
+        width: 34
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: models corrected_15
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 19
+        width: 85
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: models corrected_16
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 22
+        width: 84
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+  spritePackingTag: 
+  userData: 

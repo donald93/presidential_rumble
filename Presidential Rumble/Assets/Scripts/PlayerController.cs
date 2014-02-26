@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update(){
-		Debug.Log ("this is a test");
 		grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
 
 		if (animator) {
@@ -61,7 +60,7 @@ public class PlayerController : MonoBehaviour {
 	// Called each update
 	void FixedUpdate(){
 		float moveHorizontal = Input.GetAxis ("Horizontal");
-		rigidbody2D.velocity = new Vector2(moveHorizontal*50, rigidbody2D.velocity.y);
+		rigidbody2D.velocity = new Vector2(moveHorizontal*25, rigidbody2D.velocity.y);
 
 		if (jump) {
 			rigidbody2D.AddForce(new Vector2(0f, jumpForce));	

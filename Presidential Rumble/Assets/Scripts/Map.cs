@@ -37,22 +37,24 @@ public class Map : MonoBehaviour
 {
 	private GameObject[] buttons;
 	private GameObject startButton;
-	private GameObject backButton;
 	private int selected;
 	private bool axisBusy;
-	private GUIText levelName;
+	private string levelName;
 
 	void Awake()
 	{
-		levelName = new GUIText ();
 		axisBusy = false;
 		selected = 0;
 		buttons = GameObject.FindGameObjectsWithTag ("MapButtonTag").OrderBy( 
 			button => button.transform.gameObject.GetComponent<MapButton>().Scene ).ToArray();
 		startButton = GameObject.FindWithTag ("StartButtonTag");
-		backButton = GameObject.FindWithTag ("BackButtonTag");
 
 		//TODO select highest unlocked level
+	}
+
+	void OnGUI()
+	{
+		GUI.Label (new Rect (0, 0, 100, 100), levelName);
 	}
 
 	void Update()
@@ -103,7 +105,7 @@ public class Map : MonoBehaviour
 
 		startButton.GetComponent<GUIButton> ().scene = (SceneEnum)selected;
 
-		levelName.text = selectedButton.GetComponent<MapButton> ().levelNameDisplay;
+		levelName = selectedButton.GetComponent<MapButton> ().levelNameDisplay;
 	}
 
 	void UnselectAll()

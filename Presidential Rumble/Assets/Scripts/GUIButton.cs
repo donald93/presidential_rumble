@@ -1,29 +1,45 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// GUIButton should be attached to an empty object.
+/// All location and scale variables are based on 
+/// the original 1920x1080 sceme. The GUI is then 
+/// scaled to match the current screen resolution.
+/// </summary>
 public class GUIButton : MonoBehaviour
 {
-
-	GUIContent content = new GUIContent();
+	public float x, y, width, height;
 	public Texture2D defaultImage, hoverImage, downClickImage;
 	public string text;
+	public Font font;
 	public SceneEnum scene;
-	public float x, y, width, height;
 
-	void Awake()
-	{
-		content.text = text;
-	}
+	public static readonly float originalWidth = 1920;
+	public static readonly float originalHeight = 1080;
 
 	void OnGUI()
 	{
+		// scale the GUI to the current screen size
+		Vector2 ratio = new Vector2(Screen.width/originalWidth , Screen.height/originalHeight );
+		Matrix4x4 guiMatrix = Matrix4x4.identity;
+		guiMatrix.SetTRS(new Vector3(1, 1, 1), Quaternion.identity, new Vector3(ratio.x, ratio.y, 1));
+		GUI.matrix = guiMatrix;
+
+		// set the GUI images and font
 		GUI.skin.button.normal.background = (Texture2D)defaultImage;
 		GUI.skin.button.hover.background = (Texture2D)hoverImage;
 		GUI.skin.button.active.background = (Texture2D)defaultImage;
+		GUI.skin.font = font;
+		GUI.skin.GetStyle("Button").fontSize = Mathf.FloorToInt(0.6f * height);
 
-		if (GUI.Button(new Rect((Screen.width * x) - (Screen.width * width)/2, (Screen.height * y) - (Screen.height * height)/2, Screen.width * width, Screen.height * height), content))
+		// draw the button
+		if (GUI.Button(new Rect(x - width/2, y - height/2, width, height), text))
 	    {
 			Application.LoadLevel (scene.ToString());
 		}
+
+		// reset the resolution
+		GUI.matrix = Matrix4x4.identity;
 	}
 }

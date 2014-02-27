@@ -42,7 +42,7 @@ public class MapButton : MonoBehaviour
 	}
 
 	[SerializeField]
-	private bool m_unlocked;
+	private bool m_locked;
 	/// <summary>
 	/// Gets or sets a value indicating whether this 
 	/// <see cref="MapButton"/> is unlocked. Only unlocked levels
@@ -51,9 +51,9 @@ public class MapButton : MonoBehaviour
 	/// <value>
 	/// <c>true</c> if unlocked; otherwise, <c>false</c>.
 	/// </value>
-	public bool unlocked
+	public bool locked
 	{
-		get { return m_unlocked; }
-		set { m_unlocked = value; }
+		get { return m_locked; }
+		set { m_locked = value; }
 	}
 }

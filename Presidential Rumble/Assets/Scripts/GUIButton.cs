@@ -23,7 +23,7 @@ public class GUIButton : MonoBehaviour
 
 		if (GUI.Button(new Rect((Screen.width * x) - (Screen.width * width)/2, (Screen.height * y) - (Screen.height * height)/2, Screen.width * width, Screen.height * height), content))
 	    {
-			Application.LoadLevel ((int)scene);
+			Application.LoadLevel (scene.ToString());
 		}
 	}
 }

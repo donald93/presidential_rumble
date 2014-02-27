@@ -3,33 +3,56 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public enum SceneEnum : int
+/// <summary>
+/// SceneEnum represents a level for each name.
+/// This name must match the name of the scene 
+/// in the Assets->Scenes folder.
+/// 
+/// For simplicity's sake, the int values are 
+/// incremented by 10 for each important section.
+/// </summary>
+public enum SceneEnum
 {
-	MAIN_MENU = 0,
-	CHARACTER_SELECT = 1,
+	MainMenu = 0,
+	Main = 1, //TODO test scene only
+	//CharacterSelect = 1,
+	//AboutDevelopers = 2,
 	//...
-	TUTORIAL = 9,
-	WASHINGTON_MAP = 10,
-	WASHINGTON_LEVEL_1 = 11,
-	WASHINGTON_LEVEL_2 = 12
+	//Tutorial = 9,
+	WashingtonMap = 10,
+	//WashingtonLevel1 = 11,
+	//WashingtonLevel2 = 12,
 
 	// pres 2 map = 20
 };
 
+/// <summary>
+/// Map contains all of the logic of the level selection screen. 
+/// It will bring to attention all <see cref="MapButton"/> that 
+/// have been unlocked with special focus on the currently selected 
+/// map button.  It also sets up the GUI that you can use to change 
+/// scenes.
+/// </summary>
 public class Map : MonoBehaviour
 {
 	private GameObject[] buttons;
 	private GameObject startButton;
+	private GameObject backButton;
 	private int selected;
 	private bool axisBusy;
-	private TextMesh levelName;
+	private GUIText levelName;
 
 	void Awake()
 	{
-		levelName = new TextMesh ();
+		levelName = new GUIText ();
 		axisBusy = false;
 		selected = 0;
-		buttons = GameObject.FindGameObjectsWithTag ("MapButtonTag").OrderBy( button => button.transform.gameObject.GetComponent<MapButton>().Scene() ).ToArray();
+		buttons = GameObject.FindGameObjectsWithTag ("MapButtonTag").OrderBy( 
+			button => button.transform.gameObject.GetComponent<MapButton>().Scene ).ToArray();
+		startButton = GameObject.FindWithTag ("StartButtonTag");
+		backButton = GameObject.FindWithTag ("BackButtonTag");
+
+		//TODO select highest unlocked level
 	}
 
 	void Update()
@@ -76,14 +99,11 @@ public class Map : MonoBehaviour
 		if (!selectedButton.GetComponent("Halo"))
 			selectedButton.transform.gameObject.AddComponent("Halo");
 
-		selected = selectedButton.GetComponent<MapButton>().Scene();
+		selected = (int)selectedButton.GetComponent<MapButton>().Scene;
 
-		startButton = GameObject.FindWithTag ("StartButtonTag");
 		startButton.GetComponent<GUIButton> ().scene = (SceneEnum)selected;
 
-		//Vector3 screenPos = camera.WorldToScreenPoint (selectedButton.transform.position);
-		//levelName.text = selectedButton.GetComponent<MapButton> ().levelNameDisplay;
-		//levelName.font =
+		levelName.text = selectedButton.GetComponent<MapButton> ().levelNameDisplay;
 	}
 
 	void UnselectAll()

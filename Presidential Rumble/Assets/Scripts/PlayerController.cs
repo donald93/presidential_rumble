@@ -2,9 +2,9 @@
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
-	public bool jump, punch, goingRight;
+	public bool jump, punch, goingRight, crouch;
 	public float jumpForce = 1000f;
-
+	
 	private bool grounded = false;
 	private Transform groundCheck;
 	private int framesSinceJump = 0;
@@ -23,6 +23,17 @@ public class PlayerController : MonoBehaviour {
 		grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
 
 		if (animator) {
+
+			//Crouching controls
+			if (Input.GetKeyDown ("s")) {
+				
+				animator.SetBool ("Crouching", true);
+				crouch = true;
+			}
+			if (Input.GetKeyUp ("s")) {
+				animator.SetBool ("Crouching", false);
+				crouch = false;
+			} 
 
 			if (grounded && framesSinceJump > 0)
 				animator.SetBool("Jumping", false);
@@ -66,7 +77,14 @@ public class PlayerController : MonoBehaviour {
 	// Called each update
 	void FixedUpdate(){
 		float moveHorizontal = Input.GetAxis ("Horizontal");
-		rigidbody2D.velocity = new Vector2(moveHorizontal*25, rigidbody2D.velocity.y);
+
+		//Check if crouching to slow movement
+		if (crouch) {
+
+						rigidbody2D.velocity = new Vector2 (moveHorizontal * 15, rigidbody2D.velocity.y);
+				}
+		else
+			rigidbody2D.velocity = new Vector2 (moveHorizontal * 25, rigidbody2D.velocity.y);
 
 		if (jump) {
 			rigidbody2D.AddForce(new Vector2(0f, jumpForce));	

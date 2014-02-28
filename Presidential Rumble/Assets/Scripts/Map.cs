@@ -26,6 +26,14 @@ public enum SceneEnum
 	// pres 2 map = 20
 };
 
+public enum Directions
+{
+	Up = 0,
+	Down = 1,
+	Left = 2,
+	Right = 3
+}
+
 /// <summary>
 /// Map contains all of the logic of the level selection screen. 
 /// It will bring to attention all <see cref="MapButton"/> that 
@@ -41,6 +49,12 @@ public class Map : MonoBehaviour
 	private bool axisBusy;
 	private string levelName;
 
+	public Font font;
+	public Directions anchor;
+	public Texture2D guiImage;
+	public GUIButton startButton2;
+	public GUIButton backButton;
+
 	void Awake()
 	{
 		axisBusy = false;
@@ -49,28 +63,57 @@ public class Map : MonoBehaviour
 			button => button.transform.gameObject.GetComponent<MapButton>().Scene ).ToArray();
 		startButton = GameObject.FindWithTag ("StartButtonTag");
 
-		//TODO select highest unlocked level
+		Select (buttons [0]);
 	}
 
 	void OnGUI()
 	{
-		GUI.Label (new Rect (0, 0, 100, 100), levelName);
+		// scale the GUI to the current screen size
+		Vector2 ratio = new Vector2 (Screen.width/GUIButton.originalWidth , Screen.height/GUIButton.originalHeight );
+		Matrix4x4 guiMatrix = Matrix4x4.identity;
+		guiMatrix.SetTRS (new Vector3 (1, 1, 1), Quaternion.identity, new Vector3 (ratio.x, ratio.y, 1));
+		GUI.matrix = guiMatrix;
+
+		// set the GUI images and font
+		GUI.skin.font = font;
+		GUI.skin.GetStyle ("Label").fontSize = 72;
+		GUI.skin.GetStyle ("Label").alignment = TextAnchor.LowerCenter;
+
+		if (anchor == Directions.Left)
+		{
+			int groupWidth = 600;
+			int leftX = 0;
+			GUI.BeginGroup (new Rect (leftX, 0, groupWidth, GUIButton.originalHeight));
+			GUI.Box (new Rect (0,0, groupWidth, GUIButton.originalHeight), guiImage);
+			GUI.Label (new Rect (0, 0, groupWidth, 100), levelName);
+
+			startButton2.x = leftX + 300;
+			startButton2.y = 300;
+			backButton.x = leftX + 300;
+			backButton.y = 800;
+
+			GUI.EndGroup();
+		}
+
+		// reset the resolution
+		GUI.matrix = Matrix4x4.identity;
 	}
 
 	void Update()
 	{
 		if (Input.GetMouseButtonDown (0))
 		{
-				RaycastHit hit;
-				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+			RaycastHit hit;
+			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 
-				if (Physics.Raycast (ray, out hit, 100.0f))
+			if (Physics.Raycast (ray, out hit, 100.0f))
+			{
+				GameObject hitButton = hit.transform.gameObject;
+				if (hitButton.CompareTag ("MapButtonTag") && !hitButton.GetComponent<MapButton>().locked)
 				{
-						if (hit.transform.gameObject.CompareTag ("MapButtonTag"))
-						{
-								Select (hit.transform.gameObject);
-						}
+						Select (hit.transform.gameObject);
 				}
+			}
 		}
 		else
 		{
@@ -79,7 +122,7 @@ public class Map : MonoBehaviour
 				if (!axisBusy)
 				{
 					axisBusy = true;
-					if (++selected > buttons.Length - 1)
+					if (++selected > buttons.Length - 1 || buttons[selected].GetComponent<MapButton>().locked)
 					{
 						selected = 0;
 					}

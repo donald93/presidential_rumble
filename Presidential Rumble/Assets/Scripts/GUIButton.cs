@@ -18,6 +18,20 @@ public class GUIButton : MonoBehaviour
 	public static readonly float originalWidth = 1920;
 	public static readonly float originalHeight = 1080;
 
+	public GUIButton(float x, float y, float width, float height, Texture2D defaultImage, Texture2D hoverImage, Texture2D downClickImage, string text, Font font, SceneEnum scene)
+	{
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.defaultImage = defaultImage;
+		this.hoverImage = hoverImage;
+		this.downClickImage = downClickImage;
+		this.text = text;
+		this.font = font;
+		this.scene = scene;
+	}
+
 	void OnGUI()
 	{
 		// scale the GUI to the current screen size
@@ -32,7 +46,7 @@ public class GUIButton : MonoBehaviour
 		GUI.skin.button.active.background = (Texture2D)defaultImage;
 		GUI.skin.font = font;
 		GUI.skin.GetStyle("Button").fontSize = Mathf.FloorToInt(0.6f * height);
-
+		GUI.depth = 0;
 		// draw the button
 		if (GUI.Button(new Rect(x - width/2, y - height/2, width, height), text))
 	    {

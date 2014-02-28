@@ -11,7 +11,6 @@ public class EnemyCollisions : MonoBehaviour
 		{
 				recoil = false;
 				HealthPoints = 100;
-				
 		}
 	
 		// Update is called once per frame
@@ -35,7 +34,7 @@ public class EnemyCollisions : MonoBehaviour
 
 				if (HealthPoints <= 0) {
 						GameObject.Find ("Enemy").GetComponent<SpriteRenderer> ().enabled = false;
-						rigidbody2D.Sleep ();
+						GameObject.Find ("EventListener").SendMessage ("NextScene", 3);
 				}
 
 		}

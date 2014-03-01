@@ -15,9 +15,6 @@ public class GUIButton : MonoBehaviour
 	public Font font;
 	public SceneEnum scene;
 
-	public static readonly float originalWidth = 1920;
-	public static readonly float originalHeight = 1080;
-
 	public GUIButton(float x, float y, float width, float height, Texture2D defaultImage, Texture2D hoverImage, Texture2D downClickImage, string text, Font font, SceneEnum scene)
 	{
 		this.x = x;
@@ -35,7 +32,7 @@ public class GUIButton : MonoBehaviour
 	void OnGUI()
 	{
 		// scale the GUI to the current screen size
-		Vector2 ratio = new Vector2(Screen.width/originalWidth , Screen.height/originalHeight );
+		Vector2 ratio = new Vector2(Screen.width/Globals.originalWidth , Screen.height/Globals.originalHeight );
 		Matrix4x4 guiMatrix = Matrix4x4.identity;
 		guiMatrix.SetTRS(new Vector3(1, 1, 1), Quaternion.identity, new Vector3(ratio.x, ratio.y, 1));
 		GUI.matrix = guiMatrix;

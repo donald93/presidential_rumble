@@ -4,37 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 /// <summary>
-/// SceneEnum represents a level for each name.
-/// This name must match the name of the scene 
-/// in the Assets->Scenes folder.
-/// 
-/// For simplicity's sake, the int values are 
-/// incremented by 10 for each important section.
-/// </summary>
-public enum SceneEnum
-{
-	MainMenu = 0,
-	Main = 1, //TODO test scene only
-	//CharacterSelect = 1,
-	//AboutDevelopers = 2,
-	//...
-	//Tutorial = 9,
-	WashingtonMap = 10,
-	//WashingtonLevel1 = 11,
-	//WashingtonLevel2 = 12,
-
-	// pres 2 map = 20
-};
-
-public enum Directions
-{
-	Up = 0,
-	Down = 1,
-	Left = 2,
-	Right = 3
-}
-
-/// <summary>
 /// Map contains all of the logic of the level selection screen. 
 /// It will bring to attention all <see cref="MapButton"/> that 
 /// have been unlocked with special focus on the currently selected 
@@ -69,7 +38,7 @@ public class Map : MonoBehaviour
 	void OnGUI()
 	{
 		// scale the GUI to the current screen size
-		Vector2 ratio = new Vector2 (Screen.width/GUIButton.originalWidth , Screen.height/GUIButton.originalHeight );
+		Vector2 ratio = new Vector2 (Screen.width/Globals.originalWidth , Screen.height/Globals.originalHeight );
 		Matrix4x4 guiMatrix = Matrix4x4.identity;
 		guiMatrix.SetTRS (new Vector3 (1, 1, 1), Quaternion.identity, new Vector3 (ratio.x, ratio.y, 1));
 		GUI.matrix = guiMatrix;
@@ -83,8 +52,8 @@ public class Map : MonoBehaviour
 		{
 			int groupWidth = 600;
 			int leftX = 0;
-			GUI.BeginGroup (new Rect (leftX, 0, groupWidth, GUIButton.originalHeight));
-			GUI.Box (new Rect (0,0, groupWidth, GUIButton.originalHeight), guiImage);
+			GUI.BeginGroup (new Rect (leftX, 0, groupWidth, Globals.originalHeight));
+			GUI.Box (new Rect (0,0, groupWidth, Globals.originalHeight), guiImage);
 			GUI.Label (new Rect (0, 0, groupWidth, 100), levelName);
 
 			startButton2.x = leftX + 300;

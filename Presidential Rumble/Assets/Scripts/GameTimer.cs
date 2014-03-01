@@ -26,7 +26,7 @@ public class GameTimer : MonoBehaviour {
 	}
 
 	void OnGUI()
-	{	Vector2 ratio = new Vector2(Screen.width/GUIButton.originalWidth , Screen.height/GUIButton.originalHeight );
+	{	Vector2 ratio = new Vector2(Screen.width/Globals.originalWidth , Screen.height/Globals.originalHeight );
 		Matrix4x4 guiMatrix = Matrix4x4.identity;
 		guiMatrix.SetTRS(new Vector3(1, 1, 1), Quaternion.identity, new Vector3(ratio.x, ratio.y, 1));
 		GUI.matrix = guiMatrix;

@@ -23,6 +23,7 @@ public class Map : MonoBehaviour
 	public Texture2D guiImage;
 	public GUIButton startButton2;
 	public GUIButton backButton;
+	public AudioClip button;
 
 	void Awake()
 	{
@@ -78,6 +79,7 @@ public class Map : MonoBehaviour
 				if (hitButton.CompareTag ("MapButtonTag") && !hitButton.GetComponent<MapButton>().locked)
 				{
 						Select (hit.transform.gameObject);
+						audio.PlayOneShot(button);
 				}
 			}
 		}
@@ -94,6 +96,7 @@ public class Map : MonoBehaviour
 					}
 
 					Select (buttons [selected]);
+					audio.PlayOneShot(button);
 				}
 			}
 			if (Input.GetAxisRaw ("Horizontal") == 0)

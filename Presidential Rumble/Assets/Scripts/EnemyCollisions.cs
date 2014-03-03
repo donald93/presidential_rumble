@@ -6,6 +6,8 @@ public class EnemyCollisions : MonoBehaviour
 
 		public bool recoil;
 		public int HealthPoints;
+		public AudioClip punchHit;
+
 		// Use this for initialization
 		void Start ()
 		{
@@ -43,6 +45,7 @@ public class EnemyCollisions : MonoBehaviour
 				if (collider.gameObject.tag == "Punch") {
 						recoil = true;
 						HealthPoints -= 10;
+						audio.PlayOneShot(punchHit);
 				}
 		}
 	

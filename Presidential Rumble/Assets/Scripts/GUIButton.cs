@@ -30,10 +30,15 @@ public class GUIButton : MonoBehaviour
 		// draw the button
 		if (GUI.Button(new Rect(x - width/2, y - height/2, width, height), text))
 	    {
-			Application.LoadLevel (scene.ToString());
+			audio.Play ();
+			Invoke("switchScenes", 0.5f);
 		}
 
 		// reset the resolution
 		GUI.matrix = Matrix4x4.identity;
+	}
+
+	void switchScenes(){
+		Application.LoadLevel (scene.ToString());
 	}
 }

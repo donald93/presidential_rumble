@@ -5,11 +5,13 @@ public class PlayerController : MonoBehaviour
 {
 		public bool jump, punch, goingLeft, crouch;
 		public float jumpForce = 1000f;
-	
-		public int HealthPoints;	
+		public int HealthPoints;
+		public AudioClip jumpSound;
+
 		private bool grounded = false;
 		private Transform groundCheck;
 		private int framesSinceJump = 0;
+
 		protected Animator animator;
 
 		void Start ()
@@ -48,14 +50,16 @@ public class PlayerController : MonoBehaviour
 								jump = true;
 								animator.SetBool ("Jumping", true);
 								framesSinceJump = 0;
+								audio.PlayOneShot(jumpSound);
 						}
 			
 						if (grounded && framesSinceJump > 0)
 								animator.SetBool ("Jumping", false);
 
 
+
 						// Punch key was pushed
-						if (Input.GetKey ("f")) {
+						if (Input.GetKeyDown ("f")) {
 								animator.SetBool ("Punching", true);
 			
 								// loop through children and enable the punch colliders
@@ -63,11 +67,10 @@ public class PlayerController : MonoBehaviour
 								foreach (Transform child in allChildren) {
 										if (child.tag == "Punch")
 												child.collider2D.enabled = true;
-										Invoke ("disablePunch", 1);
+										Invoke ("disablePunch", 0.1f);
 								}
 						} else
 								animator.SetBool ("Punching", false);
-						//}
 				}
 
 				if (!goingLeft && Input.GetAxis ("Horizontal") < 0 || goingLeft && Input.GetAxis ("Horizontal") > 0) {

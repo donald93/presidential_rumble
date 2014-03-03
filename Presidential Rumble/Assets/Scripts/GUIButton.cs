@@ -15,27 +15,10 @@ public class GUIButton : MonoBehaviour
 	public Font font;
 	public SceneEnum scene;
 
-	public GUIButton(float x, float y, float width, float height, Texture2D defaultImage, Texture2D hoverImage, Texture2D downClickImage, string text, Font font, SceneEnum scene)
-	{
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.defaultImage = defaultImage;
-		this.hoverImage = hoverImage;
-		this.downClickImage = downClickImage;
-		this.text = text;
-		this.font = font;
-		this.scene = scene;
-	}
-
 	void OnGUI()
 	{
 		// scale the GUI to the current screen size
-		Vector2 ratio = new Vector2(Screen.width/Globals.originalWidth , Screen.height/Globals.originalHeight );
-		Matrix4x4 guiMatrix = Matrix4x4.identity;
-		guiMatrix.SetTRS(new Vector3(1, 1, 1), Quaternion.identity, new Vector3(ratio.x, ratio.y, 1));
-		GUI.matrix = guiMatrix;
+		GUI.matrix = Globals.PrepareMatrix();
 
 		// set the GUI images and font
 		GUI.skin.button.normal.background = (Texture2D)defaultImage;

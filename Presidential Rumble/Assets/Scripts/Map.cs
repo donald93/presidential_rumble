@@ -38,10 +38,7 @@ public class Map : MonoBehaviour
 	void OnGUI()
 	{
 		// scale the GUI to the current screen size
-		Vector2 ratio = new Vector2 (Screen.width/Globals.originalWidth , Screen.height/Globals.originalHeight );
-		Matrix4x4 guiMatrix = Matrix4x4.identity;
-		guiMatrix.SetTRS (new Vector3 (1, 1, 1), Quaternion.identity, new Vector3 (ratio.x, ratio.y, 1));
-		GUI.matrix = guiMatrix;
+		GUI.matrix = Globals.PrepareMatrix();
 
 		// set the GUI images and font
 		GUI.skin.font = font;

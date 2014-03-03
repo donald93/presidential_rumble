@@ -41,4 +41,12 @@ public class Globals
 {
 	public static readonly float originalWidth = 1920;
 	public static readonly float originalHeight = 1080;
+
+	public static Matrix4x4 PrepareMatrix()
+	{
+		Vector2 ratio = new Vector2(Screen.width/originalWidth , Screen.height/originalHeight );
+		Matrix4x4 guiMatrix = Matrix4x4.identity;
+		guiMatrix.SetTRS(new Vector3(1, 1, 1), Quaternion.identity, new Vector3(ratio.x, ratio.y, 1));
+		return guiMatrix;
+	}
 }

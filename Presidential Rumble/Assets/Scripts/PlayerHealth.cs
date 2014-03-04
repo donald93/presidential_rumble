@@ -21,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
 
 		void OnGUI ()
 		{
-				GUI.Box (new Rect (10, 10, Screen.width / 2 / (MaxHealth / CurrentHealth), 20), "" + CurrentHealth);
+				GUI.Box (new Rect (70, 30, Screen.width / 3 / (MaxHealth / CurrentHealth), 20), "George Washington");
 				
 		}
 

@@ -4,8 +4,8 @@ using System.Collections;
 public class EnemyHealth : MonoBehaviour
 {
 	
-		public static int MaxHealth = 100;
-		public static int CurrentHealth = 100;
+		public static int MaxHealth = 100000;
+		public static int CurrentHealth = 100000;
 	
 		// Use this for initialization
 		void Start ()
@@ -21,12 +21,15 @@ public class EnemyHealth : MonoBehaviour
 	
 		void OnGUI ()
 		{
-				GUI.Box (new Rect (10, 10, Screen.width / 2 / (MaxHealth / CurrentHealth), 20), "" + CurrentHealth);
+			
+				GUI.Box (new Rect (500, 30, Screen.width / 3 / (MaxHealth / CurrentHealth), 20), "French Soldier");
 		
 		}
 	
 		public static void DecrementHealth ()
 		{
-				CurrentHealth--;
+				CurrentHealth -= 1000;
+				if (CurrentHealth == 0)
+						GameObject.Find ("EventListener").SendMessage ("NextScene", 3);
 		}
 }

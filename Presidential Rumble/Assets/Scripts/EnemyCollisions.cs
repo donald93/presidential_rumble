@@ -35,7 +35,8 @@ public class EnemyCollisions : MonoBehaviour
 				}
 
 				if (HealthPoints <= 0) {
-						GameObject.Find ("Enemy").GetComponent<SpriteRenderer> ().enabled = false;
+						if (GameObject.Find ("Enemy").GetComponent<SpriteRenderer> () != null)
+							GameObject.Find ("Enemy").GetComponent<SpriteRenderer> ().enabled = false;
 						GameObject.Find ("EventListener").SendMessage ("NextScene", 3);
 				}
 

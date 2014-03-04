@@ -3,15 +3,13 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-		public bool jump, punch, goingLeft, crouch;
+		public bool jump, punch, goingLeft, crouch, recoil;
 		public float jumpForce = 1000f;
 		public int HealthPoints;
-		public AudioClip jumpSound;
-
+		public AudioClip jumpSound, punchHit;
 		private bool grounded = false;
 		private Transform groundCheck;
 		private int framesSinceJump = 0;
-
 		protected Animator animator;
 
 		void Start ()
@@ -50,7 +48,7 @@ public class PlayerController : MonoBehaviour
 								jump = true;
 								animator.SetBool ("Jumping", true);
 								framesSinceJump = 0;
-								audio.PlayOneShot(jumpSound);
+								audio.PlayOneShot (jumpSound);
 						}
 			
 						if (grounded && framesSinceJump > 0)
@@ -84,6 +82,16 @@ public class PlayerController : MonoBehaviour
 		// Called each update
 		void FixedUpdate ()
 		{
+				if (recoil) {
+			
+						//if (GameObject.Find ("Player").transform.position.x < this.transform.position.x)
+						rigidbody2D.velocity -= new Vector2 (2500f, 0f);
+						//else
+						//		rigidbody2D.AddForce (new Vector2 (-2500f, 0f));
+						recoil = false;	
+						return;
+			
+				}
 				float moveHorizontal = Input.GetAxis ("Horizontal");
 
 				//Check if crouching to slow movement
@@ -100,14 +108,18 @@ public class PlayerController : MonoBehaviour
 				framesSinceJump++;		
 		}
 
-		void onCollisionEnter2D (Collision2D collision)
+		void OnCollisionEnter2D (Collision2D collision)
 		{
 
 		}
 
-		void onTriggerEnter2D (Collider2D collider)
+		void OnTriggerEnter2D (Collider2D collider)
 		{
-
+				if (collider.gameObject.tag == "Punch") {
+						recoil = true;
+						HealthPoints -= 10;
+						audio.PlayOneShot (punchHit);
+				}
 		}
 
 		void disablePunch ()

@@ -1,0 +1,171 @@
+fileFormatVersion: 2
+guid: 070ec83d4a7de264b913979ab1ab5be2
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: washington_profile_0
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 503
+        width: 97
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: washington_profile_1
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 481
+        width: 16
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: washington_profile_2
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 310
+        width: 27
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: washington_profile_3
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 388
+        width: 27
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: washington_profile_4
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 307
+        width: 57
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: washington_profile_5
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 388
+        width: 27
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: washington_profile_6
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 310
+        width: 27
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: washington_profile_7
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 184
+        width: 28
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: washington_profile_8
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 294
+        width: 27
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: washington_profile_9
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 294
+        width: 27
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: washington_profile_10
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 184
+        width: 28
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: washington_profile_11
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 61
+        width: 28
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: washington_profile_12
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 38
+        width: 76
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+    - name: washington_profile_13
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 61
+        width: 28
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+  spritePackingTag: 
+  userData: 

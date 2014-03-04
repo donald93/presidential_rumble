@@ -70,6 +70,9 @@ public class GameTimer : MonoBehaviour
 			guiButton.text = "Main Menu";
 			guiButton.scene = SceneEnum.MainMenu;
 
+
+			AudioSource audio = gameObject.AddComponent<AudioSource>();
+			audio.clip = Resources.Load("Sounds/Menu Select Sound") as AudioClip;
 			//TODO stop controls
 		}
 

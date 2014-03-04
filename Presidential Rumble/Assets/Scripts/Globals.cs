@@ -37,7 +37,7 @@ public enum Directions
 	Right = 3
 }
 
-public class Globals
+public static class Globals
 {
 	public static readonly float originalWidth = 1920;
 	public static readonly float originalHeight = 1080;

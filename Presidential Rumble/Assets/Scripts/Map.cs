@@ -17,13 +17,14 @@ public class Map : MonoBehaviour
 	private int selected;
 	private bool axisBusy;
 	private string levelName;
+	private AudioSource audio;
 
 	public Font font;
 	public Directions anchor;
 	public Texture2D guiImage;
 	public GUIButton startButton2;
 	public GUIButton backButton;
-	public AudioClip button;
+	public AudioClip sound;
 
 	void Awake()
 	{
@@ -32,6 +33,9 @@ public class Map : MonoBehaviour
 		buttons = GameObject.FindGameObjectsWithTag ("MapButtonTag").OrderBy( 
 			button => button.transform.gameObject.GetComponent<MapButton>().Scene ).ToArray();
 		startButton = GameObject.FindWithTag ("StartButtonTag");
+
+		audio = gameObject.AddComponent<AudioSource> ();
+		audio.clip = sound;
 
 		Select (buttons [0]);
 	}
@@ -79,7 +83,7 @@ public class Map : MonoBehaviour
 				if (hitButton.CompareTag ("MapButtonTag") && !hitButton.GetComponent<MapButton>().locked)
 				{
 						Select (hit.transform.gameObject);
-						audio.PlayOneShot(button);
+						audio.Play ();
 				}
 			}
 		}
@@ -96,7 +100,7 @@ public class Map : MonoBehaviour
 					}
 
 					Select (buttons [selected]);
-					audio.PlayOneShot(button);
+					audio.PlayOneShot(sound);
 				}
 			}
 			if (Input.GetAxisRaw ("Horizontal") == 0)

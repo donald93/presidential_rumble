@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 		{
 				Transform a = transform.Find ("Character animation");
 				animator = a.GetComponent<Animator> ();
+				HealthPoints = 100;
 		}
 
 		void Awake ()
@@ -118,6 +119,7 @@ public class PlayerController : MonoBehaviour
 				if (collider.gameObject.tag == "Punch") {
 						recoil = true;
 						HealthPoints -= 10;
+						PlayerHealth.DecrementHealth ();
 						audio.PlayOneShot (punchHit);
 				}
 		}

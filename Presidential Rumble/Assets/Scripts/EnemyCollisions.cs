@@ -36,7 +36,7 @@ public class EnemyCollisions : MonoBehaviour
 
 				if (HealthPoints <= 0) {
 						if (GameObject.Find ("Enemy").GetComponent<SpriteRenderer> () != null)
-							GameObject.Find ("Enemy").GetComponent<SpriteRenderer> ().enabled = false;
+								GameObject.Find ("Enemy").GetComponent<SpriteRenderer> ().enabled = false;
 						GameObject.Find ("EventListener").SendMessage ("NextScene", 3);
 				}
 
@@ -45,8 +45,8 @@ public class EnemyCollisions : MonoBehaviour
 		{
 				if (collider.gameObject.tag == "Punch") {
 						recoil = true;
-						HealthPoints -= 10;
-						audio.PlayOneShot(punchHit);
+						EnemyHealth.DecrementHealth ();	
+						audio.PlayOneShot (punchHit);
 				}
 		}
 	

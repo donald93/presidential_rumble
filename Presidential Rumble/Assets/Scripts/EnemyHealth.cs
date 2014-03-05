@@ -4,13 +4,15 @@ using System.Collections;
 public class EnemyHealth : MonoBehaviour
 {
 	
-		public static int MaxHealth = 125;
-		public static int CurrentHealth = 125;
+	public static int MaxHealth;
+	public static int CurrentHealth;
 	
 		// Use this for initialization
 		void Start ()
 		{
-		
+		CurrentHealth = 125;
+		MaxHealth= 125;
+
 		}
 	
 		// Update is called once per frame
@@ -28,8 +30,8 @@ public class EnemyHealth : MonoBehaviour
 	
 		public static void DecrementHealth ()
 		{
-				CurrentHealth -= 1;
-				if (CurrentHealth == 0)
+				CurrentHealth -= 4;
+				if (CurrentHealth <= 0)
 						GameObject.Find ("EventListener").SendMessage ("NextScene", 3);
 		}
 }

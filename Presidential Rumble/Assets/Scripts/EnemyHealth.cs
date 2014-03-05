@@ -21,13 +21,24 @@ public class EnemyHealth : MonoBehaviour
 	
 		void OnGUI ()
 		{
+<<<<<<< HEAD
 				GUI.Box (new Rect (320, 20, 125 - (MaxHealth - CurrentHealth), 12), "");
+=======
+			
+				GUI.Box (new Rect (500, 30, 125 - (MaxHealth - CurrentHealth), 20), "French Soldier");
+>>>>>>> FETCH_HEAD
 		
 		}
 	
 		public static void DecrementHealth ()
 		{
+<<<<<<< HEAD
 				CurrentHealth--;
 				
+=======
+				CurrentHealth -= 1;
+				if (CurrentHealth == 0)
+						GameObject.Find ("EventListener").SendMessage ("NextScene", 3);
+>>>>>>> FETCH_HEAD
 		}
 }

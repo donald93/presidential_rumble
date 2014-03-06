@@ -11,14 +11,14 @@ public class EnemyAI : MonoBehaviour
 		public int frame = 0;
 		public int cooldown = 0;
 
-	public bool punch = false;
+		public bool punch = false;
 
 		private Vector2 movement;
 
 		public Transform player; 
 
 
-	protected Animator animator;
+		protected Animator animator;
 
 		float moveHorizontal;
 
@@ -34,8 +34,8 @@ public class EnemyAI : MonoBehaviour
 				player = GameObject.Find ("Player").transform;
 				Transform a = transform.Find ("Character animation");
 
-				if (a.GetComponent<Animator>() != null)
-				animator = a.GetComponent<Animator> ();
+				if (a.GetComponent<Animator> () != null)
+						animator = a.GetComponent<Animator> ();
 		}
 	
 		// Update is called once per frame
@@ -47,7 +47,7 @@ public class EnemyAI : MonoBehaviour
 
 		void FixedUpdate ()
 		{
-		if (cooldown == 0) {
+				if (cooldown == 0) {
 						if (Mathf.Abs (rigidbody2D.transform.position.x - player.transform.position.x) < 3) {
 								moveHorizontal = 0;
 								rigidbody2D.velocity = Vector2.zero;
@@ -75,7 +75,8 @@ public class EnemyAI : MonoBehaviour
 		 * Moves towards the player and attacks
 		 * 
 		 * */
-		void PunchAttack(){
+		void PunchAttack ()
+		{
 				if (frame == 0) {
 						rigidbody2D.velocity = new Vector2 (-15, rigidbody2D.velocity.y);
 				} else if (frame == 5) {
@@ -90,5 +91,5 @@ public class EnemyAI : MonoBehaviour
 				
 				frame++;
 		}
-	}
+}
 

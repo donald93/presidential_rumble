@@ -4,14 +4,14 @@ using System.Collections;
 public class EnemyHealth : MonoBehaviour
 {
 	
-	public static int MaxHealth;
-	public static int CurrentHealth;
+		public static int MaxHealth;
+		public static int CurrentHealth;
 	
 		// Use this for initialization
 		void Start ()
 		{
-		CurrentHealth = 125;
-		MaxHealth= 125;
+				CurrentHealth = 125;
+				MaxHealth = 125;
 
 		}
 	
@@ -24,7 +24,7 @@ public class EnemyHealth : MonoBehaviour
 		void OnGUI ()
 		{
 			
-				GUI.Box (new Rect (500, 30, 125 - (MaxHealth - CurrentHealth), 20), "French Soldier");
+				//GUI.Box (new Rect (500, 30, 125 - (MaxHealth - CurrentHealth), 20), "French Soldier");
 
 		}
 	

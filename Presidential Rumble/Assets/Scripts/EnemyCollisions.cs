@@ -8,9 +8,12 @@ public class EnemyCollisions : MonoBehaviour
 		public int HealthPoints;
 		public AudioClip punchHit;
 
+		private GameObject GUI;
+
 		// Use this for initialization
 		void Start ()
 		{
+				GUI = GameObject.FindGameObjectWithTag ("GUI");
 				recoil = false;
 				HealthPoints = 100;
 		}
@@ -47,6 +50,8 @@ public class EnemyCollisions : MonoBehaviour
 						recoil = true;
 						EnemyHealth.DecrementHealth ();	
 						audio.PlayOneShot (punchHit);
+						HealthPoints -= 10;
+						GUI.SendMessage ("updateEnemyHealth", HealthPoints);
 				}
 		}
 	

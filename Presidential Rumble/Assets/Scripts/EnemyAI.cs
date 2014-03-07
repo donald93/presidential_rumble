@@ -34,7 +34,7 @@ public class EnemyAI : MonoBehaviour
 				player = GameObject.Find ("Player").transform;
 				Transform a = transform.Find ("Character animation");
 
-				if (a.GetComponent<Animator> () != null)
+				if (a != null && a.GetComponent<Animator> () != null)
 						animator = a.GetComponent<Animator> ();
 		}
 	
@@ -52,7 +52,7 @@ public class EnemyAI : MonoBehaviour
 								moveHorizontal = 0;
 								rigidbody2D.velocity = Vector2.zero;
 						
-								if (cooldown == 0)
+								if (cooldown == 0 && animator != null)
 										punch = true;
 						} else if (player.transform.position.x < rigidbody2D.transform.position.x) {
 								moveHorizontal = -1;

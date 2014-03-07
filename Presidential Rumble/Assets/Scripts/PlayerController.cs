@@ -7,9 +7,11 @@ public class PlayerController : MonoBehaviour
 		public float jumpForce = 1000f;
 		public int HealthPoints;
 		public AudioClip jumpSound, punchHit;
+	
 		private bool grounded = false;
 		private Transform groundCheck;
 		private int framesSinceJump = 0;
+		private GameObject GUI;
 		protected Animator animator;
 
 		void Start ()
@@ -17,6 +19,7 @@ public class PlayerController : MonoBehaviour
 				Transform a = transform.Find ("Character animation");
 				animator = a.GetComponent<Animator> ();
 				HealthPoints = 100;
+				GUI = GameObject.FindGameObjectWithTag ("GUI");
 		}
 
 		void Awake ()
@@ -119,9 +122,10 @@ public class PlayerController : MonoBehaviour
 				if (collider.gameObject.tag == "Punch") {
 						recoil = true;
 						HealthPoints -= 10;
-						PlayerHealth.DecrementHealth ();
 						audio.PlayOneShot (punchHit);
 				}
+
+				GUI.SendMessage ("updatePlayerHealth", HealthPoints);
 		}
 
 		void disablePunch ()

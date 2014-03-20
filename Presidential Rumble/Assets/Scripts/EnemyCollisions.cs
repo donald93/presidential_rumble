@@ -8,6 +8,7 @@ public class EnemyCollisions : MonoBehaviour
 		public int HealthPoints;
 		public AudioClip punchHit;
 
+		private bool invincible;
 		private GameObject GUI;
 
 		// Use this for initialization
@@ -46,16 +47,23 @@ public class EnemyCollisions : MonoBehaviour
 		}
 		void OnTriggerEnter2D (Collider2D collider)
 		{
-				if (collider.gameObject.tag == "Punch") {
-						recoil = true;
-						audio.PlayOneShot (punchHit);
-						HealthPoints -= 10;
-						GUI.SendMessage ("updateEnemyHealth", HealthPoints);
-				} else if (collider.gameObject.tag == "Kick") {
-						recoil = true;
-						audio.PlayOneShot (punchHit);
-						HealthPoints -= 15;
-						GUI.SendMessage ("updateEnemyHealth", HealthPoints);
+				if (!invincible) {		
+						if (collider.gameObject.tag == "Punch") {
+								recoil = true;
+								audio.PlayOneShot (punchHit);
+								HealthPoints -= 10;
+								invincible = true;
+								GUI.SendMessage ("updateEnemyHealth", HealthPoints);
+								Invoke ("disableInvincible", .5f);
+
+						} else if (collider.gameObject.tag == "Kick") {
+								recoil = true;
+								audio.PlayOneShot (punchHit);
+								HealthPoints -= 15;
+								invincible = true;
+								GUI.SendMessage ("updateEnemyHealth", HealthPoints);
+								Invoke ("disableInvincible", .5f);
+						}
 				}
 		}
 	
@@ -63,6 +71,16 @@ public class EnemyCollisions : MonoBehaviour
 		{
 				if (collision.collider.gameObject.tag == "Punch") {
 				}
+		}
+		void disableInvincible ()
+		{
+				invincible = false;
+		}
+		
+		public float getX ()
+		{
+
+				return transform.position.x;
 		}
 }
 

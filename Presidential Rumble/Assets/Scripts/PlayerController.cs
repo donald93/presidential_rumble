@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-		public bool jump, punch, goingLeft, crouch, recoil;
+		public bool jump, attacking, goingLeft, crouch, recoil;
 		public float jumpForce = 1000f;
 		public int HealthPoints;
 		public AudioClip jumpSound, punchHit;
@@ -63,17 +63,18 @@ public class PlayerController : MonoBehaviour
 						// Punch key was pushed
 						if (Input.GetKeyDown ("f")) {
 								animator.SetBool ("Punching", true);
-			
+								attacking = true;	
 								// loop through children and enable the punch colliders
 								Transform[] allChildren = GetComponentsInChildren<Transform> ();
 								foreach (Transform child in allChildren) {
 										if (child.tag == "Punch")
 												child.collider2D.enabled = true;
-										Invoke ("disablePunch", 0.1f);
+										Invoke ("disablePunch", 0.5f);
 								}
 						} 
 
 						if (Input.GetKeyDown ("v")) {
+								attacking = true;				
 								animator.SetBool ("Kicking", true);
 								// loop through children and enable the punch colliders
 								Transform[] allChildren = GetComponentsInChildren<Transform> ();
@@ -85,7 +86,8 @@ public class PlayerController : MonoBehaviour
 						}
 				}
 
-				if (!goingLeft && Input.GetAxis ("Horizontal") < 0 || goingLeft && Input.GetAxis ("Horizontal") > 0) {
+				if (transform.position.x > 
+						GameObject.Find ("Enemy").GetComponent<EnemyCollisions> ().getX ()) {
 						Vector2 scale = transform.localScale;
 						scale.x *= -1;
 						transform.localScale = scale;
@@ -109,8 +111,8 @@ public class PlayerController : MonoBehaviour
 				float moveHorizontal = Input.GetAxis ("Horizontal");
 
 				//Check if crouching to slow movement
-				if (crouch && grounded) 
-						rigidbody2D.velocity = new Vector2 (moveHorizontal * 15, rigidbody2D.velocity.y);
+				if (crouch || attacking && !jump) 
+						rigidbody2D.velocity = new Vector2 (moveHorizontal * 0, rigidbody2D.velocity.y);
 				else
 						rigidbody2D.velocity = new Vector2 (moveHorizontal * 25, rigidbody2D.velocity.y);
 
@@ -140,6 +142,7 @@ public class PlayerController : MonoBehaviour
 
 		void disablePunch ()
 		{
+				attacking = false;		
 				animator.SetBool ("Punching", false);
 				Transform[] allChildren = GetComponentsInChildren<Transform> ();
 				foreach (Transform child in allChildren) {
@@ -150,6 +153,7 @@ public class PlayerController : MonoBehaviour
 
 		void disableKick ()
 		{
+				attacking = false;		
 				animator.SetBool ("Kicking", false);
 				Transform[] allChildren = GetComponentsInChildren<Transform> ();
 				foreach (Transform child in allChildren) {

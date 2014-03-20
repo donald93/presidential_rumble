@@ -48,9 +48,13 @@ public class EnemyCollisions : MonoBehaviour
 		{
 				if (collider.gameObject.tag == "Punch") {
 						recoil = true;
-						EnemyHealth.DecrementHealth ();	
 						audio.PlayOneShot (punchHit);
 						HealthPoints -= 10;
+						GUI.SendMessage ("updateEnemyHealth", HealthPoints);
+				} else if (collider.gameObject.tag == "Kick") {
+						recoil = true;
+						audio.PlayOneShot (punchHit);
+						HealthPoints -= 15;
 						GUI.SendMessage ("updateEnemyHealth", HealthPoints);
 				}
 		}

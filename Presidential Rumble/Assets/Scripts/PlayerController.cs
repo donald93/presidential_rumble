@@ -71,8 +71,18 @@ public class PlayerController : MonoBehaviour
 												child.collider2D.enabled = true;
 										Invoke ("disablePunch", 0.1f);
 								}
-						} else
-								animator.SetBool ("Punching", false);
+						} 
+
+						if (Input.GetKeyDown ("v")) {
+								animator.SetBool ("Kicking", true);
+								// loop through children and enable the punch colliders
+								Transform[] allChildren = GetComponentsInChildren<Transform> ();
+								foreach (Transform child in allChildren) {
+										if (child.tag == "Kick")
+												child.collider2D.enabled = true;
+										Invoke ("disableKick", 0.5f);
+								}
+						}
 				}
 
 				if (!goingLeft && Input.GetAxis ("Horizontal") < 0 || goingLeft && Input.GetAxis ("Horizontal") > 0) {
@@ -130,9 +140,20 @@ public class PlayerController : MonoBehaviour
 
 		void disablePunch ()
 		{
+				animator.SetBool ("Punching", false);
 				Transform[] allChildren = GetComponentsInChildren<Transform> ();
 				foreach (Transform child in allChildren) {
 						if (child.tag == "Punch")
+								child.collider2D.enabled = false;
+				}
+		}
+
+		void disableKick ()
+		{
+				animator.SetBool ("Kicking", false);
+				Transform[] allChildren = GetComponentsInChildren<Transform> ();
+				foreach (Transform child in allChildren) {
+						if (child.tag == "Kick")
 								child.collider2D.enabled = false;
 				}
 		}

@@ -24,6 +24,8 @@ public class Map : MonoBehaviour
 	public GUIButton backButton;
 	public AudioClip sound;
 
+	private GUIStyle myStyle;
+
 	void Awake ()
 	{
 		axisBusy = false;
@@ -42,6 +44,9 @@ public class Map : MonoBehaviour
 		mapAudio = gameObject.AddComponent<AudioSource> ();
 		mapAudio.clip = sound;
 
+		myStyle = new GUIStyle ();
+		myStyle.normal.textColor = Color.black;
+
 		Select (buttons[0]);
 	}
 
@@ -53,29 +58,30 @@ public class Map : MonoBehaviour
 		// set the GUI images and font
 		GUI.skin.font = font;
 		GUI.skin.GetStyle ("Label").fontSize = 72;
-		GUI.skin.GetStyle ("Label").alignment = TextAnchor.MiddleLeft;
-		foreach (GameObject b in buttons)
-		{
-			GUI.Label(new Rect (Globals.originalWidth/2 + b.transform.position.x, b.transform.position.y, 500, 500), b.GetComponent<MapButton>().levelNameDisplay);
-		}
-
-		// set the GUI images and font
-		GUI.skin.font = font;
-		GUI.skin.GetStyle ("Label").fontSize = 72;
 		GUI.skin.GetStyle ("Label").alignment = TextAnchor.LowerCenter;
-
+		
 		int groupWidth = 600;
 		int leftX = 0;
 		GUI.BeginGroup (new Rect (leftX, 0, groupWidth, Globals.originalHeight));
 		GUI.Box (new Rect (0, 0, groupWidth, Globals.originalHeight), guiImage);
 		GUI.Label (new Rect (0, 0, groupWidth, 100), levelName);
-
+		
 		startButton.x = leftX + 300;
 		startButton.y = 300;
 		backButton.x = leftX + 300;
 		backButton.y = 800;
-
+		
 		GUI.EndGroup ();
+
+		// set the GUI images and font
+		GUI.skin.font = font;
+		GUI.skin.GetStyle ("Label").fontSize = 72;
+		GUI.skin.GetStyle ("Label").alignment = TextAnchor.MiddleLeft;
+		GUI.contentColor = Color.black;
+		foreach (GameObject b in buttons)
+		{
+			GUI.Label(new Rect (Globals.originalWidth/2 + b.transform.position.x, -b.transform.position.y + Globals.originalHeight/4, 500, 500), b.GetComponent<MapButton>().levelNameDisplay);
+		}
 
 		// reset the resolution
 		GUI.matrix = Matrix4x4.identity;
@@ -92,7 +98,7 @@ public class Map : MonoBehaviour
 			if (Physics.Raycast (ray, out hit, 100.0f))
 			{
 				GameObject hitButton = hit.transform.gameObject;
-				if (hitButton.CompareTag ("MapButtonTag") && !hitButton.GetComponent<MapButton> ().locked)
+				if (null != hitButton.GetComponent<MapButton>() && !hitButton.GetComponent<MapButton> ().locked)
 				{
 					Select (hit.transform.gameObject);
 					mapAudio.Play ();
@@ -127,7 +133,7 @@ public class Map : MonoBehaviour
 		UnselectAll ();
 
 		// do the special stuff for the selected button
-		if (!selectedButton.GetComponent ("Halo"))
+		//if (!selectedButton.GetComponent ("Halo"))
 		{
 			selectedButton.transform.gameObject.AddComponent ("Halo");
 		}

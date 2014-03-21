@@ -12,21 +12,17 @@ using System.Collections;
 public enum SceneEnum
 {
 	MainMenu = 0,
-	Main = 1, //TODO test scene only
+	//TODO test scenes only
+	Main = 1,
 	Fight2 = 2,
-	MitchellsTextScene = 3,
-	UITestScene = 4,
-	
-	//CharacterSelect = 1,
-	//AboutDevelopers = 2,
-	//...
-	//Tutorial = 9,
+	WashingtonFight = 3,
+	//TODO
 	WashingtonMap = 10,
-	WashingtonFight = 11
-	//WashingtonLevel1 = 11,
-	//WashingtonLevel2 = 12,
-	
-	// pres 2 map = 20
+	WashingtonTutorial = 11,
+	WashingtonFight1 = 12,
+	WashingtonFight2 = 13,
+	WashingtonFight3 = 14,
+	WashingtonFight4 = 15,
 };
 
 public enum Directions

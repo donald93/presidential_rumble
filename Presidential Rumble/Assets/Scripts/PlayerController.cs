@@ -3,14 +3,14 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-		public bool jump, attacking, goingLeft, crouch, recoil;
+		public bool jump, attacking, goingLeft, crouch, block, invincible;
 		public float jumpForce = 1000f;
 		public int HealthPoints;
 		public AudioClip jumpSound, punchHit;
 	
 		private bool grounded = false;
 		private Transform groundCheck;
-		private int framesSinceJump = 0;
+		private int framesSinceJump = 0, recoilFrames = 0;
 		private GameObject GUI;
 		protected Animator animator;
 
@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
 		void Awake ()
 		{
 				groundCheck = transform.Find ("groundCheck");
+				Application.targetFrameRate = 60;
 		}
 
 		void Update ()
@@ -45,11 +46,18 @@ public class PlayerController : MonoBehaviour
 								crouch = false;
 						} 
 
-
+						//Blocking controls
+						if (Input.GetKeyDown ("q")) {
+								block = true;
+						}
+						if (Input.GetKeyUp ("q")) {
+								block = false;
+						}
 
 						// Jump Controls
 						if (Input.GetKeyDown ("space") && grounded) {
 								jump = true;
+								block = false;
 								animator.SetBool ("Jumping", true);
 								framesSinceJump = 0;
 								audio.PlayOneShot (jumpSound);
@@ -61,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
 
 						// Punch key was pushed
-						if (Input.GetKeyDown ("f")) {
+						if (Input.GetKeyDown ("f") && !attacking) {
 								animator.SetBool ("Punching", true);
 								attacking = true;	
 								// loop through children and enable the punch colliders
@@ -69,11 +77,12 @@ public class PlayerController : MonoBehaviour
 								foreach (Transform child in allChildren) {
 										if (child.tag == "Punch")
 												child.collider2D.enabled = true;
-										Invoke ("disablePunch", 0.5f);
+										Invoke ("disablePunch", 0.2f);
 								}
 						} 
 
-						if (Input.GetKeyDown ("v")) {
+						// Kick key was pushed
+						if (Input.GetKeyDown ("v") && !attacking) {
 								attacking = true;				
 								animator.SetBool ("Kicking", true);
 								// loop through children and enable the punch colliders
@@ -98,20 +107,16 @@ public class PlayerController : MonoBehaviour
 		// Called each update
 		void FixedUpdate ()
 		{
-				if (recoil) {
-			
-						//if (GameObject.Find ("Player").transform.position.x < this.transform.position.x)
-						rigidbody2D.velocity -= new Vector2 (2500f, 0f);
-						//else
-						//		rigidbody2D.AddForce (new Vector2 (-2500f, 0f));
-						recoil = false;	
+				if (recoilFrames > 0) {
+						
+						recoilFrames--;	
 						return;
 			
 				}
 				float moveHorizontal = Input.GetAxis ("Horizontal");
 
 				//Check if crouching to slow movement
-				if (crouch || attacking && !jump) 
+				if (crouch || attacking || block && !jump) 
 						rigidbody2D.velocity = new Vector2 (moveHorizontal * 0, rigidbody2D.velocity.y);
 				else
 						rigidbody2D.velocity = new Vector2 (moveHorizontal * 25, rigidbody2D.velocity.y);
@@ -131,13 +136,23 @@ public class PlayerController : MonoBehaviour
 
 		void OnTriggerEnter2D (Collider2D collider)
 		{
-				if (collider.gameObject.tag == "Punch") {
-						recoil = true;
-						HealthPoints -= 10;
+				if (collider.gameObject.tag == "Punch" && !invincible) {
+						recoilFrames = 5;
+						invincible = true;
+						Invoke ("disableInvincible", 0.5f);
+						if (block) {
+								HealthPoints -= 1;
+						} else
+								HealthPoints -= 10;
 						audio.PlayOneShot (punchHit);
 				}
 
 				GUI.SendMessage ("updatePlayerHealth", HealthPoints);
+		}
+
+		void disableInvincible ()
+		{
+				invincible = false;
 		}
 
 		void disablePunch ()

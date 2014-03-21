@@ -35,27 +35,28 @@ public class PlayerController : MonoBehaviour
 				if (animator) {
 
 						//Crouching controls
-						if (Input.GetKeyDown ("s")) {
+			if (Input.GetKeyDown ("s") || Input.GetKeyDown (KeyCode.Joystick1Button5)) {
 				
 								animator.SetBool ("Crouching", true);
 								crouch = true;
 						}
 
-						if (Input.GetKeyUp ("s")) {
+						if (Input.GetKeyUp ("s") || Input.GetKeyUp (KeyCode.Joystick1Button5)) {
 								animator.SetBool ("Crouching", false);
 								crouch = false;
 						} 
 
 						//Blocking controls
-						if (Input.GetKeyDown ("q")) {
+						if (Input.GetKeyDown ("q") || Input.GetKeyDown (KeyCode.Joystick1Button4)) {
 								block = true;
 						}
-						if (Input.GetKeyUp ("q")) {
+
+						if (Input.GetKeyUp ("q") || Input.GetKeyDown (KeyCode.Joystick1Button4)) {
 								block = false;
 						}
 
 						// Jump Controls
-						if (Input.GetKeyDown ("space") && grounded) {
+						if ((Input.GetKeyDown ("space") || Input.GetKeyDown (KeyCode.Joystick1Button0) || Input.GetKeyDown (KeyCode.Joystick1Button3)) && grounded) {
 								jump = true;
 								jumping = true;
 								block = false;
@@ -72,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
 
 						// Punch key was pushed
-						if (Input.GetKeyDown ("f") && !attacking) {
+						if ((Input.GetKeyDown ("f") || Input.GetKeyDown(KeyCode.Joystick1Button1))&& !attacking) {
 								animator.SetBool ("Punching", true);
 								attacking = true;	
 								// loop through children and enable the punch colliders
@@ -85,7 +86,7 @@ public class PlayerController : MonoBehaviour
 						} 
 
 						// Kick key was pushed
-						if (Input.GetKeyDown ("v") && !attacking) {
+						if ((Input.GetKeyDown ("v") || Input.GetKeyDown (KeyCode.Joystick1Button2))&& !attacking) {
 								attacking = true;				
 								animator.SetBool ("Kicking", true);
 								// loop through children and enable the punch colliders

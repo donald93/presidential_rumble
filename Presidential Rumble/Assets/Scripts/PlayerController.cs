@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
 		public bool jump, jumping, attacking, goingLeft, crouch, block, invincible;
-		public float jumpForce = 1000f;
+		public float jumpForce = 5000f;
 		public int HealthPoints;
 		public AudioClip jumpSound, punchHit;
 	
@@ -99,12 +99,16 @@ public class PlayerController : MonoBehaviour
 				}
 
 				if (transform.position.x > 
-						GameObject.Find ("Enemy").GetComponent<EnemyCollisions> ().getX ()) {
+						GameObject.FindWithTag ("Enemy").GetComponent<EnemyCollisions> ().getX () && transform.localScale.x > 0) {
 						Vector2 scale = transform.localScale;
 						scale.x *= -1;
 						transform.localScale = scale;
-						goingLeft = !goingLeft;
+				} else if (transform.position.x < GameObject.FindWithTag ("Enemy").GetComponent<EnemyCollisions> ().getX () && transform.localScale.x < 0) {
+						Vector2 scale = transform.localScale;
+						scale.x *= -1;
+						transform.localScale = scale;
 				}
+
 		}
 
 		// Called each update
@@ -118,15 +122,32 @@ public class PlayerController : MonoBehaviour
 				}
 				float moveHorizontal = Input.GetAxis ("Horizontal");
 				if (jumping) {
-						rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, rigidbody2D.velocity.y);
+						if (!goingLeft)
+						if (moveHorizontal > 0)
+								rigidbody2D.velocity = new Vector2 (25 * moveHorizontal, rigidbody2D.velocity.y);
+						else
+
+								rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, rigidbody2D.velocity.y);
+						else {
+								if (moveHorizontal < 0)
+										rigidbody2D.velocity = new Vector2 (25 * moveHorizontal, rigidbody2D.velocity.y);
+								else
+
+										rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, rigidbody2D.velocity.y);
+						}
 
 				}
 
 				//Check if crouching to slow movement
 				else if (crouch || attacking || block) 
 						rigidbody2D.velocity = new Vector2 (moveHorizontal * 0, rigidbody2D.velocity.y);
-				else
+				else {
 						rigidbody2D.velocity = new Vector2 (moveHorizontal * 25, rigidbody2D.velocity.y);
+						if (moveHorizontal > 0)
+								goingLeft = false;
+						else
+								goingLeft = true;
+				}
 
 				if (jump) {
 						rigidbody2D.AddForce (new Vector2 (0f, jumpForce));	

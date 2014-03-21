@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-		public bool jump, attacking, goingLeft, crouch, block, invincible;
+		public bool jump, jumping, attacking, goingLeft, crouch, block, invincible;
 		public float jumpForce = 1000f;
 		public int HealthPoints;
 		public AudioClip jumpSound, punchHit;
@@ -57,14 +57,17 @@ public class PlayerController : MonoBehaviour
 						// Jump Controls
 						if (Input.GetKeyDown ("space") && grounded) {
 								jump = true;
+								jumping = true;
 								block = false;
 								animator.SetBool ("Jumping", true);
 								framesSinceJump = 0;
 								audio.PlayOneShot (jumpSound);
 						}
 			
-						if (grounded && framesSinceJump > 0)
+						if (grounded && framesSinceJump > 0) {
 								animator.SetBool ("Jumping", false);
+								jumping = false;
+						}
 
 
 
@@ -114,9 +117,13 @@ public class PlayerController : MonoBehaviour
 			
 				}
 				float moveHorizontal = Input.GetAxis ("Horizontal");
+				if (jumping) {
+						rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, rigidbody2D.velocity.y);
+
+				}
 
 				//Check if crouching to slow movement
-				if (crouch || attacking || block && !jump) 
+				else if (crouch || attacking || block) 
 						rigidbody2D.velocity = new Vector2 (moveHorizontal * 0, rigidbody2D.velocity.y);
 				else
 						rigidbody2D.velocity = new Vector2 (moveHorizontal * 25, rigidbody2D.velocity.y);

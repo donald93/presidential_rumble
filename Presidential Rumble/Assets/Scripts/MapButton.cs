@@ -56,4 +56,6 @@ public class MapButton : MonoBehaviour
 		get { return m_locked; }
 		set { m_locked = value; }
 	}
+
+	public GUIStyle style;
 }

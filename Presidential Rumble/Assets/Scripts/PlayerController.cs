@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
 				if (animator) {
 
 						//Crouching controls
-			if (Input.GetKeyDown ("s") || Input.GetKeyDown (KeyCode.Joystick1Button5)) {
+						if (Input.GetKeyDown ("s") || Input.GetKeyDown (KeyCode.Joystick1Button5)) {
 				
 								animator.SetBool ("Crouching", true);
 								crouch = true;
@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
 
 						// Punch key was pushed
-						if ((Input.GetKeyDown ("f") || Input.GetKeyDown(KeyCode.Joystick1Button1))&& !attacking) {
+						if ((Input.GetKeyDown ("f") || Input.GetKeyDown (KeyCode.Joystick1Button1)) && !attacking) {
 								animator.SetBool ("Punching", true);
 								attacking = true;	
 								// loop through children and enable the punch colliders
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
 						} 
 
 						// Kick key was pushed
-						if ((Input.GetKeyDown ("v") || Input.GetKeyDown (KeyCode.Joystick1Button2))&& !attacking) {
+						if ((Input.GetKeyDown ("v") || Input.GetKeyDown (KeyCode.Joystick1Button2)) && !attacking) {
 								attacking = true;				
 								animator.SetBool ("Kicking", true);
 								// loop through children and enable the punch colliders
@@ -99,12 +99,12 @@ public class PlayerController : MonoBehaviour
 						}
 				}
 
-				if (transform.position.x > 
+				if (!attacking && transform.position.x > 
 						GameObject.FindWithTag ("Enemy").GetComponent<EnemyCollisions> ().getX () && transform.localScale.x > 0) {
 						Vector2 scale = transform.localScale;
 						scale.x *= -1;
 						transform.localScale = scale;
-				} else if (transform.position.x < GameObject.FindWithTag ("Enemy").GetComponent<EnemyCollisions> ().getX () && transform.localScale.x < 0) {
+				} else if (!attacking && transform.position.x < GameObject.FindWithTag ("Enemy").GetComponent<EnemyCollisions> ().getX () && transform.localScale.x < 0) {
 						Vector2 scale = transform.localScale;
 						scale.x *= -1;
 						transform.localScale = scale;

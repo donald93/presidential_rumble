@@ -25,8 +25,6 @@ public class Map : MonoBehaviour
 	public GUIButton backButton;
 	public AudioClip sound;
 
-	private GUIStyle myStyle;
-
 	void Awake ()
 	{
 		axisBusy = false;
@@ -36,14 +34,11 @@ public class Map : MonoBehaviour
 		{
 			b.GetComponent<MapButton>().style.font = font;
 			b.GetComponent<MapButton>().style.alignment = TextAnchor.MiddleLeft;
+			b.GetComponent<MapButton>().style.wordWrap = true;
 		}
 
-		//TODO what do i do with this?
 		mapAudio = gameObject.AddComponent<AudioSource> ();
 		mapAudio.clip = sound;
-
-		myStyle = new GUIStyle ();
-		myStyle.normal.textColor = Color.black;
 
 		UnselectAll ();
 		Select (buttons[0]);
@@ -66,7 +61,6 @@ public class Map : MonoBehaviour
 		
 		int groupWidth = 600;
 		GUI.BeginGroup (new Rect (0, 0, groupWidth, Globals.originalHeight));
-		//GUI.Box (new Rect (0, 0, groupWidth, Globals.originalHeight), guiImage);
 		GUI.DrawTexture (new Rect (0, 0, groupWidth, Globals.originalHeight), guiImage, ScaleMode.StretchToFill);
 		GUI.Label (new Rect (0, 0, groupWidth, 250), levelName, titleStyle);
 		
@@ -81,7 +75,10 @@ public class Map : MonoBehaviour
 		GUI.contentColor = Color.black;
 		foreach (GameObject b in buttons)
 		{
-			GUI.Label(new Rect (Globals.originalWidth/2 + b.transform.position.x, -b.transform.position.y + Globals.originalHeight/4, 500, 500), b.GetComponent<MapButton>().levelNameDisplay, b.GetComponent<MapButton>().style);
+			if (!b.GetComponent<MapButton>().locked)
+			{
+				GUI.Label(new Rect (Globals.originalWidth/2 + b.transform.position.x, -b.transform.position.y + Globals.originalHeight/2, 0, 0), b.GetComponent<MapButton>().levelNameDisplay, b.GetComponent<MapButton>().style);
+			}
 		}
 
 		// reset the resolution
@@ -101,6 +98,17 @@ public class Map : MonoBehaviour
 				GameObject hitButton = hit.transform.gameObject;
 				if (null != hitButton.GetComponent<MapButton>() && !hitButton.GetComponent<MapButton> ().locked)
 				{
+					int i = 0;
+					while (i < buttons.Length)
+					{
+						if (buttons[i] == hitButton)
+						{
+							selected = i;
+							break;
+						}
+						i++;
+					}
+
 					Select (hit.transform.gameObject);
 					mapAudio.Play ();
 				}
@@ -113,9 +121,19 @@ public class Map : MonoBehaviour
 				if (!axisBusy)
 				{
 					axisBusy = true;
-					if (++selected > buttons.Length - 1 || buttons [selected].GetComponent<MapButton> ().locked)
+					if (Input.GetAxisRaw ("Horizontal") < 0)
 					{
-						selected = 0;
+						if (--selected < 0 || buttons [selected].GetComponent<MapButton> ().locked)
+						{
+							selected = 0;
+						}
+					}
+					else
+					{
+						if (++selected > buttons.Length - 1 || buttons [selected].GetComponent<MapButton> ().locked)
+						{
+							selected--;
+						}
 					}
 
 					Select (buttons [selected]);
@@ -146,7 +164,7 @@ public class Map : MonoBehaviour
 	{
 		foreach (GameObject b in buttons)
 		{
-			b.transform.position = new Vector3(b.transform.position.x, b.transform.position.y, 75);
+			b.transform.position = new Vector3(b.transform.position.x, b.transform.position.y, 80);
 			b.GetComponent<MapButton>().style.fontSize = 40;
 		}
 	}

@@ -8,11 +8,16 @@ public class GameTimer : MonoBehaviour
 	public Font timerFont;
 	public Texture2D player1Portrait;
 	public Texture2D player2Portrait;
+	public GUIButton startButton;
+
+	private bool displayIntroBox;
 
 	// Use this for initialization
 	void Start ()
 	{
 		prev_time = Time.time;
+
+		displayIntroBox = true;
 	}
 	
 	// Update is called once per frame
@@ -74,6 +79,15 @@ public class GameTimer : MonoBehaviour
 			AudioSource audio = gameObject.AddComponent<AudioSource>();
 			audio.clip = Resources.Load("Sounds/Menu Select Sound") as AudioClip;
 			//TODO stop controls
+		}
+
+		if (displayIntroBox)
+		{
+			GUI.Box(new Rect(100, 100, Globals.originalWidth - 200, Globals.originalHeight - 200), "here goes some text");
+			if (GUI.Button (new Rect (200,400,800,200), "Start"))
+			{
+				displayIntroBox = false;
+			}
 		}
 
 		// reset the resolution

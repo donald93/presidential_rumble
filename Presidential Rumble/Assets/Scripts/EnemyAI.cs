@@ -5,27 +5,25 @@ public class EnemyAI : MonoBehaviour
 {
 
 		float startingPos;
-		public int unitsToMove = 5;
+		public int unitsToMove = 5, framesSinceJump = 0, jumpForce = 3500;
 		public int moveSpeed = 2;
 		public float endPos;
 		public int frame = 0;
 		public int cooldown = 0;
-
-		public bool punch = false;
-
+		public bool punch = false, kick = false, jumping = false, jump = false, block = false, grounded = false;
 		private Vector2 movement;
-
-		public Transform player; 
-
-
+		public Transform player;
 		protected Animator animator;
-
 		float moveHorizontal;
+		private Transform groundCheck;
+
 
 		void Awake ()
 		{
 				startingPos = transform.position.x;
 				endPos = startingPos + unitsToMove;
+				groundCheck = transform.Find ("groundCheck");
+
 		}
 
 		// Use this for initialization
@@ -41,55 +39,131 @@ public class EnemyAI : MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{
+				grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
 
 
 		}
 
 		void FixedUpdate ()
 		{
-				if (cooldown == 0) {
-						if (Mathf.Abs (rigidbody2D.transform.position.x - player.transform.position.x) < 3) {
-								moveHorizontal = 0;
-								rigidbody2D.velocity = Vector2.zero;
-						
-								if (cooldown == 0 && animator != null)
+				if (Mathf.Abs (rigidbody2D.transform.position.x - player.transform.position.x) < 3) {
+						moveHorizontal = 0;
+						rigidbody2D.velocity = Vector2.zero;
+			
+						if (cooldown == 0 && animator != null) {
+								int rand = Random.Range (0, 2);
+								if (rand == 1) {
 										punch = true;
-						} else if (player.transform.position.x < rigidbody2D.transform.position.x) {
+										Punch ();
+								} else {
+										kick = true;
+										Kick ();
+								}
+						}
+								
+				} else {
+						int rand = Random.Range (0, 2);
+						if (rand == 1)
+								MoveTowardsPlayer ();
+						else
+								Invoke ("MoveTowardsPlayer", 1f);
+				}	
+				if (jump) {
+						rigidbody2D.AddForce (new Vector2 (0f, jumpForce));	
+						jump = false;
+						jumping = false;
+				}
+		
+				framesSinceJump++;	
+
+				if (grounded && (framesSinceJump > 0)) {
+						animator.SetBool ("Jumping", false);
+						jumping = false;
+						jump = false;
+				}
+		}
+
+
+		void Punch ()
+		{
+				animator.SetBool ("Punching", true);
+				punch = true;	
+				// loop through children and enable the punch colliders
+				Transform[] allChildren = GetComponentsInChildren<Transform> ();
+				foreach (Transform child in allChildren) {
+						if (child.tag == "Punch")
+								child.collider2D.enabled = true;
+						Invoke ("disablePunch", 0.2f);
+				}
+		}
+
+		void Kick ()
+		{
+				kick = true;				
+				animator.SetBool ("Kicking", true);
+				// loop through children and enable the punch colliders
+				Transform[] allChildren = GetComponentsInChildren<Transform> ();
+				foreach (Transform child in allChildren) {
+						if (child.tag == "Kick")
+								child.collider2D.enabled = true;
+						Invoke ("disableKick", 0.5f);
+				}
+
+		}
+
+		void MoveTowardsPlayer ()
+		{
+				if (cooldown == 0) {
+						if (player.transform.position.x < rigidbody2D.transform.position.x) {
 								moveHorizontal = -1;
 								rigidbody2D.velocity = new Vector2 (moveHorizontal * 15, rigidbody2D.velocity.y);
-
+				
 						} else if (player.transform.position.x > rigidbody2D.transform.position.x) {
 								moveHorizontal = 1;
 								rigidbody2D.velocity = new Vector2 (moveHorizontal * 15, rigidbody2D.velocity.y);
 						}
-				
-						if (punch)
-								PunchAttack ();
+	
 				} else {
 						cooldown--;
 						rigidbody2D.velocity = Vector2.zero;
 				}
+
+				if (player.transform.position.y > rigidbody2D.transform.position.y + 10 && grounded && !jump) {
+						int rand = Random.Range (0, 3);
+						if (rand == 1)
+								Invoke ("Jump", .05f);
+				}
 		}
 
-		/**
-		 * Moves towards the player and attacks
-		 * 
-		 * */
-		void PunchAttack ()
+		void Jump ()
 		{
-				if (frame == 0) {
-						rigidbody2D.velocity = new Vector2 (-15, rigidbody2D.velocity.y);
-				} else if (frame == 5) {
-						rigidbody2D.velocity = Vector2.zero;	
-						animator.SetBool ("Punching", true);
-				} else if (frame == 20) {
-						frame = -1;
-						animator.SetBool ("Punching", false);
-						punch = false;
-						cooldown = 100;
+				jump = true;
+				jumping = true;
+				block = false;
+				animator.SetBool ("Jumping", true);
+				framesSinceJump = 0;
+				//audio.PlayOneShot (jumpSound);
+		}
+
+		void disableKick ()
+		{
+				kick = false;		
+				animator.SetBool ("Kicking", false);
+				Transform[] allChildren = GetComponentsInChildren<Transform> ();
+				foreach (Transform child in allChildren) {
+						if (child.tag == "Kick")
+								child.collider2D.enabled = false;
 				}
-				
-				frame++;
+		}
+		void disablePunch ()
+		{
+				punch = false;		
+				animator.SetBool ("Punching", false);
+				Transform[] allChildren = GetComponentsInChildren<Transform> ();
+				foreach (Transform child in allChildren) {
+						if (child.tag == "Punch")
+								child.collider2D.enabled = false;
+				}
 		}
 }
 

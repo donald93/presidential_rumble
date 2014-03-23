@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
 				if (animator) {
 
 						//Crouching controls
-			if (Input.GetKeyDown ("s") || Input.GetKeyDown (KeyCode.Joystick1Button5)) {
+						if (Input.GetKeyDown ("s") || Input.GetKeyDown (KeyCode.Joystick1Button5)) {
 				
 								animator.SetBool ("Crouching", true);
 								crouch = true;
@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
 
 						// Punch key was pushed
-						if ((Input.GetKeyDown ("f") || Input.GetKeyDown(KeyCode.Joystick1Button1))&& !attacking) {
+						if ((Input.GetKeyDown ("f") || Input.GetKeyDown (KeyCode.Joystick1Button1)) && !attacking) {
 								animator.SetBool ("Punching", true);
 								attacking = true;	
 								// loop through children and enable the punch colliders
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
 						} 
 
 						// Kick key was pushed
-						if ((Input.GetKeyDown ("v") || Input.GetKeyDown (KeyCode.Joystick1Button2))&& !attacking) {
+						if ((Input.GetKeyDown ("v") || Input.GetKeyDown (KeyCode.Joystick1Button2)) && !attacking) {
 								attacking = true;				
 								animator.SetBool ("Kicking", true);
 								// loop through children and enable the punch colliders
@@ -137,10 +137,7 @@ public class PlayerController : MonoBehaviour
 										rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, rigidbody2D.velocity.y);
 						}
 
-				}
-
-				//Check if crouching to slow movement
-				else if (crouch || attacking || block) 
+				} else if (crouch || attacking || block) 
 						rigidbody2D.velocity = new Vector2 (moveHorizontal * 0, rigidbody2D.velocity.y);
 				else {
 						rigidbody2D.velocity = new Vector2 (moveHorizontal * 25, rigidbody2D.velocity.y);

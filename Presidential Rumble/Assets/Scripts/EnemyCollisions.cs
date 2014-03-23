@@ -29,13 +29,7 @@ public class EnemyCollisions : MonoBehaviour
 		{
 
 				if (recoil) {
-						
-						//if (GameObject.Find ("Player").transform.position.x < this.transform.position.x)
-						rigidbody2D.velocity += new Vector2 (2500f, 0f);
-						//else
-						//		rigidbody2D.AddForce (new Vector2 (-2500f, 0f));
-						recoil = false;	
-					
+						recoil = false;					
 				}
 
 				if (HealthPoints <= 0) {
@@ -49,21 +43,18 @@ public class EnemyCollisions : MonoBehaviour
 		{
 				if (!invincible) {		
 						if (collider.gameObject.tag == "Punch") {
-								recoil = true;
-								audio.PlayOneShot (punchHit);
 								HealthPoints -= 10;
-								invincible = true;
-								GUI.SendMessage ("updateEnemyHealth", HealthPoints);
-								Invoke ("disableInvincible", .5f);
 
 						} else if (collider.gameObject.tag == "Kick") {
-								recoil = true;
-								audio.PlayOneShot (punchHit);
 								HealthPoints -= 15;
-								invincible = true;
-								GUI.SendMessage ("updateEnemyHealth", HealthPoints);
-								Invoke ("disableInvincible", .5f);
+
 						}
+
+						recoil = true;
+						audio.PlayOneShot (punchHit);
+						invincible = true;
+						Invoke ("disableInvincible", .5f);
+						GUI.SendMessage ("updateEnemyHealth", HealthPoints);
 				}
 		}
 	

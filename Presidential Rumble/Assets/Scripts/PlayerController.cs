@@ -99,12 +99,12 @@ public class PlayerController : MonoBehaviour
 						}
 				}
 
-				if (transform.position.x > 
+				if (!attacking && transform.position.x > 
 						GameObject.FindWithTag ("Enemy").GetComponent<EnemyCollisions> ().getX () && transform.localScale.x > 0) {
 						Vector2 scale = transform.localScale;
 						scale.x *= -1;
 						transform.localScale = scale;
-				} else if (transform.position.x < GameObject.FindWithTag ("Enemy").GetComponent<EnemyCollisions> ().getX () && transform.localScale.x < 0) {
+				} else if (!attacking && transform.position.x < GameObject.FindWithTag ("Enemy").GetComponent<EnemyCollisions> ().getX () && transform.localScale.x < 0) {
 						Vector2 scale = transform.localScale;
 						scale.x *= -1;
 						transform.localScale = scale;

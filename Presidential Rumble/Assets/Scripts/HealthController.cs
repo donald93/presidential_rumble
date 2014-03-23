@@ -4,7 +4,7 @@ using System.Collections;
 public class HealthController : MonoBehaviour
 {
 		public int playerHealth, enemyHealth, maxHealth;
-		private GameObject playerBar;
+		private GameObject playerBar, enemyBar;
 
 		// Use this for initialization
 		void Start ()
@@ -13,6 +13,7 @@ public class HealthController : MonoBehaviour
 				enemyHealth = 100;
 				maxHealth = 100;
 				playerBar = GameObject.FindGameObjectWithTag ("PlayerBar");
+				enemyBar = GameObject.FindGameObjectWithTag ("EnemyBar");
 		}
 	
 		// Update is called once per frame
@@ -35,6 +36,7 @@ public class HealthController : MonoBehaviour
 		void updateEnemyHealth (int health)
 		{
 				enemyHealth = health;
+				enemyBar.transform.localScale = new Vector3 (7.25f * enemyHealth / maxHealth, 1f);
 		}
 }
 

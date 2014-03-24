@@ -173,6 +173,17 @@ public class PlayerController : MonoBehaviour
 						audio.PlayOneShot (punchHit);
 				}
 
+				if (collider.gameObject.tag == "Kick" && !invincible) {
+						recoilFrames = 5;
+						invincible = true;
+						Invoke ("disableInvincible", 0.5f);
+						if (block) {
+								HealthPoints -= 1;
+						} else
+								HealthPoints -= 15;
+						audio.PlayOneShot (punchHit);
+				}
+
 				GUI.SendMessage ("updatePlayerHealth", HealthPoints);
 		}
 
@@ -201,5 +212,11 @@ public class PlayerController : MonoBehaviour
 						if (child.tag == "Kick")
 								child.collider2D.enabled = false;
 				}
+		}
+
+		public float getX ()
+		{
+		
+				return transform.position.x;
 		}
 }

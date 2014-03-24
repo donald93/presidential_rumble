@@ -10,7 +10,8 @@ public class EnemyAI : MonoBehaviour
 		public float endPos;
 		public int frame = 0;
 		public int cooldown = 0;
-		public bool punch = false, kick = false, jumping = false, jump = false, block = false, grounded = false;
+		public bool punch = false, kick = false, jumping = false, jump = false, block = false, 
+				grounded = false, attacking = false;
 		private Vector2 movement;
 		public Transform player;
 		protected Animator animator;
@@ -41,6 +42,16 @@ public class EnemyAI : MonoBehaviour
 		{
 				grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
 
+				if (!attacking && transform.position.x > 
+						GameObject.FindWithTag ("Player").GetComponent<PlayerController> ().getX () && transform.localScale.x > 0) {
+						Vector2 scale = transform.localScale;
+						scale.x *= -1;
+						transform.localScale = scale;
+				} else if (!attacking && transform.position.x < GameObject.FindWithTag ("Player").GetComponent<PlayerController> ().getX () && transform.localScale.x < 0) {
+						Vector2 scale = transform.localScale;
+						scale.x *= -1;
+						transform.localScale = scale;
+				}
 
 		}
 
@@ -53,9 +64,11 @@ public class EnemyAI : MonoBehaviour
 						if (cooldown == 0 && animator != null) {
 								int rand = Random.Range (0, 2);
 								if (rand == 1) {
+										attacking = true;
 										punch = true;
 										Punch ();
 								} else {
+										attacking = true;
 										kick = true;
 										Kick ();
 								}
@@ -147,6 +160,7 @@ public class EnemyAI : MonoBehaviour
 
 		void disableKick ()
 		{
+				attacking = false;
 				kick = false;		
 				animator.SetBool ("Kicking", false);
 				Transform[] allChildren = GetComponentsInChildren<Transform> ();
@@ -157,6 +171,7 @@ public class EnemyAI : MonoBehaviour
 		}
 		void disablePunch ()
 		{
+				attacking = false;
 				punch = false;		
 				animator.SetBool ("Punching", false);
 				Transform[] allChildren = GetComponentsInChildren<Transform> ();

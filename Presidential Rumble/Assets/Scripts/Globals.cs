@@ -32,6 +32,8 @@ public static class Globals
 	public static readonly float originalWidth = 1920;
 	public static readonly float originalHeight = 1080;
 
+	public static bool paused = true;
+
 	public static Matrix4x4 PrepareMatrix()
 	{
 		Vector2 ratio = new Vector2(Screen.width/originalWidth , Screen.height/originalHeight );

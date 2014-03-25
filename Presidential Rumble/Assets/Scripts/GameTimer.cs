@@ -112,7 +112,7 @@ public class GameTimer : MonoBehaviour
 		
 		AudioSource audio = gameObject.AddComponent<AudioSource>();
 		audio.clip = Resources.Load("Sounds/Menu Select Sound") as AudioClip;
-		//TODO stop controls
+		Globals.paused = true;
 	}
 
 	void drawIntroBox ()
@@ -127,7 +127,7 @@ public class GameTimer : MonoBehaviour
 			if (GUI.Button (new Rect (200,400,800,200), "Start"))
 			{
 				displayIntroBox = false;
-				//TODO start the battle
+				Globals.paused = false;
 			}
 		}
 	}

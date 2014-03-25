@@ -65,15 +65,17 @@ public class EnemyAI : MonoBehaviour
 								rigidbody2D.velocity = Vector2.zero;
 			
 								if (cooldown == 0 && animator != null) {
-										int rand = Random.Range (0, 2);
+										int rand = Random.Range (0, 3);
 										if (rand == 1) {
 												attacking = true;
 												punch = true;
 												Punch ();
-										} else {
+										} else if (rand == 2) {
 												attacking = true;
 												kick = true;
 												Kick ();
+										} else {
+												Block ();
 										}
 								}
 								
@@ -99,7 +101,14 @@ public class EnemyAI : MonoBehaviour
 						}
 				}
 		}
+		
+		void Block ()
+		{
+				//animator.SetBool ("Block", true);
+				block = true;
 
+
+		}
 
 		void Punch ()
 		{
@@ -183,6 +192,11 @@ public class EnemyAI : MonoBehaviour
 						if (child.tag == "Punch")
 								child.collider2D.enabled = false;
 				}
+		}
+		bool GetBlock ()
+		{
+
+				return block;
 		}
 }
 

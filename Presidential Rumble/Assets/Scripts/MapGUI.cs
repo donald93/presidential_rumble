@@ -10,12 +10,13 @@ using System.Linq;
 /// map button.  It also sets up the GUI that you can use to change 
 /// scenes.
 /// </summary>
-public class Map : MonoBehaviour
+public class MapGUI : MonoBehaviour
 {
 	public GameObject[] buttons;
 	private int selected;
 	private bool axisBusy;
 	private string levelName;
+	private GUIStyle mapHudStyle;
 
 	private AudioSource mapAudio;
 
@@ -37,6 +38,12 @@ public class Map : MonoBehaviour
 			b.GetComponent<MapButton>().style.wordWrap = true;
 		}
 
+		mapHudStyle = new GUIStyle ();
+		mapHudStyle.font = font;
+		mapHudStyle.fontSize = 72;
+		mapHudStyle.alignment = TextAnchor.MiddleCenter;
+		mapHudStyle.wordWrap = true;
+
 		mapAudio = gameObject.AddComponent<AudioSource> ();
 		mapAudio.clip = sound;
 
@@ -49,20 +56,19 @@ public class Map : MonoBehaviour
 		// scale the GUI to the current screen size
 		GUI.matrix = Globals.PrepareMatrix ();
 
-		// set the GUI images and font
-		//GUI.skin.font = font;
-		//GUI.skin.GetStyle ("Label").fontSize = 72;
-		//GUI.skin.GetStyle ("Label").alignment = TextAnchor.MiddleCenter;
-		GUIStyle titleStyle = new GUIStyle ();
-		titleStyle.font = font;
-		titleStyle.fontSize = 72;
-		titleStyle.alignment = TextAnchor.MiddleCenter;
-		titleStyle.wordWrap = true;
-		
+		drawMapHud ();
+		drawButtonLabels ();
+
+		// reset the resolution
+		GUI.matrix = Matrix4x4.identity;
+	}
+
+	void drawMapHud ()
+	{
 		int groupWidth = 600;
 		GUI.BeginGroup (new Rect (0, 0, groupWidth, Globals.originalHeight));
 		GUI.DrawTexture (new Rect (0, 0, groupWidth, Globals.originalHeight), guiImage, ScaleMode.StretchToFill);
-		GUI.Label (new Rect (0, 0, groupWidth, 250), levelName, titleStyle);
+		GUI.Label (new Rect (0, 0, groupWidth, 250), levelName, mapHudStyle);
 		
 		startButton.x = 300;
 		startButton.y = 300;
@@ -70,19 +76,19 @@ public class Map : MonoBehaviour
 		backButton.y = 800;
 		
 		GUI.EndGroup ();
+	}
 
+	void drawButtonLabels ()
+	{
 		// set the GUI images and font
 		GUI.contentColor = Color.black;
 		foreach (GameObject b in buttons)
 		{
-			if (!b.GetComponent<MapButton>().locked)
+			if (!b.GetComponent<MapButton>().levelLocked)
 			{
 				GUI.Label(new Rect (Globals.originalWidth/2 + b.transform.position.x, -b.transform.position.y + Globals.originalHeight/2, 0, 0), b.GetComponent<MapButton>().levelNameDisplay, b.GetComponent<MapButton>().style);
 			}
 		}
-
-		// reset the resolution
-		GUI.matrix = Matrix4x4.identity;
 	}
 
 	void Update ()
@@ -96,7 +102,7 @@ public class Map : MonoBehaviour
 			if (Physics.Raycast (ray, out hit, 100.0f))
 			{
 				GameObject hitButton = hit.transform.gameObject;
-				if (null != hitButton.GetComponent<MapButton>() && !hitButton.GetComponent<MapButton> ().locked)
+				if (null != hitButton.GetComponent<MapButton>() && !hitButton.GetComponent<MapButton> ().levelLocked)
 				{
 					int i = 0;
 					while (i < buttons.Length)
@@ -123,14 +129,14 @@ public class Map : MonoBehaviour
 					axisBusy = true;
 					if (Input.GetAxisRaw ("Horizontal") < 0)
 					{
-						if (--selected < 0 || buttons [selected].GetComponent<MapButton> ().locked)
+						if (--selected < 0 || buttons [selected].GetComponent<MapButton> ().levelLocked)
 						{
 							selected = 0;
 						}
 					}
 					else
 					{
-						if (++selected > buttons.Length - 1 || buttons [selected].GetComponent<MapButton> ().locked)
+						if (++selected > buttons.Length - 1 || buttons [selected].GetComponent<MapButton> ().levelLocked)
 						{
 							selected--;
 						}
@@ -156,7 +162,7 @@ public class Map : MonoBehaviour
 		selectedButton.GetComponent<MapButton>().style.fontSize = 72;
 
 		// set the gui stuff for beginning the level
-		startButton.GetComponent<GUIButton> ().scene = selectedButton.GetComponent<MapButton> ().Scene;
+		startButton.GetComponent<GUIButton> ().scene = selectedButton.GetComponent<MapButton> ().scene;
 		levelName = selectedButton.GetComponent<MapButton> ().levelNameDisplay;
 	}
 

@@ -8,54 +8,35 @@ using UnityEngine.Rendering;
 /// by the <see cref="Map"/> class to display level names and 
 /// change levels.
 /// </summary>
+/// <remarks>
+/// This is meant to be attached to a <see cref="GameObject"/> 
+/// that contains information to switch levels.
+/// </remarks>
 public class MapButton : MonoBehaviour
 {
-	[SerializeField]
-	private SceneEnum m_scene;
 	/// <summary>
-	/// Gets or sets the scene. This is the level that 
-	/// this MapButton will take you to. See <see cref="SceneEnum"/>.
+	/// The scene is the level that this MapButton
+	/// will take you to. See <see cref="SceneEnum"/>.
 	/// </summary>
-	/// <value>
-	/// The scene is a SceneEnum.
-	/// </value>
-	public SceneEnum Scene
-	{
-		get { return m_scene; }
-		set { m_scene = value; }
-	}
+	public SceneEnum scene;
 
-	[SerializeField]
-	private string m_levelNameDisplay;
 	/// <summary>
-	/// Gets or sets the level name display. This will be used 
+	/// The level name display will be used 
 	/// to show the name of the level 
 	/// (i.e. "Washington's Cherry Tree").
 	/// </summary>
-	/// <value>
-	/// The string that will be displayed on screen.
-	/// </value>
-	public string levelNameDisplay
-	{
-		get { return m_levelNameDisplay; }
-		set { m_levelNameDisplay = value; }
-	}
+	public string levelNameDisplay;
 
-	[SerializeField]
-	private bool m_locked;
 	/// <summary>
-	/// Gets or sets a value indicating whether this 
-	/// <see cref="MapButton"/> is unlocked. Only unlocked levels
-	/// should be available to select.
+	/// Whether or not this <see cref="MapButton"/>
+	/// is unlocked. Only unlocked levels should
+	/// be available to select.
 	/// </summary>
-	/// <value>
-	/// <c>true</c> if unlocked; otherwise, <c>false</c>.
-	/// </value>
-	public bool locked
-	{
-		get { return m_locked; }
-		set { m_locked = value; }
-	}
+	public bool levelLocked;
 
+	/// <summary>
+	/// The style is used by the <see cref="levelNameDisplay"/>
+	/// to format the text that will be displayed.
+	/// </summary>
 	public GUIStyle style;
 }

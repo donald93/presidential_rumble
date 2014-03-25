@@ -12,11 +12,6 @@ using System.Collections;
 public enum SceneEnum
 {
 	MainMenu = 0,
-	//TODO test scenes only
-	Main = 1,
-	Fight2 = 2,
-	WashingtonFight = 3,
-	//TODO
 	WashingtonMap = 10,
 	WashingtonTutorial = 11,
 	WashingtonFight1 = 12,
@@ -25,13 +20,12 @@ public enum SceneEnum
 	WashingtonFight4 = 15,
 };
 
-public enum Directions
+public enum BattleStateEnum
 {
-	Up = 0,
-	Down = 1,
-	Left = 2,
-	Right = 3
-}
+	WIN,
+	LOSE,
+	TIE,
+};
 
 public static class Globals
 {

@@ -1,0 +1,99 @@
+fileFormatVersion: 2
+guid: e5bff0f58d34b49c9aeee9f92d1d5f8e
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapMode: -1
+  nPOTScale: 1
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 0
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 0
+  textureType: -1
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: arnold_threequarters_0
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 482
+        width: 17
+        height: 45
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: arnold_threequarters_1
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 389
+        width: 28
+        height: 105
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: arnold_threequarters_2
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 310
+        width: 30
+        height: 106
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: arnold_threequarters_3
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 184
+        width: 30
+        height: 137
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: arnold_threequarters_4
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 60
+        width: 31
+        height: 148
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: arnold_threequarters_5
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 38
+        width: 82
+        height: 36
+      alignment: 0
+      pivot: {x: .5, y: .5}
+  spritePackingTag: 
+  userData: 

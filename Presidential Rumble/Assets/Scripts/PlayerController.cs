@@ -118,44 +118,46 @@ public class PlayerController : MonoBehaviour
 		// Called each update
 		void FixedUpdate ()
 		{
-				if (recoilFrames > 0) {
+				if (!Globals.paused) {
+						if (recoilFrames > 0) {
 						
-						recoilFrames--;	
-						return;
+								recoilFrames--;	
+								return;
 			
-				}
-				float moveHorizontal = Input.GetAxis ("Horizontal");
-				if (jumping) {
-						if (!goingLeft)
-						if (moveHorizontal > 0)
-								rigidbody2D.velocity = new Vector2 (25 * moveHorizontal, rigidbody2D.velocity.y);
-						else
-
-								rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, rigidbody2D.velocity.y);
-						else {
-								if (moveHorizontal < 0)
+						}
+						float moveHorizontal = Input.GetAxis ("Horizontal");
+						if (jumping) {
+								if (!goingLeft)
+								if (moveHorizontal > 0)
 										rigidbody2D.velocity = new Vector2 (25 * moveHorizontal, rigidbody2D.velocity.y);
 								else
 
 										rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, rigidbody2D.velocity.y);
+								else {
+										if (moveHorizontal < 0)
+												rigidbody2D.velocity = new Vector2 (25 * moveHorizontal, rigidbody2D.velocity.y);
+										else
+
+												rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, rigidbody2D.velocity.y);
+								}
+
+						} else if (crouch || attacking || block) 
+								rigidbody2D.velocity = new Vector2 (moveHorizontal * 0, rigidbody2D.velocity.y);
+						else {
+								rigidbody2D.velocity = new Vector2 (moveHorizontal * 25, rigidbody2D.velocity.y);
+								if (moveHorizontal > 0)
+										goingLeft = false;
+								else
+										goingLeft = true;
 						}
 
-				} else if (crouch || attacking || block) 
-						rigidbody2D.velocity = new Vector2 (moveHorizontal * 0, rigidbody2D.velocity.y);
-				else {
-						rigidbody2D.velocity = new Vector2 (moveHorizontal * 25, rigidbody2D.velocity.y);
-						if (moveHorizontal > 0)
-								goingLeft = false;
-						else
-								goingLeft = true;
-				}
+						if (jump) {
+								rigidbody2D.AddForce (new Vector2 (0f, jumpForce));	
+								jump = false;
+						}
 
-				if (jump) {
-						rigidbody2D.AddForce (new Vector2 (0f, jumpForce));	
-						jump = false;
+						framesSinceJump++;		
 				}
-
-				framesSinceJump++;		
 		}
 
 		void OnCollisionEnter2D (Collision2D collision)
@@ -186,7 +188,11 @@ public class PlayerController : MonoBehaviour
 								HealthPoints -= 15;
 						audio.PlayOneShot (punchHit);
 				}
-
+				
+				if (HealthPoints <= 0) {
+						GameObject.FindWithTag ("GUI").GetComponent<GameTimer> ().drawOutroBox (BattleStateEnum.LOSE);
+				}
+			
 				GUI.SendMessage ("updatePlayerHealth", HealthPoints);
 		}
 

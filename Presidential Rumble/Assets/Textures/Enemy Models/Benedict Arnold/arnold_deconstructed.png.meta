@@ -1,0 +1,108 @@
+fileFormatVersion: 2
+guid: fbb352b1e97184d89af778d4316d1849
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: arnold_deconstructed_0
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 482
+        width: 18
+        height: 46
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: arnold_deconstructed_1
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 389
+        width: 30
+        height: 107
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: arnold_deconstructed_2
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 311
+        width: 29
+        height: 106
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: arnold_deconstructed_3
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 182
+        width: 29
+        height: 136
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: arnold_deconstructed_4
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 60
+        width: 31
+        height: 149
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: arnold_deconstructed_5
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 38
+        width: 82
+        height: 35
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: arnold_deconstructed_6
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 305
+        width: 90
+        height: 189
+      alignment: 0
+      pivot: {x: .5, y: .5}
+  spritePackingTag: 
+  userData: 

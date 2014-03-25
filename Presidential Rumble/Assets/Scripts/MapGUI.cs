@@ -70,6 +70,19 @@ public class MapGUI : MonoBehaviour
 		GUI.DrawTexture (new Rect (0, 0, groupWidth, Globals.originalHeight), guiImage, ScaleMode.StretchToFill);
 		GUI.Label (new Rect (0, 0, groupWidth, 250), levelName, mapHudStyle);
 		GUI.EndGroup ();
+
+		Rect textureCrop = textureCrop = buttons [selected].GetComponent<MapButton> ().player1CropRect;
+		Texture2D player1Image = buttons [selected].GetComponent<MapButton> ().player1Image;
+		Texture2D player2Image = buttons [selected].GetComponent<MapButton> ().player2Image;
+
+		GUI.BeginGroup( new Rect( 50, 300, player1Image.width * textureCrop.width, player1Image.height * textureCrop.height ) );
+		GUI.DrawTexture( new Rect( -player1Image.width * textureCrop.x, -player1Image.height * textureCrop.y, player1Image.width, player1Image.height ), player1Image );
+		GUI.EndGroup();
+
+		textureCrop = buttons [selected].GetComponent<MapButton> ().player2CropRect;
+		GUI.BeginGroup( new Rect( 350, 300, player2Image.width * textureCrop.width, player2Image.height * textureCrop.height ) );
+		GUI.DrawTexture( new Rect( -player2Image.width * textureCrop.x, -player2Image.height * textureCrop.y, player2Image.width, player2Image.height ), player2Image );
+		GUI.EndGroup();
 	}
 
 	void drawButtonLabels ()

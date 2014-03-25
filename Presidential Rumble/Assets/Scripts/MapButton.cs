@@ -39,4 +39,10 @@ public class MapButton : MonoBehaviour
 	/// to format the text that will be displayed.
 	/// </summary>
 	public GUIStyle style;
+
+	public Texture2D player1Image;
+	public Rect player1CropRect;
+
+	public Texture2D player2Image;
+	public Rect player2CropRect;
 }

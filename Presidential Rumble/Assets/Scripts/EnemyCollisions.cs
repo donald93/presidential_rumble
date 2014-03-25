@@ -56,6 +56,9 @@ public class EnemyCollisions : MonoBehaviour
 						Invoke ("disableInvincible", .5f);
 						GUI.SendMessage ("updateEnemyHealth", HealthPoints);
 				}
+				if (HealthPoints <= 0)
+						Globals.paused = true;
+
 		}
 	
 		void OnCollisionEnter2D (Collision2D collision)

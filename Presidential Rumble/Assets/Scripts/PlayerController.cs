@@ -190,7 +190,8 @@ public class PlayerController : MonoBehaviour
 				}
 				
 				if (HealthPoints <= 0) {
-						GameObject.FindWithTag ("GUI").GetComponent<GameTimer> ().drawOutroBox (BattleStateEnum.LOSE);
+						//GameObject.FindWithTag ("GUI").GetComponent<GameTimer> ().drawOutroBox (BattleStateEnum.LOSE);
+						Globals.paused = true;
 				}
 			
 				GUI.SendMessage ("updatePlayerHealth", HealthPoints);

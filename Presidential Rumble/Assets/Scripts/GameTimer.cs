@@ -83,7 +83,7 @@ public class GameTimer : MonoBehaviour
 				GUI.matrix = Matrix4x4.identity;
 		}
 
-		void drawOutroBox (BattleStateEnum endState)
+		public void drawOutroBox (BattleStateEnum endState)
 		{
 				if (endState == BattleStateEnum.LOSE) {
 						boxContent.text = "You Lost!";

@@ -1,0 +1,126 @@
+fileFormatVersion: 2
+guid: b5650abd81e723847b3865b4fd97d11f
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: king_washington_threequarters_0
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 62
+        width: 30
+        height: 148
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: king_washington_threequarters_1
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 183
+        width: 29
+        height: 137
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: king_washington_threequarters_2
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 311
+        width: 29
+        height: 106
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: king_washington_threequarters_3
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 389
+        width: 29
+        height: 105
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: king_washington_threequarters_4
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 482
+        width: 16
+        height: 46
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: king_washington_threequarters_5
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 297
+        width: 29
+        height: 27
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: king_washington_threequarters_6
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 306
+        width: 90
+        height: 189
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: king_washington_threequarters_7
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 503
+        width: 98
+        height: 117
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: king_washington_threequarters_8
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 38
+        width: 81
+        height: 36
+      alignment: 0
+      pivot: {x: .5, y: .5}
+  spritePackingTag: 
+  userData: 

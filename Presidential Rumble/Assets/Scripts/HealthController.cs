@@ -31,12 +31,21 @@ public class HealthController : MonoBehaviour
 		{
 				playerHealth = health;
 				playerBar.transform.localScale = new Vector3 (7.25f * playerHealth / maxHealth, 1f);
+
+				if (playerHealth <= 0)
+						NextScene ();
 		}
 
 		void updateEnemyHealth (int health)
 		{
 				enemyHealth = health;
 				enemyBar.transform.localScale = new Vector3 (7.25f * enemyHealth / maxHealth, 1f);
+		}
+
+		void NextScene ()
+		{
+				//yield return WaitForSeconds (seconds);
+				Application.LoadLevel ("WashingtonMap");
 		}
 }
 

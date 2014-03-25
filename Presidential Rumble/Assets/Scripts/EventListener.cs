@@ -16,7 +16,7 @@ public class EventListener : MonoBehaviour
 	
 		}
 
-		void NextScene (int seconds)
+		void NextScene ()
 		{
 
 				//yield return WaitForSeconds (seconds);

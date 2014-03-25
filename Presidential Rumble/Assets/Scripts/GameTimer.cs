@@ -11,7 +11,7 @@ public class GameTimer : MonoBehaviour
 		public GUIButton startButton;
 		public Texture2D boxImage;
 
-		private bool displayIntroBox;
+		private bool displayIntroBox, outroBox = false;
 		private GUIStyle boxStyle;
 		private GUIContent boxContent;
 		private Rect boxRect;
@@ -76,15 +76,27 @@ public class GameTimer : MonoBehaviour
 				if (time == 0) {
 						drawOutroBox (BattleStateEnum.TIE);
 				}
+				if (outroBox) {
 
+						GUI.Box (boxRect, boxContent, boxStyle);
+
+						GUIButton guiButton = gameObject.AddComponent<GUIButton> ();
+						guiButton.width = 400;
+						guiButton.height = 120;
+						guiButton.x = Globals.originalWidth / 2;
+						guiButton.y = Globals.originalHeight / 2;
+						guiButton.text = "Main Menu";
+						guiButton.scene = SceneEnum.MainMenu;
+				}
 				drawIntroBox ();
-
+					
 				// reset the resolution
 				GUI.matrix = Matrix4x4.identity;
 		}
 
 		public void drawOutroBox (BattleStateEnum endState)
 		{
+				
 				if (endState == BattleStateEnum.LOSE) {
 						boxContent.text = "You Lost!";
 				} else if (endState == BattleStateEnum.TIE) {
@@ -92,24 +104,24 @@ public class GameTimer : MonoBehaviour
 				} else { // win
 						boxContent.text = "You Won!";
 				}
-
+				outroBox = true;
 				// prepare to draw the time's up box
 		
-				GUI.Box (boxRect, boxContent, boxStyle);
+				//GUI.Box (boxRect, boxContent, boxStyle);
 		
 				// create the retry button
-				GUIButton guiButton = gameObject.AddComponent<GUIButton> ();
-				guiButton.width = 400;
-				guiButton.height = 120;
-				guiButton.x = Globals.originalWidth / 2;
-				guiButton.y = Globals.originalHeight / 2;
-				guiButton.text = "Main Menu";
-				guiButton.scene = SceneEnum.MainMenu;
+
+				//GUIButton guiButton = gameObject.AddComponent<GUIButton> ();
+				//guiButton.width = 400;
+				//guiButton.height = 120;
+				//guiButton.x = Globals.originalWidth / 2;
+				//guiButton.y = Globals.originalHeight / 2;
+				//guiButton.text = "Main Menu";
+				//guiButton.scene = SceneEnum.MainMenu;
 		
 		
-				AudioSource audio = gameObject.AddComponent<AudioSource> ();
-				audio.clip = Resources.Load ("Sounds/Menu Select Sound") as AudioClip;
-				Globals.paused = true;
+				//AudioSource audio = gameObject.AddComponent<AudioSource> ();
+				//audio.clip = Resources.Load ("Sounds/Menu Select Sound") as AudioClip;
 		}
 
 		void drawIntroBox ()

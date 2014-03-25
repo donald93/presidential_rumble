@@ -12,14 +12,13 @@ using System.Linq;
 /// </summary>
 public class MapGUI : MonoBehaviour
 {
-	public GameObject[] buttons;
 	private int selected;
 	private bool axisBusy;
 	private string levelName;
 	private GUIStyle mapHudStyle;
-
 	private AudioSource mapAudio;
 
+	public GameObject[] buttons;
 	public Font font;
 	public Texture2D guiImage;
 	public GUIButton startButton;
@@ -66,15 +65,10 @@ public class MapGUI : MonoBehaviour
 	void drawMapHud ()
 	{
 		int groupWidth = 600;
+
 		GUI.BeginGroup (new Rect (0, 0, groupWidth, Globals.originalHeight));
 		GUI.DrawTexture (new Rect (0, 0, groupWidth, Globals.originalHeight), guiImage, ScaleMode.StretchToFill);
 		GUI.Label (new Rect (0, 0, groupWidth, 250), levelName, mapHudStyle);
-		
-		startButton.x = 300;
-		startButton.y = 300;
-		backButton.x = 300;
-		backButton.y = 800;
-		
 		GUI.EndGroup ();
 	}
 

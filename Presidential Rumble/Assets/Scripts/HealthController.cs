@@ -29,20 +29,26 @@ public class HealthController : MonoBehaviour
 
 		void updatePlayerHealth (int health)
 		{
-				playerHealth = health;
+				playerHealth -= health;
 				playerBar.transform.localScale = new Vector3 (7.25f * playerHealth / maxHealth, 1f);
 
-				if (playerHealth <= 0)
-						NextScene ();
-
+				if (playerHealth <= 0) {
+						Globals.paused = true;
+						Globals.GameState = BattleStateEnum.LOSE;
+				}
 		}
 
 		void updateEnemyHealth (int health)
 		{
-				enemyHealth = health;
+				enemyHealth -= health;
 				enemyBar.transform.localScale = new Vector3 (7.25f * enemyHealth / maxHealth, 1f);
-				if (enemyHealth <= 0)
-						NextScene ();
+				if (enemyHealth <= 0) {
+						Globals.paused = true;
+						if (GameObject.Find ("Enemy").GetComponent<SpriteRenderer> () != null)
+								GameObject.Find ("Enemy").GetComponent<SpriteRenderer> ().enabled = false;
+
+						Globals.GameState = BattleStateEnum.WIN;
+				}
 		}
 
 		void NextScene ()

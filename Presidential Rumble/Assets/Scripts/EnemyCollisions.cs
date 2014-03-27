@@ -5,7 +5,6 @@ public class EnemyCollisions : MonoBehaviour
 {
 
 		public bool recoil;
-		public int HealthPoints;
 		public AudioClip punchHit;
 
 		private bool invincible;
@@ -16,7 +15,6 @@ public class EnemyCollisions : MonoBehaviour
 		{
 				GUI = GameObject.FindGameObjectWithTag ("GUI");
 				recoil = false;
-				HealthPoints = 100;
 		}
 	
 		// Update is called once per frame
@@ -32,21 +30,17 @@ public class EnemyCollisions : MonoBehaviour
 						recoil = false;					
 				}
 
-				if (HealthPoints <= 0) {
-						if (GameObject.Find ("Enemy").GetComponent<SpriteRenderer> () != null)
-								GameObject.Find ("Enemy").GetComponent<SpriteRenderer> ().enabled = false;
-						GameObject.Find ("EventListener").SendMessage ("NextScene", 3);
-				}
 
 		}
 		void OnTriggerEnter2D (Collider2D collider)
 		{
+				int healthPoints = 0;
 				if (!invincible) {		
 						if (collider.gameObject.tag == "Punch") {
-								HealthPoints -= 10;
+								healthPoints = 10;
 
 						} else if (collider.gameObject.tag == "Kick") {
-								HealthPoints -= 15;
+								healthPoints = 15;
 
 						}
 
@@ -54,10 +48,8 @@ public class EnemyCollisions : MonoBehaviour
 						audio.PlayOneShot (punchHit);
 						invincible = true;
 						Invoke ("disableInvincible", .5f);
-						GUI.SendMessage ("updateEnemyHealth", HealthPoints);
+						GUI.SendMessage ("updateEnemyHealth", healthPoints);
 				}
-				if (HealthPoints <= 0)
-						Globals.paused = true;
 
 		}
 	

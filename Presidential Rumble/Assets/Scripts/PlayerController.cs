@@ -5,7 +5,6 @@ public class PlayerController : MonoBehaviour
 {
 		public bool jump, jumping, attacking, goingLeft, crouch, block, invincible;
 		public float jumpForce = 5000f;
-		public int HealthPoints;
 		public AudioClip jumpSound, punchHit;
 	
 		private bool grounded = false;
@@ -18,7 +17,6 @@ public class PlayerController : MonoBehaviour
 		{
 				Transform a = transform.Find ("Character animation");
 				animator = a.GetComponent<Animator> ();
-				HealthPoints = 100;
 				GUI = GameObject.FindGameObjectWithTag ("GUI");
 		}
 
@@ -167,14 +165,16 @@ public class PlayerController : MonoBehaviour
 
 		void OnTriggerEnter2D (Collider2D collider)
 		{
+				int healthPoints = 0;
+
 				if (collider.gameObject.tag == "Punch" && !invincible) {
 						recoilFrames = 5;
 						invincible = true;
 						Invoke ("disableInvincible", 0.5f);
 						if (block) {
-								HealthPoints -= 1;
+								healthPoints = 1;
 						} else
-								HealthPoints -= 10;
+								healthPoints = 10;
 						audio.PlayOneShot (punchHit);
 				}
 
@@ -183,18 +183,14 @@ public class PlayerController : MonoBehaviour
 						invincible = true;
 						Invoke ("disableInvincible", 0.5f);
 						if (block) {
-								HealthPoints -= 1;
+								healthPoints = 1;
 						} else
-								HealthPoints -= 15;
+								healthPoints = 15;
 						audio.PlayOneShot (punchHit);
 				}
-				
-				if (HealthPoints <= 0) {
-						//GameObject.FindWithTag ("GUI").GetComponent<GameTimer> ().drawOutroBox (BattleStateEnum.LOSE);
-						Globals.paused = true;
-				}
+
 			
-				GUI.SendMessage ("updatePlayerHealth", HealthPoints);
+				GUI.SendMessage ("updatePlayerHealth", healthPoints);
 		}
 
 		void disableInvincible ()

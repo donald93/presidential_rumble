@@ -9,9 +9,9 @@ public class HealthController : MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
-				playerHealth = 100;
-				enemyHealth = 100;
-				maxHealth = 100;
+				playerHealth = 250;
+				enemyHealth = 250;
+				maxHealth = 250;
 				playerBar = GameObject.FindGameObjectWithTag ("PlayerBar");
 				enemyBar = GameObject.FindGameObjectWithTag ("EnemyBar");
 		}

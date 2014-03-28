@@ -8,7 +8,7 @@ public class GUIController : MonoBehaviour
 		public GUIButton startButton;
 		public Texture2D boxImage;
 
-		private bool displayIntroBox, outroBox = false;
+		private bool displayIntroBox;
 		private GUIStyle boxStyle;
 		private GUIContent boxContent;
 		private Rect boxRect;
@@ -59,7 +59,6 @@ public class GUIController : MonoBehaviour
 				} else { // win
 						boxContent.text = "You Won!";
 				}
-				outroBox = true;
 				// prepare to draw the time's up box
 		
 				GUI.Box (boxRect, boxContent, boxStyle);

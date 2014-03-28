@@ -12,8 +12,6 @@ public class GameTimer : MonoBehaviour
 		public Texture2D boxImage;
 
 		private GUIStyle boxStyle;
-		private GUIContent boxContent;
-		private Rect boxRect;
 
 		// Use this for initialization
 		void Start ()
@@ -25,16 +23,13 @@ public class GameTimer : MonoBehaviour
 				boxStyle.alignment = TextAnchor.MiddleCenter;
 				boxStyle.font = timerFont;
 				boxStyle.wordWrap = true;
-
-				boxContent = new GUIContent ();
-
-				boxRect = new Rect (100, 100, Globals.originalWidth - 200, Globals.originalHeight - 200);
-
 		}
+
 		public static void StartTimer ()
 		{
 				GameTimer.prev_time = Time.time;
 		}
+
 		// Update is called once per frame
 		void Update ()
 		{

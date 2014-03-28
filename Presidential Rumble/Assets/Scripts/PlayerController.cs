@@ -48,18 +48,19 @@ public class PlayerController : MonoBehaviour
 
 								//Blocking controls
 								if (Input.GetKeyDown ("q") || Input.GetKeyDown (KeyCode.Joystick1Button4)) {
-										block = true;
+										block = true;					
+										animator.SetBool ("Blocking", true);					
 								}
 
 								if (Input.GetKeyUp ("q") || Input.GetKeyDown (KeyCode.Joystick1Button4)) {
 										block = false;
+										animator.SetBool ("Blocking", false);
 								}
 
 								// Jump Controls
-								if ((Input.GetKeyDown ("space") || Input.GetKeyDown (KeyCode.Joystick1Button0) || Input.GetKeyDown (KeyCode.Joystick1Button3)) && grounded) {
+								if ((Input.GetKeyDown ("space") || Input.GetKeyDown (KeyCode.Joystick1Button0) || Input.GetKeyDown (KeyCode.Joystick1Button3)) && grounded && !block) {
 										jump = true;
 										jumping = true;
-										block = false;
 										animator.SetBool ("Jumping", true);
 										framesSinceJump = 0;
 										audio.PlayOneShot (jumpSound);

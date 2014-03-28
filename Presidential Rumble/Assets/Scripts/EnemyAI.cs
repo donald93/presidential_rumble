@@ -4,6 +4,8 @@ using System.Collections;
 public class EnemyAI : MonoBehaviour
 {
 
+		public int mobile = 0, aggressive = 0, defensive = 0;
+
 		float startingPos;
 		public int unitsToMove = 5, framesSinceJump = 0, jumpForce = 3500;
 		public int moveSpeed = 2;
@@ -60,37 +62,94 @@ public class EnemyAI : MonoBehaviour
 		void FixedUpdate ()
 		{
 				if (!Globals.paused) {
-						if (Mathf.Abs (rigidbody2D.transform.position.x - player.transform.position.x) < 3) {
-								moveHorizontal = 0;
-								rigidbody2D.velocity = Vector2.zero;
+						
+						if (mobile >= aggressive && mobile >= defensive) {
+							
+								if (Mathf.Abs (rigidbody2D.transform.position.x - player.transform.position.x) < 3) {
+										moveHorizontal = 0;
+										rigidbody2D.velocity = Vector2.zero;
 			
-								if (cooldown == 0 && animator != null) {
-										int rand = Random.Range (0, 3);
-										if (rand == 1) {
-												attacking = true;
-												punch = true;
-												Punch ();
-										} else if (rand == 2) {
-												attacking = true;
-												kick = true;
-												Kick ();
-										} else {
-												Block ();
+										if (cooldown == 0 && animator != null) {
+												int rand = Random.Range (0, 3);
+												if (rand == 1) {
+														attacking = true;
+														punch = true;
+														Punch ();
+												} else if (rand == 2) {
+														attacking = true;
+														kick = true;
+														Kick ();
+												} else {
+														Block ();
+												}
 										}
-								}
 								
-						} else {
-								int rand = Random.Range (0, 2);
-								if (rand == 1)
-										MoveTowardsPlayer ();
-								else
-										Invoke ("MoveTowardsPlayer", 1f);
-						}	
-						if (jump) {
-								rigidbody2D.AddForce (new Vector2 (0f, jumpForce));	
-								jump = false;
-								jumping = false;
+								} else {
+										int rand = Random.Range (0, 2);
+										if (rand == 1)
+												MoveTowardsPlayer ();
+										else
+												Invoke ("MoveTowardsPlayer", 1f);
+								}	
+								if (jump) {
+										rigidbody2D.AddForce (new Vector2 (0f, jumpForce));	
+										jump = false;
+										jumping = false;
+								}
 						}
+
+						if (aggressive >= mobile && aggressive >= defensive) {
+
+						}
+						
+						if (defensive >= mobile && defensive >= aggressive) {
+
+								if (Mathf.Abs (rigidbody2D.transform.position.x - player.transform.position.x) < 3) {
+										moveHorizontal = 0;
+										rigidbody2D.velocity = Vector2.zero;
+			
+										if (cooldown == 0 && animator != null) {
+												int rand = Random.Range (0, 3);
+												if (rand == 1) {
+														attacking = true;
+														punch = true;
+														kick = true;
+														Punch ();
+														Kick ();
+														Kick ();
+												} else if (rand == 2) {
+														attacking = true;
+														kick = true;
+														punch = true;
+
+														Kick ();
+														Punch ();
+														Punch ();
+												} else if (rand == 0) {
+														attacking = true;
+														kick = true;
+														punch = true;
+														Kick ();
+														Punch ();
+														Kick ();
+
+												}
+										}
+								
+								} else {
+										int rand = Random.Range (0, 2);
+										if (rand == 1)
+												MoveTowardsPlayer ();
+								}	
+								if (jump) {
+										rigidbody2D.AddForce (new Vector2 (0f, jumpForce));	
+										jump = false;
+										jumping = false;
+								}
+						}
+
+
+
 		
 						framesSinceJump++;	
 
@@ -197,6 +256,21 @@ public class EnemyAI : MonoBehaviour
 		{
 
 				return block;
+		}
+
+		void updateMobile ()
+		{
+				mobile++;
+		}
+
+		void updateAggressive ()
+		{
+				aggressive++;
+		}
+		void updateDefensive ()
+		{
+				defensive++;
+
 		}
 }
 

@@ -11,37 +11,49 @@ using System.Collections;
 /// </summary>
 public enum SceneEnum
 {
-		MainMenu = 0,
-		WashingtonMap = 10,
-		WashingtonTutorial = 11,
-		WashingtonFight1 = 12,
-		WashingtonFight2 = 13,
-		WashingtonFight3 = 14,
-		WashingtonFight4 = 15,
+	MainMenu = 0,
+	WashingtonMap = 9,
+	WashingtonTutorial = 10,
+	WashingtonFight1 = 11,
+	WashingtonFight2 = 12,
+	WashingtonFight3 = 13,
+	WashingtonFight4 = 14,
 };
 
 public enum BattleStateEnum
 {
-		WIN,
-		LOSE,
-		TIE,
-		ONGOING
-}
-;
+	WIN,
+	LOSE,
+	TIE,
+	ONGOING,
+};
 
 public static class Globals
 {
-		public static readonly float originalWidth = 1920;
-		public static readonly float originalHeight = 1080;
-
-		public static bool paused = true;
-		public static BattleStateEnum GameState = BattleStateEnum.ONGOING;
-
-		public static Matrix4x4 PrepareMatrix ()
-		{
-				Vector2 ratio = new Vector2 (Screen.width / originalWidth, Screen.height / originalHeight);
-				Matrix4x4 guiMatrix = Matrix4x4.identity;
-				guiMatrix.SetTRS (new Vector3 (1, 1, 1), Quaternion.identity, new Vector3 (ratio.x, ratio.y, 1));
-				return guiMatrix;
-		}
+	public static readonly float originalWidth = 1920;
+	public static readonly float originalHeight = 1080;
+	
+	public static bool paused = true;
+	public static BattleStateEnum GameState = BattleStateEnum.ONGOING;
+	public static SceneEnum CurrentScene;
+	
+	public static readonly string[] WashingtonFightIntros = {"fighttut", 
+		"fight1", 
+		"fight2", 
+		"fight3", 
+		"fight4"};
+	
+	public static readonly string[] WashingtonFightOutros = {"fighttut", 
+		"fight1", 
+		"fight2", 
+		"fight3", 
+		"fight4"};
+	
+	public static Matrix4x4 PrepareMatrix ()
+	{
+		Vector2 ratio = new Vector2 (Screen.width / originalWidth, Screen.height / originalHeight);
+		Matrix4x4 guiMatrix = Matrix4x4.identity;
+		guiMatrix.SetTRS (new Vector3 (1, 1, 1), Quaternion.identity, new Vector3 (ratio.x, ratio.y, 1));
+		return guiMatrix;
+	}
 }

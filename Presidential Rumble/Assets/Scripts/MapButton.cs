@@ -41,8 +41,6 @@ public class MapButton : MonoBehaviour
 	public GUIStyle style;
 
 	public Texture2D player1Image;
-	public Rect player1CropRect;
 
 	public Texture2D player2Image;
-	public Rect player2CropRect;
 }

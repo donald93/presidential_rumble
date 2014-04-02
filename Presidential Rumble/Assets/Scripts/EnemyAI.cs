@@ -100,8 +100,7 @@ public class EnemyAI : MonoBehaviour
 						}
 							//(aggressive >= mobile)
 						if (aggressive >= defensive) {
-							//Opposite of move towards player in the opposite direction. 
-							
+							//Get away from the player. 
 							//Check which wall they are on and jump over player once in range
 							//if(rigidbody2D.transform.position.x < 23 && player.transform.position.x > rigidbody2D.transform.position.x)
 							//{	
@@ -116,7 +115,6 @@ public class EnemyAI : MonoBehaviour
 							//	MoveAwayFromPlayer();
 							//}
 							//Crouch a lot more (crouch punch)
-
 							//Block alot more
 							
 						}

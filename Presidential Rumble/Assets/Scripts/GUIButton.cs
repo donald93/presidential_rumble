@@ -27,6 +27,7 @@ public class GUIButton : MonoBehaviour
 		GUI.skin.font = font;
 		GUI.skin.GetStyle("Button").fontSize = Mathf.FloorToInt(0.6f * height);
 		GUI.depth = 0;
+
 		// draw the button
 		if (GUI.Button(new Rect(x - width/2, y - height/2, width, height), text))
 	    {
@@ -38,7 +39,9 @@ public class GUIButton : MonoBehaviour
 		GUI.matrix = Matrix4x4.identity;
 	}
 
-	void switchScenes(){
+	void switchScenes()
+	{
+		Globals.CurrentScene = scene;
 		Application.LoadLevel (scene.ToString());
 	}
 }

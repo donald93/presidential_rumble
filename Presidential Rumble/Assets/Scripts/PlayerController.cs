@@ -6,11 +6,12 @@ public class PlayerController : MonoBehaviour
 		public bool jump, jumping, attacking, goingLeft, crouch, block, invincible;
 		public float jumpForce = 5000f;
 		public AudioClip jumpSound, punchHit;
-	
+
 		private bool grounded = false;
 		private Transform groundCheck;
 		private int framesSinceJump = 0, recoilFrames = 0;
 		private GameObject GUI;
+
 		protected Animator animator;
 
 		void Start ()
@@ -58,7 +59,7 @@ public class PlayerController : MonoBehaviour
 								}
 
 								// Jump Controls
-								if ((Input.GetKeyDown ("space") || Input.GetKeyDown (KeyCode.Joystick1Button0) || Input.GetKeyDown (KeyCode.Joystick1Button3)) && grounded && !block) {
+								if ((Input.GetKeyDown ("space") || Input.GetKeyDown (KeyCode.Joystick1Button0) || Input.GetKeyDown (KeyCode.Joystick1Button3)) && grounded && !block && !attacking) {
 										jump = true;
 										jumping = true;
 										animator.SetBool ("Jumping", true);
@@ -66,7 +67,7 @@ public class PlayerController : MonoBehaviour
 										audio.PlayOneShot (jumpSound);
 								}
 			
-								if (grounded && framesSinceJump > 0) {
+								if (framesSinceJump > 0 && grounded) {
 										animator.SetBool ("Jumping", false);
 										jumping = false;
 								}
@@ -95,7 +96,7 @@ public class PlayerController : MonoBehaviour
 										foreach (Transform child in allChildren) {
 												if (child.tag == "Kick")
 														child.collider2D.enabled = true;
-												Invoke ("disableKick", 0.5f);
+												Invoke ("disableKick", 0.4f);
 										}
 								}
 						}
@@ -126,21 +127,19 @@ public class PlayerController : MonoBehaviour
 						}
 						float moveHorizontal = Input.GetAxis ("Horizontal");
 						if (jumping) {
-								if (!goingLeft)
-								if (moveHorizontal > 0)
-										rigidbody2D.velocity = new Vector2 (25 * moveHorizontal, rigidbody2D.velocity.y);
-								else
-
-										rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, rigidbody2D.velocity.y);
-								else {
-										if (moveHorizontal < 0)
-												rigidbody2D.velocity = new Vector2 (25 * moveHorizontal, rigidbody2D.velocity.y);
+								if (!goingLeft) {
+										if (moveHorizontal > 0)
+												rigidbody2D.velocity = new Vector2 (25, rigidbody2D.velocity.y);
 										else
-
-												rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, rigidbody2D.velocity.y);
+												rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x - 1f, rigidbody2D.velocity.y);
+								} else {
+										if (moveHorizontal < 0)
+												rigidbody2D.velocity = new Vector2 (-25, rigidbody2D.velocity.y);
+										else
+												rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x + 1f, rigidbody2D.velocity.y);
 								}
 
-						} else if (crouch || attacking || block) 
+						} else if (crouch || attacking && !jumping || block) 
 								rigidbody2D.velocity = new Vector2 (moveHorizontal * 0, rigidbody2D.velocity.y);
 						else {
 								rigidbody2D.velocity = new Vector2 (moveHorizontal * 25, rigidbody2D.velocity.y);

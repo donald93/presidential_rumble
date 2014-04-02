@@ -67,7 +67,7 @@ public class EnemyAI : MonoBehaviour
 							
 								if (Mathf.Abs (rigidbody2D.transform.position.x - player.transform.position.x) < 3) {
 										moveHorizontal = 0;
-										rigidbody2D.velocity = Vector2.zero;
+										rigidbody2D.velocity = new Vector2 (0f, rigidbody2D.velocity.y);
 			
 										if (cooldown == 0 && animator != null) {
 												int rand = Random.Range (0, 3);
@@ -106,7 +106,7 @@ public class EnemyAI : MonoBehaviour
 
 								if (Mathf.Abs (rigidbody2D.transform.position.x - player.transform.position.x) < 3) {
 										moveHorizontal = 0;
-										rigidbody2D.velocity = Vector2.zero;
+										rigidbody2D.velocity = new Vector2 (0f, rigidbody2D.velocity.y);
 			
 										if (cooldown == 0 && animator != null) {
 												int rand = Random.Range (0, 3);
@@ -144,7 +144,6 @@ public class EnemyAI : MonoBehaviour
 								if (jump) {
 										rigidbody2D.AddForce (new Vector2 (0f, jumpForce));	
 										jump = false;
-										jumping = false;
 								}
 						}
 

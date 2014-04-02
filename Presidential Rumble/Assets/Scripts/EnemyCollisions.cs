@@ -52,12 +52,7 @@ public class EnemyCollisions : MonoBehaviour
 				}
 
 		}
-	
-		void OnCollisionEnter2D (Collision2D collision)
-		{
-				if (collision.collider.gameObject.tag == "Punch") {
-				}
-		}
+
 		void disableInvincible ()
 		{
 				invincible = false;

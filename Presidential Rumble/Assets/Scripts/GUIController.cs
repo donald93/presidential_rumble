@@ -62,10 +62,10 @@ public class GUIController : MonoBehaviour
 	{
 		if (displayIntroBox)
 		{
-			//TODO drawBox (Globals.WashingtonFightIntros [(int)Globals.CurrentScene - 10], "Begin!");
-			drawBox ("TODO DELETE ME     AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "Begin!");
+			drawBox (Globals.WashingtonFightIntros [(int)Globals.CurrentScene - 10], "Begin!");
 			
 			// create the start button
+			buttonStyle.fontSize = 85;
 			if (GUI.Button (buttonRect, buttonContent, buttonStyle))
 			{
 				displayIntroBox = false;
@@ -95,12 +95,14 @@ public class GUIController : MonoBehaviour
 			return;
 		}
 		
-		//TODO drawBox (Globals.WashingtonFightOutros [(int)Globals.CurrentScene - 10], "Return to Map");
-		drawBox ("TODO DELETE ME     AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "Return to Map");
-		
+		drawBox (Globals.WashingtonFightOutros [(int)Globals.CurrentScene - 10], boxContent.text);
+
+		// create end battle button
+		buttonStyle.fontSize = 85;
 		if (GUI.Button (buttonRect, buttonContent, buttonStyle))
 		{
 			Application.LoadLevel ("WashingtonMap");
+			Globals.paused = true;
 			//TODO play button sound
 			//AudioSource audio = gameObject.AddComponent<AudioSource> ();
 			//audio.clip = Resources.Load ("Sounds/Menu Select Sound") as AudioClip;

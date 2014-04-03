@@ -6,6 +6,7 @@ public class GUIController : MonoBehaviour
 		public Font guiFont;
 		public Texture2D boxImage;
 		public Texture2D buttonImage;
+		public SceneEnum levelCode;
 	
 		private Rect boxRect;
 		private Rect buttonRect;
@@ -27,6 +28,7 @@ public class GUIController : MonoBehaviour
 				buttonContent = new GUIContent ();
 		
 				displayIntroBox = true;
+				Globals.CurrentScene = levelCode;
 		}
 	
 		void OnGUI ()
@@ -61,7 +63,7 @@ public class GUIController : MonoBehaviour
 		private void drawIntroBox ()
 		{
 				if (displayIntroBox) {
-						drawBox (Globals.WashingtonFightIntros [(int)Globals.CurrentScene - 10], "Begin!");
+						drawBox (Globals.WashingtonFightIntros [(int)levelCode - 10], "Begin!");
 			
 						// create the start button
 						buttonStyle.fontSize = 85;
@@ -86,7 +88,7 @@ public class GUIController : MonoBehaviour
 						return;
 				}
 		
-				drawBox (Globals.WashingtonFightOutros [(int)Globals.CurrentScene - 10], boxContent.text);
+				drawBox (Globals.WashingtonFightOutros [(int)levelCode - 10], boxContent.text);
 
 				// create end battle button
 				buttonStyle.fontSize = 85;

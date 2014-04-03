@@ -29,6 +29,7 @@ public class GUIController : MonoBehaviour
 		
 				displayIntroBox = true;
 				Globals.CurrentScene = levelCode;
+				Globals.GameState = BattleStateEnum.ONGOING;
 		}
 	
 		void OnGUI ()
@@ -87,7 +88,8 @@ public class GUIController : MonoBehaviour
 				} else {
 						return;
 				}
-		
+
+				Globals.CurrentScene = levelCode;
 				drawBox (Globals.WashingtonFightOutros [(int)levelCode - 10], boxContent.text);
 
 				// create end battle button

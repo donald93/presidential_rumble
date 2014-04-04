@@ -124,14 +124,24 @@ public class MapGUI : MonoBehaviour
 
 		void Update ()
 		{
-				//cheat unlock all
+				// cheat unlock all
 				if (Input.GetKeyDown("0")) {
 						foreach (GameObject b in buttons) {
 								b.GetComponent<MapButton> ().levelLocked = false;
 						}
 				}
+				
+				// start selected level
+				else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Joystick1Button7) || Input.GetKeyDown(KeyCode.Joystick1Button9)) {
+						startButton.changeScenes();
+				}
 
-				// check for input
+				// go back
+				else if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetKeyDown(KeyCode.Joystick1Button6) || Input.GetKeyDown(KeyCode.Joystick1Button8)) {
+						backButton.changeScenes();
+				}
+		         
+		         // check for input
 				if (Input.GetMouseButtonDown (0)) {
 						RaycastHit hit;
 						Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);

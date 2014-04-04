@@ -31,12 +31,17 @@ public class GUIButton : MonoBehaviour
 		// draw the button
 		if (GUI.Button(new Rect(x - width/2, y - height/2, width, height), text))
 	    {
-			audio.Play ();
-			Invoke("switchScenes", 0.5f);
+			changeScenes();
 		}
 
 		// reset the resolution
 		GUI.matrix = Matrix4x4.identity;
+	}
+
+	public void changeScenes()
+	{
+		audio.Play ();
+		Invoke("switchScenes", 0.5f);
 	}
 
 	void switchScenes()

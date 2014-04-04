@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-		public bool jump, jumping, attacking, goingLeft, crouch, block, invincible;
+		public bool jump, jumping, attacking, goingLeft, crouch, block, invincible, jumpStraight;
 		public float jumpForce = 5000f;
 		public AudioClip jumpSound, punchHit;
 		public Transform enemy;
@@ -65,6 +65,7 @@ public class PlayerController : MonoBehaviour
 								if ((Input.GetKeyDown ("space") || Input.GetKeyDown (KeyCode.Joystick1Button0) || Input.GetKeyDown (KeyCode.Joystick1Button3)) && grounded && !block && !attacking) {
 										jump = true;
 										jumping = true;
+										jumpStraight = false;
 										animator.SetBool ("Jumping", true);
 										framesSinceJump = 0;
 										audio.PlayOneShot (jumpSound);
@@ -131,18 +132,25 @@ public class PlayerController : MonoBehaviour
 								return;
 			
 						}
+
 						float moveHorizontal = Input.GetAxis ("Horizontal");
+
 						if (jumping) {
-								if (!goingLeft) {
+								if (jumpStraight) {
+										rigidbody2D.velocity = new Vector2 (0, rigidbody2D.velocity.y);
+										if (moveHorizontal > 0 || moveHorizontal < 0)
+												jumpStraight = false;
+								} else if (!goingLeft) {
 										if (moveHorizontal > 0)
+
 												rigidbody2D.velocity = new Vector2 (25, rigidbody2D.velocity.y);
 												int rand = Random.Range (0, 5);
 												if (rand == 1){
 													enemy.GetComponent<EnemyAI>().updateMobile();
 												}
-													
+												rigidbody2D.velocity = new Vector2 (25 * moveHorizontal, rigidbody2D.velocity.y);
 										else
-												rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x - 1f, rigidbody2D.velocity.y);
+												rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x - 0.25f, rigidbody2D.velocity.y);
 								} else {
 										if (moveHorizontal < 0)
 												rigidbody2D.velocity = new Vector2 (-25, rigidbody2D.velocity.y);
@@ -150,8 +158,9 @@ public class PlayerController : MonoBehaviour
 												if (rand == 1){
 													enemy.GetComponent<EnemyAI>().updateMobile();
 												}
+												rigidbody2D.velocity = new Vector2 (25 * moveHorizontal, rigidbody2D.velocity.y);
 										else
-												rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x + 1f, rigidbody2D.velocity.y);
+												rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x + 0.25f, rigidbody2D.velocity.y);
 								}
 
 						} else if (crouch || attacking && !jumping || block) 
@@ -165,6 +174,8 @@ public class PlayerController : MonoBehaviour
 						}
 
 						if (jump) {
+								if (moveHorizontal == 0)
+										jumpStraight = true;
 								rigidbody2D.AddForce (new Vector2 (0f, jumpForce));	
 								jump = false;
 						}
@@ -183,6 +194,7 @@ public class PlayerController : MonoBehaviour
 				int healthPoints = 0;
 
 				if (collider.gameObject.tag == "Punch" && !invincible) {
+						flinch ();
 						recoilFrames = 5;
 						invincible = true;
 						Invoke ("disableInvincible", 0.5f);
@@ -194,6 +206,7 @@ public class PlayerController : MonoBehaviour
 				}
 
 				if (collider.gameObject.tag == "Kick" && !invincible) {
+						flinch ();
 						recoilFrames = 5;
 						invincible = true;
 						Invoke ("disableInvincible", 0.5f);
@@ -237,7 +250,20 @@ public class PlayerController : MonoBehaviour
 
 		public float getX ()
 		{
-		
 				return transform.position.x;
+		}
+
+		void flinch ()
+		{
+				attacking = false;
+				animator.SetBool ("Kicking", false);
+				animator.SetBool ("Punching", false);
+
+				Transform[] allChildren = GetComponentsInChildren<Transform> ();
+
+				foreach (Transform child in allChildren) {
+						if (child.tag == "Kick" || child.tag == "Punch")
+								child.collider2D.enabled = false;
+				}
 		}
 }

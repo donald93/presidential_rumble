@@ -9,10 +9,12 @@ public class EnemyCollisions : MonoBehaviour
 
 		private bool invincible;
 		private GameObject GUI;
+		private EnemyAI AI;
 
 		// Use this for initialization
 		void Start ()
 		{
+				AI = GetComponent<EnemyAI> ();
 				GUI = GameObject.FindGameObjectWithTag ("GUI");
 				recoil = false;
 		}
@@ -38,7 +40,7 @@ public class EnemyCollisions : MonoBehaviour
 				if (!invincible) {		
 						if (collider.gameObject.tag == "Punch") {
 								healthPoints = 10;
-
+	
 						} else if (collider.gameObject.tag == "Kick") {
 								healthPoints = 15;
 
@@ -49,6 +51,7 @@ public class EnemyCollisions : MonoBehaviour
 						invincible = true;
 						Invoke ("disableInvincible", .5f);
 						GUI.SendMessage ("updateEnemyHealth", healthPoints);
+						flinch ();
 				}
 
 		}
@@ -60,8 +63,23 @@ public class EnemyCollisions : MonoBehaviour
 		
 		public float getX ()
 		{
-
 				return transform.position.x;
+		}
+
+		void flinch ()
+		{
+				AI.attacking = false;
+				AI.kick = false;
+				AI.kick = false;
+				AI.getAnimator ().SetBool ("Kicking", false);
+				AI.getAnimator ().SetBool ("Punching", false);
+
+				Transform[] allChildren = GetComponentsInChildren<Transform> ();
+
+				foreach (Transform child in allChildren) {
+						if (child.tag == "Kick" || child.tag == "Punch")
+								child.collider2D.enabled = false;
+				}
 		}
 }
 

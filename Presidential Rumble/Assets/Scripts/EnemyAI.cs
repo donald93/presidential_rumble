@@ -102,18 +102,24 @@ public class EnemyAI : MonoBehaviour
 						if (aggressive >= defensive) {
 							//Get away from the player. 
 							//Check which wall they are on and jump over player once in range
-							//if(rigidbody2D.transform.position.x < 23 && player.transform.position.x > rigidbody2D.transform.position.x)
-							//{	
-							//	MoveTowardsPlayer();
-							//}
-							//else if(rigidbody2D.transform.position.x > 1057 && player.transform.position.x < rigidbody2D.transform.position.x)
-							//{	
-							//	MoveTowardsPlayer();
-							//}
-							//else
-							//{			
-							//	MoveAwayFromPlayer();
-							//}
+							if(rigidbody2D.transform.position.x < 23 && player.rigidbody2D.transform.position.x > 20)// &&player.transform.position.x > rigidbody2D.transform.position.x)
+							{	
+								if (!jump && !jumping)
+									Invoke("Jump", 0.5f);
+								Debug.Log("In the first iF");
+								MoveTowardsPlayer();
+							}
+							else if(rigidbody2D.transform.position.x > 1057 && player.transform.position.x < rigidbody2D.transform.position.x)
+							{	
+								//Jump();
+								Debug.Log("In the first iF");
+
+								//MoveTowardsPlayer();
+							}
+							else
+							{			
+								//MoveAwayFromPlayer();
+							}
 							//Crouch a lot more (crouch punch)
 							//Block alot more
 							
@@ -162,6 +168,7 @@ public class EnemyAI : MonoBehaviour
 								if (jump) {
 										rigidbody2D.AddForce (new Vector2 (0f, jumpForce));	
 										jump = false;
+										jumping = false;
 								}
 						}
 
@@ -232,7 +239,7 @@ public class EnemyAI : MonoBehaviour
 
 				if (player.transform.position.y > rigidbody2D.transform.position.y + 10 && grounded && !jump) {
 						int rand = Random.Range (0, 3);
-						if (rand == 1)
+						if (rand == 1 && !jump && !jumping)
 								Invoke ("Jump", .05f);
 				}
 		}
@@ -241,12 +248,12 @@ public class EnemyAI : MonoBehaviour
 	{
 		if (cooldown == 0) {
 			if (player.transform.position.x < rigidbody2D.transform.position.x) {
-				moveHorizontal = -1;
-				rigidbody2D.velocity = new Vector2 (-moveHorizontal * 15, rigidbody2D.velocity.y);
+				moveHorizontal = 1;
+				rigidbody2D.velocity = new Vector2 (moveHorizontal * 15, rigidbody2D.velocity.y);
 				
 			} else if (player.transform.position.x > rigidbody2D.transform.position.x) {
-				moveHorizontal = 1;
-				rigidbody2D.velocity = new Vector2 (-moveHorizontal * 15, rigidbody2D.velocity.y);
+				moveHorizontal = -1;
+				rigidbody2D.velocity = new Vector2 (moveHorizontal * 15, rigidbody2D.velocity.y);
 			}
 			
 		} else {

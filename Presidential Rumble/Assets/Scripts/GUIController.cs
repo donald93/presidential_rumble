@@ -15,6 +15,7 @@ public class GUIController : MonoBehaviour
 		private GUIContent boxContent;
 		private GUIContent buttonContent;
 		private bool displayIntroBox;
+		private bool displayOutroBox;
 	
 		void Start ()
 		{
@@ -28,6 +29,8 @@ public class GUIController : MonoBehaviour
 				buttonContent = new GUIContent ();
 		
 				displayIntroBox = true;
+				displayOutroBox = false;
+
 				Globals.CurrentScene = levelCode;
 				Globals.GameState = BattleStateEnum.ONGOING;
 		}
@@ -69,11 +72,25 @@ public class GUIController : MonoBehaviour
 						// create the start button
 						buttonStyle.fontSize = 85;
 						if (GUI.Button (buttonRect, buttonContent, buttonStyle)) {
-								displayIntroBox = false;
-								Globals.paused = false;
-								GameTimer.StartTimer ();
-								//TODO play button noise
+								startBattle();
 						}
+				}
+		}
+		
+		private void startBattle() {
+				displayIntroBox = false;
+				Globals.paused = false;
+				GameTimer.StartTimer ();
+				//TODO play button noise
+		}
+
+		void Update ()
+		{
+				if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Joystick1Button7) || Input.GetKeyDown(KeyCode.Joystick1Button9)) {
+						if (displayIntroBox)
+								startBattle();
+						else if (displayOutroBox)
+								endBattle();
 				}
 		}
 	
@@ -82,9 +99,11 @@ public class GUIController : MonoBehaviour
 				if (Globals.GameState == BattleStateEnum.LOSE) {
 						boxContent.text = "You Lost!";
 						drawBox ("", boxContent.text);
+						displayOutroBox = true;
 				} else if (Globals.GameState == BattleStateEnum.WIN) {
 						boxContent.text = "You Won!";
 						drawBox (Globals.WashingtonFightOutros [(int)levelCode - 10], boxContent.text);
+						displayOutroBox = true;
 				} else {
 						return;
 				}
@@ -96,11 +115,16 @@ public class GUIController : MonoBehaviour
 				// create end battle button
 				buttonStyle.fontSize = 85;
 				if (GUI.Button (buttonRect, buttonContent, buttonStyle)) {
-						Application.LoadLevel ("WashingtonMap");					
-						//TODO play button sound
-						//AudioSource audio = gameObject.AddComponent<AudioSource> ();
-						//audio.clip = Resources.Load ("Sounds/Menu Select Sound") as AudioClip;
+						endBattle();
 				}	
+		}
+
+		private void endBattle() {
+				Application.LoadLevel ("WashingtonMap");
+				Globals.paused = true;
+				//TODO play button sound
+				//AudioSource audio = gameObject.AddComponent<AudioSource> ();
+				//audio.clip = Resources.Load ("Sounds/Menu Select Sound") as AudioClip;
 		}
 	
 		private void drawBox (string boxText, string buttonText)

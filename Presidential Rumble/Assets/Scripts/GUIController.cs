@@ -81,22 +81,22 @@ public class GUIController : MonoBehaviour
 		{
 				if (Globals.GameState == BattleStateEnum.LOSE) {
 						boxContent.text = "You Lost!";
-				} else if (Globals.GameState == BattleStateEnum.TIE) {
-						boxContent.text = "You Tied!";
+						drawBox ("", boxContent.text);
 				} else if (Globals.GameState == BattleStateEnum.WIN) {
 						boxContent.text = "You Won!";
+						drawBox (Globals.WashingtonFightOutros [(int)levelCode - 10], boxContent.text);
 				} else {
 						return;
 				}
 
+				Globals.paused = true;
 				Globals.CurrentScene = levelCode;
 				drawBox (Globals.WashingtonFightOutros [(int)levelCode - 10], boxContent.text);
 
 				// create end battle button
 				buttonStyle.fontSize = 85;
 				if (GUI.Button (buttonRect, buttonContent, buttonStyle)) {
-						Application.LoadLevel ("WashingtonMap");
-						Globals.paused = true;
+						Application.LoadLevel ("WashingtonMap");					
 						//TODO play button sound
 						//AudioSource audio = gameObject.AddComponent<AudioSource> ();
 						//audio.clip = Resources.Load ("Sounds/Menu Select Sound") as AudioClip;

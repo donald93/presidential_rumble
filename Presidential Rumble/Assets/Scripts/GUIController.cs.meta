@@ -2,7 +2,10 @@ fileFormatVersion: 2
 guid: 50e38d21016024fffa3f67c9d8663b26
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - guiFont: {instanceID: 0}
+  - boxImage: {fileID: 2800000, guid: 20d15e75102c39d4cb55fe873454ba96, type: 3}
+  - buttonImage: {fileID: 2800000, guid: 55c767c05754d4c4299bc7b1966c6160, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

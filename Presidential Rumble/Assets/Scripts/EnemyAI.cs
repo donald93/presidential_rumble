@@ -164,8 +164,6 @@ public class EnemyAI : MonoBehaviour
 						}
 
 
-
-		
 						framesSinceJump++;	
 
 						if (grounded && (framesSinceJump > 0)) {
@@ -310,6 +308,11 @@ public class EnemyAI : MonoBehaviour
 		{
 				defensive++;
 
+		}
+
+		public Animator getAnimator ()
+		{
+				return animator;
 		}
 }
 

@@ -42,6 +42,7 @@ public class GameTimer : MonoBehaviour
 
 						if (time <= 0) {
 								time = 0;
+								Globals.GameState = BattleStateEnum.LOSE;
 						}
 				}
 		}

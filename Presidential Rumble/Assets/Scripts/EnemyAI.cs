@@ -297,16 +297,17 @@ public class EnemyAI : MonoBehaviour
 				return block;
 		}
 
-		void updateMobile ()
+		public void updateMobile ()
 		{
 				mobile++;
 		}
 
-		void updateAggressive ()
+		public void updateAggressive ()
 		{
 				aggressive++;
 		}
-		void updateDefensive ()
+		
+		public void updateDefensive ()
 		{
 				defensive++;
 

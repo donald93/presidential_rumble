@@ -84,8 +84,7 @@ public class EnemyAI : MonoBehaviour
 												}
 										}
 								
-								} 
-								else {
+								} else {
 										int rand = Random.Range (0, 2);
 										if (rand == 1)
 												MoveTowardsPlayer ();
@@ -96,36 +95,29 @@ public class EnemyAI : MonoBehaviour
 										rigidbody2D.AddForce (new Vector2 (0f, jumpForce));	
 										jump = false;
 										jumping = false;
-								}
+								} 	
 						}
 							//(aggressive >= mobile)
-						if (aggressive >= defensive) {
-							//Get away from the player. 
-							//Check which wall they are on and jump over player once in range
-							if(rigidbody2D.transform.position.x < 23 && player.rigidbody2D.transform.position.x > 20)// &&player.transform.position.x > rigidbody2D.transform.position.x)
-							{	
-								if (!jump && !jumping)
-									Invoke("Jump", 0.5f);
-								Debug.Log("In the first iF");
-								MoveTowardsPlayer();
-							}
-							else if(rigidbody2D.transform.position.x > 1057 && player.transform.position.x < rigidbody2D.transform.position.x)
-							{	
-								//Jump();
-								Debug.Log("In the first iF");
+						else if (aggressive >= defensive) {
+								//Get away from the player. 
+								//Check which wall they are on and jump over player once in range
+								if (rigidbody2D.transform.position.x < 23 && player.rigidbody2D.transform.position.x > 20) {// &&player.transform.position.x > rigidbody2D.transform.position.x)	
+										if (!jump && !jumping)
+												Invoke ("Jump", 0.5f);
+										Debug.Log ("In the first iF");
+										MoveTowardsPlayer ();
+								} else if (rigidbody2D.transform.position.x > 1057 && player.transform.position.x < rigidbody2D.transform.position.x) {	
+										//Jump();
+										Debug.Log ("In the first iF");
 
-								//MoveTowardsPlayer();
-							}
-							else
-							{			
-								//MoveAwayFromPlayer();
-							}
-							//Crouch a lot more (crouch punch)
-							//Block alot more
+										//MoveTowardsPlayer();
+								} else {			
+										//MoveAwayFromPlayer();
+								}
+								//Crouch a lot more (crouch punch)
+								//Block alot more
 							
-						}
-						
-						if (defensive >= mobile && defensive >= aggressive) {
+						} else if (defensive >= mobile && defensive >= aggressive) {
 
 								if (Mathf.Abs (rigidbody2D.transform.position.x - player.transform.position.x) < 3) {
 										moveHorizontal = 0;
@@ -159,8 +151,7 @@ public class EnemyAI : MonoBehaviour
 												}
 										}
 								
-								} 
-								else {
+								} else {
 										int rand = Random.Range (0, 2);
 										if (rand == 1)
 												MoveTowardsPlayer ();
@@ -244,29 +235,29 @@ public class EnemyAI : MonoBehaviour
 				}
 		}
 		
-	void MoveAwayFromPlayer ()
-	{
-		if (cooldown == 0) {
-			if (player.transform.position.x < rigidbody2D.transform.position.x) {
-				moveHorizontal = 1;
-				rigidbody2D.velocity = new Vector2 (moveHorizontal * 15, rigidbody2D.velocity.y);
+		void MoveAwayFromPlayer ()
+		{
+				if (cooldown == 0) {
+						if (player.transform.position.x < rigidbody2D.transform.position.x) {
+								moveHorizontal = 1;
+								rigidbody2D.velocity = new Vector2 (moveHorizontal * 15, rigidbody2D.velocity.y);
 				
-			} else if (player.transform.position.x > rigidbody2D.transform.position.x) {
-				moveHorizontal = -1;
-				rigidbody2D.velocity = new Vector2 (moveHorizontal * 15, rigidbody2D.velocity.y);
-			}
+						} else if (player.transform.position.x > rigidbody2D.transform.position.x) {
+								moveHorizontal = -1;
+								rigidbody2D.velocity = new Vector2 (moveHorizontal * 15, rigidbody2D.velocity.y);
+						}
 			
-		} else {
-			cooldown--;
-			rigidbody2D.velocity = Vector2.zero;
-		}
+				} else {
+						cooldown--;
+						rigidbody2D.velocity = Vector2.zero;
+				}
 		
-		if (player.transform.position.y > rigidbody2D.transform.position.y + 10 && grounded && !jump) {
-			int rand = Random.Range (0, 3);
-			if (rand == 1)
-				Invoke ("Jump", .05f);
+				if (player.transform.position.y > rigidbody2D.transform.position.y + 10 && grounded && !jump) {
+						int rand = Random.Range (0, 3);
+						if (rand == 1)
+								Invoke ("Jump", .05f);
+				}
 		}
-	}
 		
 		void Jump ()
 		{

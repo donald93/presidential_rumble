@@ -58,16 +58,17 @@ public class MapGUI : MonoBehaviour
 				mapAudio = gameObject.AddComponent<AudioSource> ();
 				mapAudio.clip = sound;
 
-				// unlock the next level if you won
-				if (Globals.GameState == BattleStateEnum.WIN) {
-						if ((int)Globals.CurrentScene != 14) {
-								int level = (int)Globals.CurrentScene - 9;
-								while (level >= 0) {
-										buttons [level--].GetComponent<MapButton> ().levelLocked = false;
-								}
-
-						}
+				
+				int level;
+				if (Globals.GameState == BattleStateEnum.WIN && (int)Globals.CurrentScene != 14)
+						level = (int)Globals.CurrentScene - 9;
+				else
+						level = (int)Globals.CurrentScene - 10;
+				while (level >= 0) {
+						buttons [level--].GetComponent<MapButton> ().levelLocked = false;
 				}
+
+				
 
 				Globals.CurrentScene = SceneEnum.WashingtonMap;
 		}

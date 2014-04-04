@@ -124,6 +124,13 @@ public class MapGUI : MonoBehaviour
 
 		void Update ()
 		{
+				//cheat unlock all
+				if (Input.GetKeyDown("0")) {
+						foreach (GameObject b in buttons) {
+								b.GetComponent<MapButton> ().levelLocked = false;
+						}
+				}
+
 				// check for input
 				if (Input.GetMouseButtonDown (0)) {
 						RaycastHit hit;

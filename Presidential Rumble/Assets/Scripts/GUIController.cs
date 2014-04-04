@@ -39,7 +39,7 @@ public class GUIController : MonoBehaviour
 		
 				// prepare the style for the boxes
 				boxStyle.font = guiFont;
-				boxStyle.fontSize = 85;
+				boxStyle.fontSize = 45;
 				boxStyle.wordWrap = true;
 				boxStyle.alignment = TextAnchor.UpperCenter;
 		

@@ -38,13 +38,13 @@ public static class Globals
 	public static SceneEnum CurrentScene;
 	
 	public static readonly string[] WashingtonFightIntros = {"fighttut", 
-		"fight1", 
+		"May Twenty-Eighth, Seventeen Fifty-Four\n\nThe Battle of Jumonville Glen\nTensions between our British colonies and the French are rising.  A large Canadian force has recently driven off a construction team we sent in and plan to threaten us further.  I have aligned myself with an Iroquis who goes by the name of Tanacharison, or “Half-King”.  With the extra support from the natives, I plan on ambushing the Canadian camp and capturing their commander, Joseph Coulon de Villiers de Jumonville, and ending the conflict in this region.", 
 		"fight2", 
 		"fight3", 
 		"fight4"};
 	
 	public static readonly string[] WashingtonFightOutros = {"fighttut", 
-		"fight1", 
+		"The Battle of Jumonville Glen was a British Colonial victory that was a major contributing factor leading to the French and Indian War.  Joseph Coulon de Villiers de Jumonville was killed in battle, though the circumstances of his death are still up to debate.  Some believe that he was instead captured, the ordered killed by Washington himself.  After the victory, Washington retreated to Fort Necessity, where a nearby Canadian Force compelled his surrender.  ", 
 		"fight2", 
 		"fight3", 
 		"fight4"};

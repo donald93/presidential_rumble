@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 				Transform a = transform.Find ("Character animation");
 				animator = a.GetComponent<Animator> ();
 				GUI = GameObject.FindGameObjectWithTag ("GUI");
-				enemy = GameObject.FindGameObjectWithTag("Enemy");
+				enemy = GameObject.FindGameObjectWithTag ("Enemy").transform;
 		}
 
 		void Awake ()
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
 				
 										animator.SetBool ("Crouching", true);
 										crouch = true;
-										enemy.GetComponent<EnemyAI>().updateDefensive();
+										enemy.GetComponent<EnemyAI> ().updateDefensive ();
 								}
 
 								if (Input.GetKeyUp ("s") || Input.GetKeyUp (KeyCode.Joystick1Button5)) {
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
 								if (Input.GetKeyDown ("q") || Input.GetKeyDown (KeyCode.Joystick1Button4)) {
 										block = true;					
 										animator.SetBool ("Blocking", true);
-										enemy.GetComponent<EnemyAI>().updateDefensive();
+										enemy.GetComponent<EnemyAI> ().updateDefensive ();
 								}
 
 								if (Input.GetKeyUp ("q") || Input.GetKeyDown (KeyCode.Joystick1Button4)) {
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
 										animator.SetBool ("Jumping", true);
 										framesSinceJump = 0;
 										audio.PlayOneShot (jumpSound);
-										enemy.GetComponent<EnemyAI>().updateDefensive();
+										enemy.GetComponent<EnemyAI> ().updateDefensive ();
 								}
 			
 								if (framesSinceJump > 0 && grounded) {
@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
 								if ((Input.GetKeyDown ("f") || Input.GetKeyDown (KeyCode.Joystick1Button1)) && !attacking) {
 										animator.SetBool ("Punching", true);
 										attacking = true;	
-										enemy.GetComponent<EnemyAI>().updateAggressive();
+										enemy.GetComponent<EnemyAI> ().updateAggressive ();
 										// loop through children and enable the punch colliders
 										Transform[] allChildren = GetComponentsInChildren<Transform> ();
 										foreach (Transform child in allChildren) {
@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
 								if ((Input.GetKeyDown ("v") || Input.GetKeyDown (KeyCode.Joystick1Button2)) && !attacking) {
 										animator.SetBool ("Kicking", true);
 										attacking = true;
-										enemy.GetComponent<EnemyAI>().updateAggressive();
+										enemy.GetComponent<EnemyAI> ().updateAggressive ();
 										// loop through children and enable the punch colliders
 										Transform[] allChildren = GetComponentsInChildren<Transform> ();
 										foreach (Transform child in allChildren) {
@@ -141,25 +141,26 @@ public class PlayerController : MonoBehaviour
 										if (moveHorizontal > 0 || moveHorizontal < 0)
 												jumpStraight = false;
 								} else if (!goingLeft) {
-										if (moveHorizontal > 0)
+										if (moveHorizontal > 0) {
 
 												rigidbody2D.velocity = new Vector2 (25, rigidbody2D.velocity.y);
 												int rand = Random.Range (0, 5);
-												if (rand == 1){
-													enemy.GetComponent<EnemyAI>().updateMobile();
+												if (rand == 1) {
+														enemy.GetComponent<EnemyAI> ().updateMobile ();
 												}
 												rigidbody2D.velocity = new Vector2 (25 * moveHorizontal, rigidbody2D.velocity.y);
-										else
+										} else
 												rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x - 0.25f, rigidbody2D.velocity.y);
 								} else {
-										if (moveHorizontal < 0)
+										if (moveHorizontal < 0) {
 												rigidbody2D.velocity = new Vector2 (-25, rigidbody2D.velocity.y);
 												int rand = Random.Range (0, 5);
-												if (rand == 1){
-													enemy.GetComponent<EnemyAI>().updateMobile();
+												if (rand == 1) {
+														enemy.GetComponent<EnemyAI> ().updateMobile ();
 												}
+					
 												rigidbody2D.velocity = new Vector2 (25 * moveHorizontal, rigidbody2D.velocity.y);
-										else
+										} else
 												rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x + 0.25f, rigidbody2D.velocity.y);
 								}
 

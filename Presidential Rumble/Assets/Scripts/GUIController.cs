@@ -110,7 +110,6 @@ public class GUIController : MonoBehaviour
 
 				Globals.paused = true;
 				Globals.CurrentScene = levelCode;
-				drawBox (Globals.WashingtonFightOutros [(int)levelCode - 10], boxContent.text);
 
 				// create end battle button
 				buttonStyle.fontSize = 85;

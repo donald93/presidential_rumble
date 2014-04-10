@@ -48,10 +48,5 @@ public class HealthController : MonoBehaviour
 						Globals.GameState = BattleStateEnum.WIN;
 				}
 		}
-
-		void NextScene ()
-		{
-				Application.LoadLevel ("WashingtonMap");
-		}
 }
 

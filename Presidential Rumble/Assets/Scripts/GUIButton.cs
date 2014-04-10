@@ -9,44 +9,46 @@ using System.Collections;
 /// </summary>
 public class GUIButton : MonoBehaviour
 {
-	public float x, y, width, height;
-	public Texture2D defaultImage, hoverImage, downClickImage;
-	public string text;
-	public Font font;
-	public SceneEnum scene;
+		public float x, y, width, height;
+		public Texture2D defaultImage, hoverImage, downClickImage;
+		public string text;
+		public Font font;
+		public SceneEnum scene;
 
-	void OnGUI()
-	{
-		// scale the GUI to the current screen size
-		GUI.matrix = Globals.PrepareMatrix();
+		void OnGUI ()
+		{
+				// scale the GUI to the current screen size
+				GUI.matrix = Globals.PrepareMatrix ();
 
-		// set the GUI images and font
-		GUI.skin.button.normal.background = (Texture2D)defaultImage;
-		GUI.skin.button.hover.background = (Texture2D)hoverImage;
-		GUI.skin.button.active.background = (Texture2D)defaultImage;
-		GUI.skin.font = font;
-		GUI.skin.GetStyle("Button").fontSize = Mathf.FloorToInt(0.6f * height);
-		GUI.depth = 0;
+				// set the GUI images and font
+				GUI.skin.button.normal.background = (Texture2D)defaultImage;
+				GUI.skin.button.hover.background = (Texture2D)hoverImage;
+				GUI.skin.button.active.background = (Texture2D)defaultImage;
+				GUI.skin.font = font;
+				GUI.skin.GetStyle ("Button").fontSize = Mathf.FloorToInt (0.6f * height);
+				GUI.depth = 0;
 
-		// draw the button
-		if (GUI.Button(new Rect(x - width/2, y - height/2, width, height), text))
-	    {
-			changeScenes();
+				// draw the button
+				if (GUI.Button (new Rect (x - width / 2, y - height / 2, width, height), text)) {
+						changeScenes ();
+				}
+
+				// reset the resolution
+				GUI.matrix = Matrix4x4.identity;
 		}
 
-		// reset the resolution
-		GUI.matrix = Matrix4x4.identity;
-	}
+		public void changeScenes ()
+		{
+				audio.Play ();
+				Invoke ("switchScenes", 0.5f);
+		}
 
-	public void changeScenes()
-	{
-		audio.Play ();
-		Invoke("switchScenes", 0.5f);
-	}
-
-	void switchScenes()
-	{
-		Globals.CurrentScene = scene;
-		Application.LoadLevel (scene.ToString());
-	}
+		void switchScenes ()
+		{
+				Globals.CurrentScene = scene;
+				if (Globals.multiplayer == true)
+						Application.LoadLevel (scene.ToString () + "MP");
+				else
+						Application.LoadLevel (scene.ToString ());
+		}
 }

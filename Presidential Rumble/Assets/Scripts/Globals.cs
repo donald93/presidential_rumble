@@ -41,13 +41,12 @@ public static class Globals
 		public static BattleStateEnum GameState = BattleStateEnum.ONGOING;
 		public static SceneEnum CurrentScene;
 	
-		public static readonly string[] WashingtonFightIntros = {
-				"fighttut", 
-				"May Twenty-Eighth, Seventeen Fifty-Four\n\nThe Battle of Jumonville Glen\nTensions between our British colonies and the French are rising.  A large Canadian force has recently driven off a construction team we sent in and plan to threaten us further.  I have aligned myself with an Iroquis who goes by the name of Tanacharison, or “Half-King”.  With the extra support from the natives, I plan on ambushing the Canadian camp and capturing their commander, Joseph Coulon de Villiers de Jumonville, and ending the conflict in this region.", 
-				"October Nineteenth, Seventeen Eighty-One\n\nSiege of Yorktown\nThis is it, this is fight that will end our war with the British and earn us our freedom.  But first, we have to make it through General Cornwallis and his nine-thousand troops.  I have no doubt that our American army combined with our French allies will break their wills force a surrender.  We will march forward with bravery in our hearts and freedom on our minds, the American people will be given their rights at last. ", 
-				"September Fifteenth, Seventeen Eighty\n\nThe Betrayal of Benedict Arnold\nBenedict Arnold, a friend of mine, a trusted general and leader of the American people has left us for his English Masters.  He was in command of the fortifications of West Point, and the man planned on surrendering it to the British! We foiled his plans, but he has still evaded capture and is now a brigadier general of the British forces.  He has to pay for his actions, justice will come to this man.", 
-				"Sleepless night after the battle of Yorktown\n\nThe Man Who Would Not Be King\nI believe all men have natural rights, rights that can’t be stepped on or taken away by any single man.  And the role of this new government is to protect those rights.  That role is quickly being questioned.  Congress has delayed the payment to our soldiers for too long.  A young Colonel has recently written me on the ineffectiveness of congress, and has asked if I would step in as King of America.  Kings are exactly what we fought to protect ourselves against, yet it would make it easier for me to get the needed resources to men who were willing to give their lives for this country…"
-		};
+		public static readonly string[][] WashingtonFightIntros = {
+				new string[]{"1", "2"},
+				new string[]{"a", "b"},
+				new string[]{"1", "2", "3"},
+				new string[]{"a", "b", "c", "d"},
+				new string[]{"1", "2"}};
 	
 		public static readonly string[] WashingtonFightOutros = {
 				"fighttut", 

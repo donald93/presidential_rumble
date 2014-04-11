@@ -16,6 +16,7 @@ public class GUIController : MonoBehaviour
 		private GUIContent buttonContent;
 		private bool displayIntroBox;
 		private bool displayOutroBox;
+		private int currentIntro;
 	
 		void Start ()
 		{
@@ -33,6 +34,8 @@ public class GUIController : MonoBehaviour
 
 				Globals.CurrentScene = levelCode;
 				Globals.GameState = BattleStateEnum.ONGOING;
+
+				currentIntro = 0;
 		}
 	
 		void OnGUI ()
@@ -67,12 +70,22 @@ public class GUIController : MonoBehaviour
 		private void drawIntroBox ()
 		{
 				if (displayIntroBox) {
-						drawBox (Globals.WashingtonFightIntros [(int)levelCode - 10], "Begin!");
-			
-						// create the start button
-						buttonStyle.fontSize = 85;
-						if (GUI.Button (buttonRect, buttonContent, buttonStyle)) {
-								startBattle();
+						if (currentIntro < Globals.WashingtonFightIntros [(int)levelCode - 10].Length - 1) {
+								drawBox (Globals.WashingtonFightIntros [(int)levelCode - 10][currentIntro], "Continue", 72);
+					
+								// create the start button
+								buttonStyle.fontSize = 85;
+								if (GUI.Button (buttonRect, buttonContent, buttonStyle)) {
+										currentIntro++;
+								}
+						} else {
+								drawBox (Globals.WashingtonFightIntros [(int)levelCode - 10][currentIntro], "Begin!", 72);
+		
+								// create the start button
+								buttonStyle.fontSize = 85;
+								if (GUI.Button (buttonRect, buttonContent, buttonStyle)) {
+									startBattle();
+								}
 						}
 				}
 		}
@@ -98,11 +111,11 @@ public class GUIController : MonoBehaviour
 		{
 				if (Globals.GameState == BattleStateEnum.LOSE) {
 						boxContent.text = "You Lost!";
-						drawBox ("", boxContent.text);
+						drawBox ("", boxContent.text, 85);
 						displayOutroBox = true;
 				} else if (Globals.GameState == BattleStateEnum.WIN) {
 						boxContent.text = "You Won!";
-						drawBox (Globals.WashingtonFightOutros [(int)levelCode - 10], boxContent.text);
+						drawBox (Globals.WashingtonFightOutros [(int)levelCode - 10], boxContent.text, 85);
 						displayOutroBox = true;
 				} else {
 						return;
@@ -126,10 +139,12 @@ public class GUIController : MonoBehaviour
 				//audio.clip = Resources.Load ("Sounds/Menu Select Sound") as AudioClip;
 		}
 	
-		private void drawBox (string boxText, string buttonText)
+		private void drawBox (string boxText, string buttonText, int fontSize)
 		{	
 				// draw the box and text
 				boxContent.text = boxText;
+				boxStyle.fontSize = fontSize;
+
 				GUI.DrawTexture (boxRect, boxImage, ScaleMode.StretchToFill);
 				GUI.Label (new Rect (boxRect.x + 100, boxRect.y + 100, boxRect.width - 200, boxRect.height - 200), boxContent, boxStyle);
 		

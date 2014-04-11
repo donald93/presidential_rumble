@@ -24,12 +24,15 @@ public class HealthController : MonoBehaviour
 
 		void OnGUI ()
 		{
+
 		}
 
 		void updatePlayerHealth (int health)
 		{
 				playerHealth -= health;
 				playerBar.transform.localScale = new Vector3 ((float)playerHealth / maxHealth, 1f, 1f);
+				playerBar.transform.position = new Vector3 (playerBar.transform.position.x + 0.0025f, playerBar.transform.position.y, playerBar.transform.position.z);
+
 				if (playerHealth <= 0) {
 						Globals.paused = true;
 						Globals.GameState = BattleStateEnum.LOSE;
@@ -40,6 +43,7 @@ public class HealthController : MonoBehaviour
 		{
 				enemyHealth -= health;
 				enemyBar.transform.localScale = new Vector3 ((float)enemyHealth / maxHealth, 1f, 1f);
+				enemyBar.transform.position = new Vector3 (enemyBar.transform.position.x - 0.0025f, enemyBar.transform.position.y, enemyBar.transform.position.z);
 				if (enemyHealth <= 0) {
 						Globals.paused = true;
 						if (GameObject.Find ("Enemy").GetComponent<SpriteRenderer> () != null)

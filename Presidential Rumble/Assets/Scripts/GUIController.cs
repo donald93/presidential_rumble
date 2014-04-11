@@ -16,6 +16,7 @@ public class GUIController : MonoBehaviour
 		private GUIContent buttonContent;
 		private bool displayIntroBox;
 		private bool displayOutroBox;
+		private int currentIntro;
 	
 		void Start ()
 		{
@@ -33,6 +34,8 @@ public class GUIController : MonoBehaviour
 
 				Globals.CurrentScene = levelCode;
 				Globals.GameState = BattleStateEnum.ONGOING;
+
+				currentIntro = 0;
 		}
 	
 		void OnGUI ()
@@ -67,12 +70,22 @@ public class GUIController : MonoBehaviour
 		private void drawIntroBox ()
 		{
 				if (displayIntroBox) {
-						drawBox (Globals.WashingtonFightIntros [(int)levelCode - 10], "Begin!");
-			
-						// create the start button
-						buttonStyle.fontSize = 85;
-						if (GUI.Button (buttonRect, buttonContent, buttonStyle)) {
-								startBattle();
+						if (currentIntro < Globals.WashingtonFightIntros [(int)levelCode - 10].Length - 1) {
+								drawBox (Globals.WashingtonFightIntros [(int)levelCode - 10][currentIntro], "Continue");
+					
+								// create the start button
+								buttonStyle.fontSize = 85;
+								if (GUI.Button (buttonRect, buttonContent, buttonStyle)) {
+										currentIntro++;
+								}
+						} else {
+								drawBox (Globals.WashingtonFightIntros [(int)levelCode - 10][currentIntro], "Begin!");
+		
+								// create the start button
+								buttonStyle.fontSize = 85;
+								if (GUI.Button (buttonRect, buttonContent, buttonStyle)) {
+									startBattle();
+								}
 						}
 				}
 		}

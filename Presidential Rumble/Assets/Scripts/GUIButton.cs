@@ -46,7 +46,7 @@ public class GUIButton : MonoBehaviour
 		void switchScenes ()
 		{
 				Globals.CurrentScene = scene;
-				if (Globals.multiplayer == true)
+				if (Globals.multiplayer == true && !scene.ToString ().Equals ("MainMenu"))
 						Application.LoadLevel (scene.ToString () + "MP");
 				else
 						Application.LoadLevel (scene.ToString ());

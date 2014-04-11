@@ -6,8 +6,6 @@ public class GameTimer : MonoBehaviour
 		private static float prev_time;
 		public float time;
 		public Font timerFont;
-		public Texture2D player1Portrait;
-		public Texture2D player2Portrait;
 		public GUIButton startButton;
 		public Texture2D boxImage;
 
@@ -59,7 +57,7 @@ public class GameTimer : MonoBehaviour
 				//GUI.contentColor = Color.black;
 				int width = 100;
 				int height = 20;
-
+				GUI.Box (new Rect ((Globals.originalWidth / 2 - width / 2), height, width, 90), "");
 				GUI.Label (new Rect (Globals.originalWidth / 2 - width / 2, height, width, 100), Mathf.FloorToInt (time).ToString ());
 		}
 }

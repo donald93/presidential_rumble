@@ -71,7 +71,7 @@ public class GUIController : MonoBehaviour
 		{
 				if (displayIntroBox) {
 						if (currentIntro < Globals.WashingtonFightIntros [(int)levelCode - 10].Length - 1) {
-								drawBox (Globals.WashingtonFightIntros [(int)levelCode - 10][currentIntro], "Continue", 72);
+								drawBox (Globals.WashingtonFightIntros [(int)levelCode - 10][currentIntro], "Continue", 85);
 					
 								// create the start button
 								buttonStyle.fontSize = 85;
@@ -79,7 +79,7 @@ public class GUIController : MonoBehaviour
 										currentIntro++;
 								}
 						} else {
-								drawBox (Globals.WashingtonFightIntros [(int)levelCode - 10][currentIntro], "Begin!", 72);
+								drawBox (Globals.WashingtonFightIntros [(int)levelCode - 10][currentIntro], "Begin!", 85);
 		
 								// create the start button
 								buttonStyle.fontSize = 85;
@@ -111,11 +111,11 @@ public class GUIController : MonoBehaviour
 		{
 				if (Globals.GameState == BattleStateEnum.LOSE) {
 						boxContent.text = "You Lost!";
-						drawBox ("", boxContent.text, 85);
+						drawBox ("", boxContent.text, 60);
 						displayOutroBox = true;
 				} else if (Globals.GameState == BattleStateEnum.WIN) {
 						boxContent.text = "You Won!";
-						drawBox (Globals.WashingtonFightOutros [(int)levelCode - 10], boxContent.text, 85);
+						drawBox (Globals.WashingtonFightOutros [(int)levelCode - 10], boxContent.text, 60);
 						displayOutroBox = true;
 				} else {
 						return;

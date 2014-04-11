@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Timers;
 
 public class EnemyAI : MonoBehaviour
 {
 		public int hitBoundary = 0;
-		public int mobile = 0, aggressive = 1, defensive = 0;
-
+		public int mobile = 0, aggressive = 0, defensive = 0;
+		Timer resetTimer;
 		float startingPos;
 		public int unitsToMove = 5, framesSinceJump = 0, jumpForce = 3500;
 		public int moveSpeed = 2;
@@ -37,6 +38,7 @@ public class EnemyAI : MonoBehaviour
 
 				if (a != null && a.GetComponent<Animator> () != null)
 						animator = a.GetComponent<Animator> ();
+				Counter();
 		}
 	
 		// Update is called once per frame
@@ -75,13 +77,17 @@ public class EnemyAI : MonoBehaviour
 														attacking = true;
 														punch = true;
 														Punch ();
+
 												} else if (rand == 2) {
 														attacking = true;
 														kick = true;
 														Kick ();
+														
 												} else {
 														Block ();
+														
 												}
+											//Counter();
 										}
 								
 								} else {
@@ -98,24 +104,24 @@ public class EnemyAI : MonoBehaviour
 								} 	
 						}
 							//(aggressive >= mobile)
-						else if (aggressive >= defensive) {
+							else if (aggressive >= defensive && aggressive >= mobile) {
 								//Get away from the player. 
 								//Check which wall they are on and jump over player once in range
-								if (rigidbody2D.transform.position.x < 23 && player.rigidbody2D.transform.position.x > 20) {// &&player.transform.position.x > rigidbody2D.transform.position.x)	
+								if (rigidbody2D.transform.position.x < 23 && player.transform.position.x > rigidbody2D.transform.position.x) {// &&player.transform.position.x > rigidbody2D.transform.position.x)	
 										if (!jump && !jumping)
 												Invoke ("Jump", 0.5f);
-										Debug.Log ("In the first iF");
-										MoveTowardsPlayer ();
-								} else if (rigidbody2D.transform.position.x > 1057 && player.transform.position.x < rigidbody2D.transform.position.x) {	
-										//Jump();
-										Debug.Log ("In the first iF");
-
-										//MoveTowardsPlayer();
+										MoveAwayFromPlayer();
+								} else if (rigidbody2D.transform.position.x > -17 && player.transform.position.x < rigidbody2D.transform.position.x) {	
+										if (!jump && !jumping)
+											Invoke ("Jump", 0.5f);
+										MoveAwayFromPlayer();
 								} else {			
-										//MoveAwayFromPlayer();
+										MoveAwayFromPlayer();
 								}
+								
 								//Crouch a lot more (crouch punch)
 								//Block alot more
+								//Counter();
 							
 						} else if (defensive >= mobile && defensive >= aggressive) {
 
@@ -136,7 +142,6 @@ public class EnemyAI : MonoBehaviour
 														attacking = true;
 														kick = true;
 														punch = true;
-
 														Kick ();
 														Punch ();
 														Punch ();
@@ -149,6 +154,7 @@ public class EnemyAI : MonoBehaviour
 														Kick ();
 
 												}
+											//Counter();
 										}
 								
 								} else {
@@ -314,6 +320,24 @@ public class EnemyAI : MonoBehaviour
 		public Animator getAnimator ()
 		{
 				return animator;
+		}
+
+		void Counter()
+		{
+			resetTimer = new Timer (5000);
+			resetTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+			resetTimer.Enabled = true;
+			resetTimer.Interval = 5000;
+			
+		}
+		
+		public void OnTimedEvent(object source, ElapsedEventArgs e)
+		{
+			//Console.WriteLine("The Elapsed event was raised at {0}", e.SignalTime);
+			mobile = 0;
+			aggressive = 0;
+			defensive = 0;
+			Counter();
 		}
 }
 

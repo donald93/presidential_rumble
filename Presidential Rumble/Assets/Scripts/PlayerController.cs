@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
 										animator.SetBool ("Jumping", true);
 										framesSinceJump = 0;
 										audio.PlayOneShot (jumpSound);
-										enemy.GetComponent<EnemyAI> ().updateDefensive ();
+										enemy.GetComponent<EnemyAI> ().updateMobile ();
 								}
 			
 								if (framesSinceJump > 0 && grounded) {
@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour
 										if (moveHorizontal > 0) {
 
 												rigidbody2D.velocity = new Vector2 (25, rigidbody2D.velocity.y);
-												int rand = Random.Range (0, 5);
+												int rand = Random.Range (0, 20);
 												if (rand == 1) {
 														enemy.GetComponent<EnemyAI> ().updateMobile ();
 												}
@@ -154,7 +154,7 @@ public class PlayerController : MonoBehaviour
 								} else {
 										if (moveHorizontal < 0) {
 												rigidbody2D.velocity = new Vector2 (-25, rigidbody2D.velocity.y);
-												int rand = Random.Range (0, 5);
+												int rand = Random.Range (0, 20);
 												if (rand == 1) {
 														enemy.GetComponent<EnemyAI> ().updateMobile ();
 												}

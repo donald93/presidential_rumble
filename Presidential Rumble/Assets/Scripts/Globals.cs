@@ -12,6 +12,7 @@ using System.Collections;
 public enum SceneEnum
 {
 		MainMenu = 0,
+		Credits = 8,
 		WashingtonMap = 9,
 		WashingtonTutorial = 10,
 		WashingtonFight1 = 11,

@@ -48,7 +48,7 @@ public class GUIController : MonoBehaviour
 				boxStyle.fontSize = 45;
 				boxStyle.wordWrap = true;
 				boxStyle.alignment = TextAnchor.UpperCenter;
-		
+	
 				// prepare the style for buttons
 				GUI.skin.button.normal.background = buttonImage;
 				GUI.skin.button.hover.background = buttonImage;
@@ -71,7 +71,7 @@ public class GUIController : MonoBehaviour
 		{
 				if (displayIntroBox) {
 						if (currentIntro < Globals.WashingtonFightIntros [(int)levelCode - 10].Length - 1) {
-								drawBox (Globals.WashingtonFightIntros [(int)levelCode - 10][currentIntro], "Continue", 85);
+								drawBox (Globals.WashingtonFightIntros [(int)levelCode - 10] [currentIntro], "Continue", 85);
 								
 								// create the start button
 								buttonStyle.fontSize = 85;
@@ -79,7 +79,7 @@ public class GUIController : MonoBehaviour
 										advanceIntro ();
 								}
 						} else {
-								drawBox (Globals.WashingtonFightIntros [(int)levelCode - 10][currentIntro], "Begin!", 85);
+								drawBox (Globals.WashingtonFightIntros [(int)levelCode - 10] [currentIntro], "Begin!", 85);
 		
 								// create the start button
 								buttonStyle.fontSize = 85;
@@ -90,14 +90,16 @@ public class GUIController : MonoBehaviour
 				}
 		}
 
-		private void advanceIntro () {
+		private void advanceIntro ()
+		{
 				if (currentIntro < Globals.WashingtonFightIntros [(int)levelCode - 10].Length - 1)
 						currentIntro++;
 				else
 						startBattle ();
 		}
 		
-		private void startBattle() {
+		private void startBattle ()
+		{
 				displayIntroBox = false;
 				Globals.paused = false;
 				GameTimer.StartTimer ();
@@ -106,11 +108,13 @@ public class GUIController : MonoBehaviour
 
 		void Update ()
 		{
-				if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Joystick1Button7) || Input.GetKeyDown(KeyCode.Joystick1Button9)) {
+				if (Input.GetKeyDown (KeyCode.Return) || Input.GetKeyDown (KeyCode.Joystick1Button7) || Input.GetKeyDown (KeyCode.Joystick1Button9)) {
 						if (displayIntroBox)
 								advanceIntro ();
 						else if (displayOutroBox)
 								endBattle ();
+						else
+								Globals.paused = !Globals.paused;
 				}
 		}
 	
@@ -134,11 +138,12 @@ public class GUIController : MonoBehaviour
 				// create end battle button
 				buttonStyle.fontSize = 85;
 				if (GUI.Button (buttonRect, buttonContent, buttonStyle)) {
-						endBattle();
+						endBattle ();
 				}	
 		}
 
-		private void endBattle() {
+		private void endBattle ()
+		{
 				Application.LoadLevel ("WashingtonMap");
 				Globals.paused = true;
 				//TODO play button sound

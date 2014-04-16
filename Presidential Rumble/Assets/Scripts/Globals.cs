@@ -14,7 +14,7 @@ public enum SceneEnum
 		MainMenu = 0,
 		Credits = 8,
 		WashingtonMap = 9,
-		WashingtonTutorial = 10,
+		//WashingtonTutorial = 10,
 		WashingtonFight1 = 11,
 		WashingtonFight2 = 12,
 		WashingtonFight3 = 13,

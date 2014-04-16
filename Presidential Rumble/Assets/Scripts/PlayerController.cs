@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 				animator = a.GetComponent<Animator> ();
 				GUI = GameObject.FindGameObjectWithTag ("GUI");
 				enemy = GameObject.FindGameObjectWithTag ("Enemy").transform;
+				Globals.multiplayer = false;
 		}
 
 		void Awake ()
@@ -123,6 +124,10 @@ public class PlayerController : MonoBehaviour
 		// Called each update
 		void FixedUpdate ()
 		{
+				if (Globals.paused) {
+						rigidbody2D.velocity = Vector2.zero;
+				}
+
 				if (!Globals.paused) {
 						if (recoilFrames > 0) {
 						

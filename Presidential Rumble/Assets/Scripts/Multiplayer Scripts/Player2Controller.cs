@@ -120,6 +120,10 @@ public class Player2Controller : MonoBehaviour
 		// Called each update
 		void FixedUpdate ()
 		{
+				if (Globals.paused) {
+						rigidbody2D.velocity = Vector2.zero;
+				}
+
 				if (!Globals.paused) {
 						if (recoilFrames > 0) {
 						

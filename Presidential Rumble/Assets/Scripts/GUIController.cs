@@ -113,8 +113,10 @@ public class GUIController : MonoBehaviour
 								advanceIntro ();
 						else if (displayOutroBox)
 								endBattle ();
-						else
+						else {
 								Globals.paused = !Globals.paused;
+								
+						}
 				}
 		}
 	

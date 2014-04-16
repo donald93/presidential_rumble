@@ -181,7 +181,7 @@ public class Player2Controller : MonoBehaviour
 						flinch ();
 						recoilFrames = 5;
 						invincible = true;
-						Invoke ("disableInvincible", 0.5f);
+						Invoke ("disableInvincible", 0.3f);
 						if (block) {
 								healthPoints = 1;
 						} else
@@ -193,7 +193,7 @@ public class Player2Controller : MonoBehaviour
 						flinch ();
 						recoilFrames = 5;
 						invincible = true;
-						Invoke ("disableInvincible", 0.5f);
+						Invoke ("disableInvincible", 0.3f);
 						if (block) {
 								healthPoints = 1;
 						} else

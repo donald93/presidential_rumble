@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
 										foreach (Transform child in allChildren) {
 												if (child.tag == "Punch")
 														child.collider2D.enabled = true;
-												Invoke ("disablePunch", 0.2f);
+												Invoke ("disablePunch", 0.05f);
 										}
 								} 
 

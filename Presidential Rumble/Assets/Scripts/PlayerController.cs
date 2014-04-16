@@ -77,8 +77,6 @@ public class PlayerController : MonoBehaviour
 										jumping = false;
 								}
 
-
-
 								// Punch key was pushed
 								if ((Input.GetKeyDown ("f") || Input.GetKeyDown (KeyCode.Joystick1Button1)) && !attacking) {
 										animator.SetBool ("Punching", true);

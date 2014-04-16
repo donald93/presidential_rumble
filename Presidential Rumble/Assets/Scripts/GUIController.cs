@@ -72,11 +72,11 @@ public class GUIController : MonoBehaviour
 				if (displayIntroBox) {
 						if (currentIntro < Globals.WashingtonFightIntros [(int)levelCode - 10].Length - 1) {
 								drawBox (Globals.WashingtonFightIntros [(int)levelCode - 10][currentIntro], "Continue", 85);
-					
+								
 								// create the start button
 								buttonStyle.fontSize = 85;
 								if (GUI.Button (buttonRect, buttonContent, buttonStyle)) {
-										currentIntro++;
+										advanceIntro ();
 								}
 						} else {
 								drawBox (Globals.WashingtonFightIntros [(int)levelCode - 10][currentIntro], "Begin!", 85);
@@ -84,10 +84,17 @@ public class GUIController : MonoBehaviour
 								// create the start button
 								buttonStyle.fontSize = 85;
 								if (GUI.Button (buttonRect, buttonContent, buttonStyle)) {
-									startBattle();
+										startBattle ();
 								}
 						}
 				}
+		}
+
+		private void advanceIntro () {
+				if (currentIntro < Globals.WashingtonFightIntros [(int)levelCode - 10].Length - 1)
+						currentIntro++;
+				else
+						startBattle ();
 		}
 		
 		private void startBattle() {
@@ -101,9 +108,9 @@ public class GUIController : MonoBehaviour
 		{
 				if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Joystick1Button7) || Input.GetKeyDown(KeyCode.Joystick1Button9)) {
 						if (displayIntroBox)
-								startBattle();
+								advanceIntro ();
 						else if (displayOutroBox)
-								endBattle();
+								endBattle ();
 				}
 		}
 	

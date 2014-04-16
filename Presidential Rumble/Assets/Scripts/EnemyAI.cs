@@ -20,8 +20,7 @@ public class EnemyAI : MonoBehaviour
 		protected Animator animator;
 		float moveHorizontal;
 		private Transform groundCheck;
-
-
+	
 		void Awake ()
 		{
 				startingPos = transform.position.x;
@@ -107,14 +106,13 @@ public class EnemyAI : MonoBehaviour
 							else if (aggressive >= defensive && aggressive >= mobile) {
 								//Get away from the player. 
 								//Check which wall they are on and jump over player once in range
+								MoveAwayFromPlayer();
 								if (rigidbody2D.transform.position.x < 23 && player.transform.position.x > rigidbody2D.transform.position.x) {// &&player.transform.position.x > rigidbody2D.transform.position.x)	
 										if (!jump && !jumping)
 												Invoke ("Jump", 0.5f);
-										MoveAwayFromPlayer();
 								} else if (rigidbody2D.transform.position.x > -17 && player.transform.position.x < rigidbody2D.transform.position.x) {	
 										if (!jump && !jumping)
 											Invoke ("Jump", 0.5f);
-										MoveAwayFromPlayer();
 								} else {			
 										MoveAwayFromPlayer();
 								}

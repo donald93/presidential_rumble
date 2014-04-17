@@ -58,11 +58,14 @@ public class MenuController : MonoBehaviour {
 			selected = -1;
 			UnselectAll ();
 		}
+		else if (Input.GetAxisRaw("Enter") != 0 && selected >= 0) {
+			Screen.showCursor = true;
+			Screen.lockCursor = false;
+			buttons [selected].GetComponent<GUIButton>().changeScenes ();
+		}
 		else {
 			axisBusy = false;
 		}
-
-		//TODO get controller buttons
 	}
 
 	private void Select (GameObject button) {

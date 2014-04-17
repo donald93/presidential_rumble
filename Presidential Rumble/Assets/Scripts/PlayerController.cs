@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
 		{
 				
 				if (!Globals.paused) {
+						animator.speed = 1;
+						rigidbody2D.gravityScale = 15;
 						grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
 
 						if (animator) {
@@ -118,6 +120,9 @@ public class PlayerController : MonoBehaviour
 								transform.localScale = scale;
 						}
 
+				} else {
+						animator.speed = 0;
+						rigidbody2D.gravityScale = 0;
 				}
 		}
 

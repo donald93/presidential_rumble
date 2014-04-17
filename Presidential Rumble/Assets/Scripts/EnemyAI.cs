@@ -37,7 +37,7 @@ public class EnemyAI : MonoBehaviour
 
 				if (a != null && a.GetComponent<Animator> () != null)
 						animator = a.GetComponent<Animator> ();
-				Counter();
+				Counter ();
 		}
 	
 		// Update is called once per frame
@@ -63,6 +63,8 @@ public class EnemyAI : MonoBehaviour
 		void FixedUpdate ()
 		{
 				if (!Globals.paused) {
+						animator.speed = 1;
+						rigidbody2D.gravityScale = 15;
 						
 						if (mobile >= aggressive && mobile >= defensive) {
 							
@@ -86,7 +88,7 @@ public class EnemyAI : MonoBehaviour
 														Block ();
 														
 												}
-											//Counter();
+												//Counter();
 										}
 								
 								} else {
@@ -106,15 +108,15 @@ public class EnemyAI : MonoBehaviour
 							else if (aggressive >= defensive && aggressive >= mobile) {
 								//Get away from the player. 
 								//Check which wall they are on and jump over player once in range
-								MoveAwayFromPlayer();
+								MoveAwayFromPlayer ();
 								if (rigidbody2D.transform.position.x < 23 && player.transform.position.x > rigidbody2D.transform.position.x) {// &&player.transform.position.x > rigidbody2D.transform.position.x)	
 										if (!jump && !jumping)
 												Invoke ("Jump", 0.5f);
 								} else if (rigidbody2D.transform.position.x > -17 && player.transform.position.x < rigidbody2D.transform.position.x) {	
 										if (!jump && !jumping)
-											Invoke ("Jump", 0.5f);
+												Invoke ("Jump", 0.5f);
 								} else {			
-										MoveAwayFromPlayer();
+										MoveAwayFromPlayer ();
 								}
 								
 								//Crouch a lot more (crouch punch)
@@ -152,7 +154,7 @@ public class EnemyAI : MonoBehaviour
 														Kick ();
 
 												}
-											//Counter();
+												//Counter();
 										}
 								
 								} else {
@@ -175,6 +177,10 @@ public class EnemyAI : MonoBehaviour
 								jumping = false;
 								jump = false;
 						}
+				} else {
+						animator.speed = 0;
+						rigidbody2D.velocity = Vector2.zero;
+						rigidbody2D.gravityScale = 0;
 				}
 		}
 		
@@ -320,22 +326,22 @@ public class EnemyAI : MonoBehaviour
 				return animator;
 		}
 
-		void Counter()
+		void Counter ()
 		{
-			resetTimer = new Timer (5000);
-			resetTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-			resetTimer.Enabled = true;
-			resetTimer.Interval = 5000;
+				resetTimer = new Timer (5000);
+				resetTimer.Elapsed += new ElapsedEventHandler (OnTimedEvent);
+				resetTimer.Enabled = true;
+				resetTimer.Interval = 5000;
 			
 		}
 		
-		public void OnTimedEvent(object source, ElapsedEventArgs e)
+		public void OnTimedEvent (object source, ElapsedEventArgs e)
 		{
-			//Console.WriteLine("The Elapsed event was raised at {0}", e.SignalTime);
-			mobile = 0;
-			aggressive = 0;
-			defensive = 0;
-			Counter();
+				//Console.WriteLine("The Elapsed event was raised at {0}", e.SignalTime);
+				mobile = 0;
+				aggressive = 0;
+				defensive = 0;
+				Counter ();
 		}
 }
 

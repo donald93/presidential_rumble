@@ -17,6 +17,7 @@ public class GUIController : MonoBehaviour
 		private bool displayIntroBox;
 		private bool displayOutroBox;
 		private int currentIntro;
+		private bool intro = true;
 	
 		void Start ()
 		{
@@ -62,7 +63,8 @@ public class GUIController : MonoBehaviour
 				// display the display boxes if neccessary
 				drawIntroBox ();
 				drawOutroBox ();
-		
+				drawPauseBox ();
+
 				// reset the resolution
 				GUI.matrix = Matrix4x4.identity;
 		}
@@ -90,8 +92,15 @@ public class GUIController : MonoBehaviour
 				}
 		}
 
-		private void advanceIntro ()
+		private void drawPauseBox ()
 		{
+				if (Globals.paused && !intro) {
+						opaqueBox ("Paused\n\n\nPress Start to resume", boxContent.text, 85);								
+				}
+		}
+
+		private void advanceIntro ()
+		{  
 				if (currentIntro < Globals.WashingtonFightIntros [(int)levelCode - 10].Length - 1)
 						currentIntro++;
 				else
@@ -102,6 +111,7 @@ public class GUIController : MonoBehaviour
 		{
 				displayIntroBox = false;
 				Globals.paused = false;
+				intro = false;
 				GameTimer.StartTimer ();
 				//TODO play button noise
 		}
@@ -115,7 +125,6 @@ public class GUIController : MonoBehaviour
 								endBattle ();
 						else {
 								Globals.paused = !Globals.paused;
-								
 						}
 				}
 		}
@@ -152,13 +161,34 @@ public class GUIController : MonoBehaviour
 				//AudioSource audio = gameObject.AddComponent<AudioSource> ();
 				//audio.clip = Resources.Load ("Sounds/Menu Select Sound") as AudioClip;
 		}
-	
+
+		private void opaqueBox (string boxText, string buttonText, int fontSize)
+		{
+				GUI.color = new Color (1.0f, 1.0f, 1.0f, 0.75f);
+				drawBox (boxText, buttonText, fontSize, new Rect (610, 300, 700, 600));
+				GUI.color = new Color (1f, 1f, 1f, 1f);
+
+		}
+
+		private void drawBox (string boxText, string buttonText, int fontSize, Rect boxRect)
+		{	
+				// draw the box and text
+				boxContent.text = boxText;
+				boxStyle.fontSize = fontSize;
+			
+				GUI.DrawTexture (boxRect, boxImage, ScaleMode.StretchToFill);
+				GUI.Label (new Rect (boxRect.x + 100, boxRect.y + 100, boxRect.width - 200, boxRect.height - 200), boxContent, boxStyle);
+		
+				// change the button text
+				buttonContent.text = buttonText;
+		}
+
 		private void drawBox (string boxText, string buttonText, int fontSize)
 		{	
 				// draw the box and text
 				boxContent.text = boxText;
 				boxStyle.fontSize = fontSize;
-
+			
 				GUI.DrawTexture (boxRect, boxImage, ScaleMode.StretchToFill);
 				GUI.Label (new Rect (boxRect.x + 100, boxRect.y + 100, boxRect.width - 200, boxRect.height - 200), boxContent, boxStyle);
 		

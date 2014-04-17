@@ -14,6 +14,7 @@ public class GUIButton : MonoBehaviour
 		public string text;
 		public Font font;
 		public SceneEnum scene;
+		public bool multiplayer = false;
 
 		void OnGUI ()
 		{
@@ -35,6 +36,7 @@ public class GUIButton : MonoBehaviour
 
 				// reset the resolution
 				GUI.matrix = Matrix4x4.identity;
+
 		}
 
 		public void changeScenes ()
@@ -45,10 +47,14 @@ public class GUIButton : MonoBehaviour
 
 		void switchScenes ()
 		{
-				Globals.CurrentScene = scene;
-				if (Globals.multiplayer == true && !scene.ToString ().Equals ("MainMenu"))
+				if (Globals.CurrentScene.ToString ().Equals ("MainMenu"))
+						Globals.multiplayer = multiplayer;
+
+				if (Globals.multiplayer == true && !Globals.CurrentScene.ToString ().Equals ("MainMenu"))
 						Application.LoadLevel (scene.ToString () + "MP");
 				else
 						Application.LoadLevel (scene.ToString ());
+
+				Globals.CurrentScene = scene;
 		}
 }

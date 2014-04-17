@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
 										enemy.GetComponent<EnemyAI> ().updateDefensive ();
 								}
 
-								if (Input.GetKeyUp ("q") || Input.GetKeyDown (KeyCode.Joystick1Button4)) {
+								if (Input.GetKeyUp ("q") || Input.GetKeyUp (KeyCode.Joystick1Button4)) {
 										block = false;
 										animator.SetBool ("Blocking", false);
 								}

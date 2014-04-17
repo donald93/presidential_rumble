@@ -54,7 +54,7 @@ public class Player2Controller : MonoBehaviour
 										animator.SetBool ("Blocking", true);
 								}
 
-								if (Input.GetKeyUp ("u") || Input.GetKeyDown (KeyCode.Joystick2Button4)) {
+								if (Input.GetKeyUp ("u") || Input.GetKeyUp (KeyCode.Joystick2Button4)) {
 										block = false;
 										animator.SetBool ("Blocking", false);
 								}

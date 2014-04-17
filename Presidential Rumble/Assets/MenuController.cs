@@ -6,12 +6,13 @@ public class MenuController : MonoBehaviour {
 
 	private bool axisBusy;
 	private int selected;
+	private int fullColumns;
 
 	void Awake() {
-		selected = 0;
+		selected = -1;
 		axisBusy = false;
 
-		Select (buttons [selected]);
+		fullColumns = Mathf.CeilToInt (Mathf.Sqrt (buttons.Length));
 	}
 
 	// Update is called once per frame
@@ -19,13 +20,36 @@ public class MenuController : MonoBehaviour {
 		// get controller movement
 		if (Input.GetAxisRaw ("Horizontal") != 0) {
 			if (!axisBusy) {
-				if (selected == -1)
-					selected = 0;
-				else {
-					if (selected % 2 == 0)
+				if (selected >= 0) {
+					if (Input.GetAxisRaw ("Horizontal") < 0) {
+						if ((selected + fullColumns) % fullColumns == 0) {
+							selected += (fullColumns - 1);
+						}
+						else {
+							selected--;
+						}
+
+						while (selected >= fullColumns) {
+							selected--;
+						}
+					}
+					else {
 						selected++;
-					else
-						selected--;
+
+						if (selected % fullColumns == 0) {
+							selected -= fullColumns;
+						}
+
+						if (selected > buttons.Length - 1) {
+							while (selected % fullColumns != 0) {
+								selected++;
+							}
+							selected -= fullColumns;
+						}
+					}
+				}
+				else {
+					selected = 0;
 				}
 
 				Screen.showCursor = false;
@@ -36,13 +60,28 @@ public class MenuController : MonoBehaviour {
 		}
 		else if (Input.GetAxisRaw ("Vertical") != 0) {
 			if (!axisBusy) {
-				if (selected == -1)
-					selected = 0;
+				if (selected >= 0) {
+					if (Input.GetAxisRaw ("Vertical") < 0) {
+						selected -= fullColumns;
+
+						if (selected < 0) {
+							selected += fullColumns * fullColumns;
+						}
+
+						if (selected >= buttons.Length) {
+							selected -= fullColumns;
+						}
+					}
+					else {
+						selected += fullColumns;
+
+						if (selected >= buttons.Length) {
+							selected = selected % fullColumns;
+						}
+					}
+				}
 				else {
-					if (selected < 2)
-						selected += 2;
-					else
-						selected -= 2;
+					selected = 0;
 				}
 
 				Screen.showCursor = false;

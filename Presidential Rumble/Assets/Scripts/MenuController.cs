@@ -91,19 +91,20 @@ public class MenuController : MonoBehaviour {
 			}
 		}
 		else if (Input.GetAxis("Mouse Y") != 0 || Input.GetAxis("Mouse X") != 0) {
-			axisBusy = true;
+			//axisBusy = true;
 			Screen.showCursor = true;
 			Screen.lockCursor = false;
 			selected = -1;
 			UnselectAll ();
 		}
-		else if (Input.GetAxisRaw("Enter") != 0 && selected >= 0) {
+		else {
+			axisBusy = false;
+		}
+
+		if (Input.GetAxisRaw("Enter") != 0 && selected >= 0) {
 			Screen.showCursor = true;
 			Screen.lockCursor = false;
 			buttons [selected].GetComponent<GUIButton>().changeScenes ();
-		}
-		else {
-			axisBusy = false;
 		}
 	}
 

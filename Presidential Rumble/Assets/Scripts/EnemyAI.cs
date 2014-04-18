@@ -47,11 +47,11 @@ public class EnemyAI : MonoBehaviour
 						grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
 
 						if (!attacking && transform.position.x > 
-								GameObject.FindWithTag ("Player").GetComponent<PlayerController> ().getX () && transform.localScale.x > 0) {
+								player.gameObject.GetComponent<PlayerController> ().getX () && transform.localScale.x > 0) {
 								Vector2 scale = transform.localScale;
 								scale.x *= -1;
 								transform.localScale = scale;
-						} else if (!attacking && transform.position.x < GameObject.FindWithTag ("Player").GetComponent<PlayerController> ().getX () && transform.localScale.x < 0) {
+						} else if (!attacking && transform.position.x < player.gameObject.GetComponent<PlayerController> ().getX () && transform.localScale.x < 0) {
 								Vector2 scale = transform.localScale;
 								scale.x *= -1;
 								transform.localScale = scale;

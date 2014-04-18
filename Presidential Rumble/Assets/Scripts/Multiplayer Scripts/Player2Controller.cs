@@ -106,11 +106,11 @@ public class Player2Controller : MonoBehaviour
 						}
 
 						if (!attacking && transform.position.x > 
-								GameObject.FindWithTag ("Player").GetComponent<Player1Controller> ().getX () && transform.localScale.x > 0) {
+								enemy.gameObject.GetComponent<Player1Controller> ().getX () && transform.localScale.x > 0) {
 								Vector2 scale = transform.localScale;
 								scale.x *= -1;
 								transform.localScale = scale;
-						} else if (!attacking && transform.position.x < GameObject.FindWithTag ("Player").GetComponent<Player1Controller> ().getX () && transform.localScale.x < 0) {
+						} else if (!attacking && transform.position.x < enemy.gameObject.GetComponent<Player1Controller> ().getX () && transform.localScale.x < 0) {
 								Vector2 scale = transform.localScale;
 								scale.x *= -1;
 								transform.localScale = scale;

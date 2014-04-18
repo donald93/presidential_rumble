@@ -17,7 +17,6 @@ public class GUIController : MonoBehaviour
 		private bool displayIntroBox;
 		private bool displayOutroBox;
 		private int currentIntro;
-		private bool intro = true;
 	
 		void Start ()
 		{
@@ -94,7 +93,7 @@ public class GUIController : MonoBehaviour
 
 		private void drawPauseBox ()
 		{
-				if (Globals.paused && !intro) {
+				if (Globals.paused && !displayIntroBox && !displayOutroBox) {
 						opaqueBox ("Paused\n\n\nPress Start to resume", boxContent.text, 85);								
 				}
 		}
@@ -111,7 +110,6 @@ public class GUIController : MonoBehaviour
 		{
 				displayIntroBox = false;
 				Globals.paused = false;
-				intro = false;
 				GameTimer.StartTimer ();
 				//TODO play button noise
 		}

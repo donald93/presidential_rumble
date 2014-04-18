@@ -108,17 +108,45 @@ public class EnemyAI : MonoBehaviour
 							else if (aggressive >= defensive && aggressive >= mobile) {
 								//Get away from the player. 
 								//Check which wall they are on and jump over player once in range
-								MoveAwayFromPlayer ();
-								if (rigidbody2D.transform.position.x < 23 && player.transform.position.x > rigidbody2D.transform.position.x) {// &&player.transform.position.x > rigidbody2D.transform.position.x)	
-										if (!jump && !jumping)
+								
+								if (rigidbody2D.transform.position.x < 25 && (player.transform.position.x - rigidbody2D.transform.position.x)<10) {// &&player.transform.position.x > rigidbody2D.transform.position.x)	
+										if (!jump && !jumping){	
+					                       		Invoke ("Jump", 0.5f);
+					                       }
+									//player.transform.position.x < rigidbody2D.transform.position.x
+								} else if (rigidbody2D.transform.position.x > -15 && (player.transform.position.x - rigidbody2D.transform.position.x)<10) {	
+										if (!jump && !jumping){
 												Invoke ("Jump", 0.5f);
-								} else if (rigidbody2D.transform.position.x > -17 && player.transform.position.x < rigidbody2D.transform.position.x) {	
-										if (!jump && !jumping)
-												Invoke ("Jump", 0.5f);
+										}
 								} else {			
-										MoveAwayFromPlayer ();
+									MoveAwayFromPlayer();
+									if(cooldown == 0 && animator != null)
+									{
+										int rand = Random.Range(0, 20);
+										if(rand == 4 || rand ==8)
+										{
+											MoveTowardsPlayer();
+											attacking = true;
+											punch = true;
+											kick = true;
+											Kick();
+											Punch();
+											Kick();
+										}
+										else
+										{
+											block = true;
+											Block();
+										}
+						
+									}
+									
 								}
 								
+								//MoveTowardsPlayer();
+								//Punch();
+								//Punch();
+								//Block();
 								//Crouch a lot more (crouch punch)
 								//Block alot more
 								//Counter();
@@ -328,10 +356,10 @@ public class EnemyAI : MonoBehaviour
 
 		void Counter ()
 		{
-				resetTimer = new Timer (5000);
+				resetTimer = new Timer (4000);
 				resetTimer.Elapsed += new ElapsedEventHandler (OnTimedEvent);
 				resetTimer.Enabled = true;
-				resetTimer.Interval = 5000;
+				resetTimer.Interval = 4000;
 			
 		}
 		

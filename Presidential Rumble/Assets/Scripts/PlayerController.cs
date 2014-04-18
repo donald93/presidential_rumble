@@ -90,6 +90,10 @@ public class PlayerController : MonoBehaviour
 										foreach (Transform child in allChildren) {
 												if (child.tag == "Punch")
 														child.collider2D.enabled = true;
+														int rand = Random.Range (0, 50);
+														if (rand == 1) {
+															enemy.GetComponent<EnemyAI> ().updateAggressive ();
+														}
 												Invoke ("disablePunch", 0.05f);
 										}
 								} 
@@ -104,6 +108,10 @@ public class PlayerController : MonoBehaviour
 										foreach (Transform child in allChildren) {
 												if (child.tag == "Kick")
 														child.collider2D.enabled = true;
+														int rand = Random.Range (0, 50);
+														if (rand == 1) {
+															enemy.GetComponent<EnemyAI> ().updateAggressive ();
+														}
 												Invoke ("disableKick", 0.4f);
 										}
 								}

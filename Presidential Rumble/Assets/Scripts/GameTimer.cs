@@ -43,6 +43,7 @@ public class GameTimer : MonoBehaviour
 								Globals.GameState = BattleStateEnum.LOSE;
 						}
 				}
+				GameTimer.prev_time = Time.time;
 		}
 		
 		void OnGUI ()

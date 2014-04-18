@@ -58,17 +58,16 @@ public class MapGUI : MonoBehaviour
 				mapAudio = gameObject.AddComponent<AudioSource> ();
 				mapAudio.clip = sound;
 
-				
 				int level;
 				if (Globals.GameState == BattleStateEnum.WIN && (int)Globals.CurrentScene != 14)
-						level = (int)Globals.CurrentScene - 9;
-				else
 						level = (int)Globals.CurrentScene - 10;
+				else
+						level = (int)Globals.CurrentScene - 11;
+
+				Select (buttons [level]);
 				while (level >= 0) {
 						buttons [level--].GetComponent<MapButton> ().levelLocked = false;
 				}
-
-				
 
 				Globals.CurrentScene = SceneEnum.WashingtonMap;
 		}
@@ -125,23 +124,23 @@ public class MapGUI : MonoBehaviour
 		void Update ()
 		{
 				// cheat unlock all
-				if (Input.GetKeyDown("0")) {
+				if (Input.GetKeyDown ("0")) {
 						foreach (GameObject b in buttons) {
 								b.GetComponent<MapButton> ().levelLocked = false;
 						}
 				}
 				
 				// start selected level
-				else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Joystick1Button7) || Input.GetKeyDown(KeyCode.Joystick1Button9)) {
-						startButton.changeScenes();
+				else if (Input.GetKeyDown (KeyCode.Return) || Input.GetKeyDown (KeyCode.Joystick1Button7) || Input.GetKeyDown (KeyCode.Joystick1Button9)) {
+						startButton.changeScenes ();
 				}
 
 				// go back
-				else if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetKeyDown(KeyCode.Joystick1Button6) || Input.GetKeyDown(KeyCode.Joystick1Button8)) {
-						backButton.changeScenes();
+				else if (Input.GetKeyDown (KeyCode.Backspace) || Input.GetKeyDown (KeyCode.Joystick1Button6) || Input.GetKeyDown (KeyCode.Joystick1Button8)) {
+						backButton.changeScenes ();
 				}
 		         
-		         // check for input
+				// check for input
 				if (Input.GetMouseButtonDown (0)) {
 						RaycastHit hit;
 						Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);

@@ -22,14 +22,14 @@ public class MenuController : MonoBehaviour {
 			if (!axisBusy) {
 				if (selected >= 0) {
 					if (Input.GetAxisRaw ("Horizontal") < 0) {
-						if ((selected + fullColumns) % fullColumns == 0) {
+						if (selected % fullColumns == 0) {
 							selected += (fullColumns - 1);
 						}
 						else {
 							selected--;
 						}
 
-						while (selected >= fullColumns) {
+						while (selected >= buttons.Length) {
 							selected--;
 						}
 					}

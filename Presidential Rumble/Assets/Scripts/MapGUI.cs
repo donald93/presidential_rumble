@@ -142,6 +142,7 @@ public class MapGUI : MonoBehaviour
 		         
 				// check for input
 				if (Input.GetMouseButtonDown (0)) {
+						axisBusy = false;
 						RaycastHit hit;
 						Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 

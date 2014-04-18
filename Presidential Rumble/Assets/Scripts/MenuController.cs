@@ -17,8 +17,10 @@ public class MenuController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		// get controller movement
-		if (Input.GetAxisRaw ("Horizontal") != 0) {
+		if (Input.GetMouseButtonDown (0)) {
+				axisBusy = false;
+		}
+		else if (Input.GetAxisRaw ("Horizontal") != 0) {
 			if (!axisBusy) {
 				if (selected >= 0) {
 					if (Input.GetAxisRaw ("Horizontal") < 0) {

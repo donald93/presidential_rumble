@@ -58,8 +58,10 @@ public class MapGUI : MonoBehaviour
 				mapAudio = gameObject.AddComponent<AudioSource> ();
 				mapAudio.clip = sound;
 
-				int level;
-				if (Globals.GameState == BattleStateEnum.WIN && (int)Globals.CurrentScene != 14)
+				int level = (int)Globals.CurrentScene;
+				if (level == 9)
+						level = 0;
+				else if (Globals.GameState == BattleStateEnum.WIN && (int)Globals.CurrentScene != 14)
 						level = (int)Globals.CurrentScene - 10;
 				else
 						level = (int)Globals.CurrentScene - 11;

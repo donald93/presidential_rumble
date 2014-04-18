@@ -50,7 +50,7 @@ public class GUIButton : MonoBehaviour
 				if (Globals.CurrentScene.ToString ().Equals ("MainMenu"))
 						Globals.multiplayer = multiplayer;
 
-				if (Globals.multiplayer == true && !Globals.CurrentScene.ToString ().Equals ("MainMenu"))
+				if (Globals.multiplayer == true && !Globals.CurrentScene.ToString ().Equals ("MainMenu") && !text.Equals ("Back"))
 						Application.LoadLevel (scene.ToString () + "MP");
 				else
 						Application.LoadLevel (scene.ToString ());

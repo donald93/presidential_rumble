@@ -39,15 +39,41 @@ public static class Globals
 		public static readonly float originalHeight = 1080;
 	
 		public static bool paused = true, multiplayer = false;
-		public static BattleStateEnum GameState = BattleStateEnum.ONGOING;
+		public static BattleStateEnum GameState = BattleStateEnum.WIN;
 		public static SceneEnum CurrentScene;
 	
 		public static readonly string[][] WashingtonFightIntros = {
 				new string[]{"Tutorial", "Second page of Tutorial"},
-				new string[]{"\nMay Twenty-Eighth, Seventeen Fifty-Four\n\nThe Battle of Jumonville Glen", "\nLieutenant George Washington hears of a French unit camped out by the Ohio River.", "\nAllying himself with native Mingo warriors, Washington nears the camp with fifty-two men.", "\nWhen night arrives, Washington ambushes the sleeping French troops, who are under the command of Joseph Coulon de Villiers de Jumonville.", "\nNow get ready to RUMBLE!!!"},
-				new string[]{"\nSeptember Fifteenth, Seventeen Eighty\n\nThe Betrayal of Benedict Arnold", "\nBenedict Arnold began as a skilled and heroic leader of the American people.", "\nAfter his unsuccessful attack of Quebec, Arnold watched as lower-ranked men were promoted faster than himself.", "\nTacked along with a debt his second wife was accumulating in Philadelphia, Arnold built up a resentment to his country.", "\nIn seventeen eighty, Arnold attempted to hand over his command of West Point fort to British forces.", "\nNow get ready to RUMBLE!!!"},
-				new string[]{"\nSeptember Twenty-Sixth, Seventeen Eight-One\n\nSiege of Yorktown", "\nWashington, now a General in the Continental Army, laid siege to Yorktown with his French allies.", "\nEighteen thousand men surrounded the British defenses in New York City and held their ground while artillery bombarded English soldiers.", "\nAfter three days of bombarding the English troops, Washington marched closer to Yorktown and closer to the British commander General Cornwallis.", "\nNow get ready to RUMBLE!!!" },
-				new string[]{"\n\nThe Man Who Would Not Be King", "\nSome want me to be king...", "\nI could be king...", "\nI must resist...", "\nNow get ready to RUMBLE!!!"}};
+				new string[] {
+						"\nMay Twenty-Eighth, Seventeen Fifty-Four\n\nThe Battle of Jumonville Glen",
+						"\nLieutenant George Washington hears of a French unit camped out by the Ohio River.",
+						"\nAllying himself with native Mingo warriors, Washington nears the camp with fifty-two men.",
+						"\nWhen night arrives, Washington ambushes the sleeping French troops, who are under the command of Joseph Coulon de Villiers de Jumonville.",
+						"\nNow get ready to RUMBLE!!!"
+				},
+				new string[] {
+						"\nSeptember Fifteenth, Seventeen Eighty\n\nThe Betrayal of Benedict Arnold",
+						"\nBenedict Arnold began as a skilled and heroic leader of the American people.",
+						"\nAfter his unsuccessful attack of Quebec, Arnold watched as lower-ranked men were promoted faster than himself.",
+						"\nTacked along with a debt his second wife was accumulating in Philadelphia, Arnold built up a resentment to his country.",
+						"\nIn seventeen eighty, Arnold attempted to hand over his command of West Point fort to British forces.",
+						"\nNow get ready to RUMBLE!!!"
+				},
+				new string[] {
+						"\nSeptember Twenty-Sixth, Seventeen Eight-One\n\nSiege of Yorktown",
+						"\nWashington, now a General in the Continental Army, laid siege to Yorktown with his French allies.",
+						"\nEighteen thousand men surrounded the British defenses in New York City and held their ground while artillery bombarded English soldiers.",
+						"\nAfter three days of bombarding the English troops, Washington marched closer to Yorktown and closer to the British commander General Cornwallis.",
+						"\nNow get ready to RUMBLE!!!"
+				},
+				new string[] {
+						"\n\nThe Man Who Would Not Be King",
+						"\nSome want me to be king...",
+						"\nI could be king...",
+						"\nI must resist...",
+						"\nNow get ready to RUMBLE!!!"
+				}
+		};
 	
 		public static readonly string[] WashingtonFightOutros = {
 				"fighttut", 

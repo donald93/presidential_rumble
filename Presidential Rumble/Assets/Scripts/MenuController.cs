@@ -4,10 +4,12 @@ using System.Collections;
 public class MenuController : MonoBehaviour
 {
 		public GameObject[] buttons;
+		public AudioClip sound;
 
 		private bool axisBusy;
 		private int selected;
 		private int fullColumns;
+		private AudioSource mapAudio;
 
 		void Awake ()
 		{
@@ -15,6 +17,9 @@ public class MenuController : MonoBehaviour
 				axisBusy = false;
 
 				fullColumns = Mathf.CeilToInt (Mathf.Sqrt (buttons.Length));
+
+				mapAudio = gameObject.AddComponent<AudioSource> ();
+				mapAudio.clip = sound;
 		}
 
 		// Update is called once per frame
@@ -118,7 +123,7 @@ public class MenuController : MonoBehaviour
 				UnselectAll ();
 
 				button.GetComponent<GUIButton> ().defaultImage = button.GetComponent<GUIButton> ().hoverImage;
-				//mapAudio.PlayOneShot (sound);
+				mapAudio.PlayOneShot (sound);
 		}
 
 		private void UnselectAll ()

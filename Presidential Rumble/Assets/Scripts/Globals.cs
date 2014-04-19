@@ -11,6 +11,7 @@ using System.Collections;
 /// </summary>
 public enum SceneEnum
 {
+		Quit = -1,
 		MainMenu = 0,
 		Credits = 8,
 		WashingtonMap = 9,

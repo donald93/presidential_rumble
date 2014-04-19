@@ -133,12 +133,12 @@ public class MapGUI : MonoBehaviour
 				}
 				
 				// start selected level
-				else if (Input.GetKeyDown (KeyCode.Return) || Input.GetKeyDown (KeyCode.Joystick1Button7) || Input.GetKeyDown (KeyCode.Joystick1Button9)) {
+				else if (Input.GetAxisRaw("Enter") != 0) {
 						startButton.changeScenes ();
 				}
 
 				// go back
-				else if (Input.GetKeyDown (KeyCode.Backspace) || Input.GetKeyDown (KeyCode.Joystick1Button6) || Input.GetKeyDown (KeyCode.Joystick1Button8)) {
+				else if (Input.GetAxisRaw("Back") != 0) {
 						backButton.changeScenes ();
 				}
 		         

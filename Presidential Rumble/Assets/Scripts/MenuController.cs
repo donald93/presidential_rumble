@@ -102,6 +102,15 @@ public class MenuController : MonoBehaviour
 						Screen.lockCursor = false;
 						buttons [selected].GetComponent<GUIButton> ().changeScenes ();
 				}
+				else if (Input.GetAxisRaw ("Back") != 0) {
+						// this all depends on the build order in project settings
+						if (Application.loadedLevel == 0) {
+								buttons[3].GetComponent<GUIButton>().changeScenes();
+						}
+						else if (Application.loadedLevel == 1) {
+								buttons[0].GetComponent<GUIButton>().changeScenes();
+						}
+				}
 		}
 
 		private void Select (GameObject button)

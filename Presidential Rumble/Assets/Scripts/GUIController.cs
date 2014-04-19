@@ -7,6 +7,7 @@ public class GUIController : MonoBehaviour
 		public Texture2D boxImage;
 		public Texture2D buttonImage;
 		public SceneEnum levelCode;
+		public AudioClip sound;
 	
 		private Rect boxRect;
 		private Rect buttonRect;
@@ -17,6 +18,7 @@ public class GUIController : MonoBehaviour
 		private bool displayIntroBox;
 		private bool displayOutroBox;
 		private int currentIntro;
+		private AudioSource mapAudio;
 	
 		void Start ()
 		{
@@ -36,6 +38,9 @@ public class GUIController : MonoBehaviour
 				Globals.GameState = BattleStateEnum.ONGOING;
 
 				currentIntro = 0;
+
+				mapAudio = gameObject.AddComponent<AudioSource> ();
+				mapAudio.clip = sound;
 		}
 	
 		void OnGUI ()
@@ -94,7 +99,7 @@ public class GUIController : MonoBehaviour
 		private void drawPauseBox ()
 		{
 				if (Globals.paused && !displayIntroBox && !displayOutroBox) {
-						opaqueBox ("Paused\n\n\nPress Start to resume", boxContent.text, 85);								
+						opaqueBox ("Paused\n\nPress Start to resume or Back to quit", boxContent.text, 85);								
 				}
 		}
 
@@ -111,12 +116,13 @@ public class GUIController : MonoBehaviour
 				displayIntroBox = false;
 				Globals.paused = false;
 				GameTimer.StartTimer ();
-				//TODO play button noise
 		}
 
 		void Update ()
 		{
 				if (Input.GetKeyDown (KeyCode.Return) || Input.GetKeyDown (KeyCode.Joystick1Button7) || Input.GetKeyDown (KeyCode.Joystick1Button9)) {
+						mapAudio.PlayOneShot (sound);
+
 						if (displayIntroBox)
 								advanceIntro ();
 						else if (displayOutroBox)
@@ -124,6 +130,12 @@ public class GUIController : MonoBehaviour
 						else {
 								Globals.paused = !Globals.paused;
 						}
+				} else if (Globals.paused && Globals.GameState == BattleStateEnum.ONGOING && (Input.GetKeyDown (KeyCode.Backspace) || Input.GetKeyDown (KeyCode.Escape) || Input.GetKeyDown (KeyCode.Joystick1Button6) || Input.GetKeyDown (KeyCode.Joystick1Button8))) {
+						mapAudio.PlayOneShot (sound);
+						Globals.GameState = BattleStateEnum.LOSE;
+				} else if (displayOutroBox && (Input.GetKeyDown (KeyCode.Backspace) || Input.GetKeyDown (KeyCode.Escape) || Input.GetKeyDown (KeyCode.Joystick1Button6) || Input.GetKeyDown (KeyCode.Joystick1Button8))) {
+						mapAudio.PlayOneShot (sound);
+						endBattle();
 				}
 		}
 	

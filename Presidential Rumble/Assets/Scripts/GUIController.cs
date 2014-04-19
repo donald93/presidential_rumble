@@ -82,6 +82,7 @@ public class GUIController : MonoBehaviour
 								// create the start button
 								buttonStyle.fontSize = 85;
 								if (GUI.Button (buttonRect, buttonContent, buttonStyle)) {
+										mapAudio.PlayOneShot (sound);
 										advanceIntro ();
 								}
 						} else {
@@ -90,6 +91,7 @@ public class GUIController : MonoBehaviour
 								// create the start button
 								buttonStyle.fontSize = 85;
 								if (GUI.Button (buttonRect, buttonContent, buttonStyle)) {
+										mapAudio.PlayOneShot (sound);
 										startBattle ();
 								}
 						}
@@ -132,6 +134,7 @@ public class GUIController : MonoBehaviour
 						}
 				} else if (Globals.paused && Globals.GameState == BattleStateEnum.ONGOING && (Input.GetKeyDown (KeyCode.Backspace) || Input.GetKeyDown (KeyCode.Escape) || Input.GetKeyDown (KeyCode.Joystick1Button6) || Input.GetKeyDown (KeyCode.Joystick1Button8))) {
 						mapAudio.PlayOneShot (sound);
+						displayOutroBox = true;
 						Globals.GameState = BattleStateEnum.LOSE;
 				} else if (displayOutroBox && (Input.GetKeyDown (KeyCode.Backspace) || Input.GetKeyDown (KeyCode.Escape) || Input.GetKeyDown (KeyCode.Joystick1Button6) || Input.GetKeyDown (KeyCode.Joystick1Button8))) {
 						mapAudio.PlayOneShot (sound);
@@ -167,9 +170,6 @@ public class GUIController : MonoBehaviour
 		{
 				Application.LoadLevel ("WashingtonMap");
 				Globals.paused = true;
-				//TODO play button sound
-				//AudioSource audio = gameObject.AddComponent<AudioSource> ();
-				//audio.clip = Resources.Load ("Sounds/Menu Select Sound") as AudioClip;
 		}
 
 		private void opaqueBox (string boxText, string buttonText, int fontSize)
@@ -177,7 +177,6 @@ public class GUIController : MonoBehaviour
 				GUI.color = new Color (1.0f, 1.0f, 1.0f, 0.75f);
 				drawBox (boxText, buttonText, fontSize, new Rect (610, 300, 700, 600));
 				GUI.color = new Color (1f, 1f, 1f, 1f);
-
 		}
 
 		private void drawBox (string boxText, string buttonText, int fontSize, Rect boxRect)

@@ -58,7 +58,7 @@ public class MenuController : MonoBehaviour
 										selected = 0;
 								}
 
-								Screen.showCursor = false;
+								Cursor.visible = false;
 								Screen.lockCursor = true;
 								axisBusy = true;
 								Select (buttons [selected]);
@@ -87,14 +87,14 @@ public class MenuController : MonoBehaviour
 										selected = 0;
 								}
 
-								Screen.showCursor = false;
+								Cursor.visible = false;
 								Screen.lockCursor = true;
 								axisBusy = true;
 								Select (buttons [selected]);
 						}
 				} else if (Input.GetAxis ("Mouse Y") != 0 || Input.GetAxis ("Mouse X") != 0) {
 						//axisBusy = true;
-						Screen.showCursor = true;
+						Cursor.visible = true;
 						Screen.lockCursor = false;
 						selected = -1;
 						UnselectAll ();
@@ -103,7 +103,7 @@ public class MenuController : MonoBehaviour
 				}
 
 				if (Input.GetAxisRaw ("Enter") != 0 && selected >= 0) {
-						Screen.showCursor = true;
+						Cursor.visible = true;
 						Screen.lockCursor = false;
 						buttons [selected].GetComponent<GUIButton> ().changeScenes ();
 				}

@@ -64,13 +64,13 @@ public class EnemyAI : MonoBehaviour
 		{
 				if (!Globals.paused) {
 						animator.speed = 1;
-						rigidbody2D.gravityScale = 15;
+						GetComponent<Rigidbody2D>().gravityScale = 15;
 						
 						if (mobile >= aggressive && mobile >= defensive) {
 							
-								if (Mathf.Abs (rigidbody2D.transform.position.x - player.transform.position.x) < 3) {
+								if (Mathf.Abs (GetComponent<Rigidbody2D>().transform.position.x - player.transform.position.x) < 3) {
 										moveHorizontal = 0;
-										rigidbody2D.velocity = new Vector2 (0f, rigidbody2D.velocity.y);
+										GetComponent<Rigidbody2D>().velocity = new Vector2 (0f, GetComponent<Rigidbody2D>().velocity.y);
 			
 										if (cooldown == 0 && animator != null) {
 												int rand = Random.Range (0, 3);
@@ -99,7 +99,7 @@ public class EnemyAI : MonoBehaviour
 												Invoke ("MoveTowardsPlayer", 1f);
 								}
 								if (jump) {
-										rigidbody2D.AddForce (new Vector2 (0f, jumpForce));	
+										GetComponent<Rigidbody2D>().AddForce (new Vector2 (0f, jumpForce));	
 										jump = false;
 										jumping = false;
 								} 	
@@ -109,12 +109,12 @@ public class EnemyAI : MonoBehaviour
 								//Get away from the player. 
 								//Check which wall they are on and jump over player once in range
 								
-								if (rigidbody2D.transform.position.x < 25 && (player.transform.position.x - rigidbody2D.transform.position.x)<10) {// &&player.transform.position.x > rigidbody2D.transform.position.x)	
+								if (GetComponent<Rigidbody2D>().transform.position.x < 25 && (player.transform.position.x - GetComponent<Rigidbody2D>().transform.position.x)<10) {// &&player.transform.position.x > rigidbody2D.transform.position.x)	
 										if (!jump && !jumping){	
 					                       		Invoke ("Jump", 0.5f);
 					                       }
 									//player.transform.position.x < rigidbody2D.transform.position.x
-								} else if (rigidbody2D.transform.position.x > -15 && (player.transform.position.x - rigidbody2D.transform.position.x)<10) {	
+								} else if (GetComponent<Rigidbody2D>().transform.position.x > -15 && (player.transform.position.x - GetComponent<Rigidbody2D>().transform.position.x)<10) {	
 										if (!jump && !jumping){
 												Invoke ("Jump", 0.5f);
 										}
@@ -153,9 +153,9 @@ public class EnemyAI : MonoBehaviour
 							
 						} else if (defensive >= mobile && defensive >= aggressive) {
 
-								if (Mathf.Abs (rigidbody2D.transform.position.x - player.transform.position.x) < 3) {
+								if (Mathf.Abs (GetComponent<Rigidbody2D>().transform.position.x - player.transform.position.x) < 3) {
 										moveHorizontal = 0;
-										rigidbody2D.velocity = new Vector2 (0f, rigidbody2D.velocity.y);
+										GetComponent<Rigidbody2D>().velocity = new Vector2 (0f, GetComponent<Rigidbody2D>().velocity.y);
 			
 										if (cooldown == 0 && animator != null) {
 												int rand = Random.Range (0, 3);
@@ -191,7 +191,7 @@ public class EnemyAI : MonoBehaviour
 												MoveTowardsPlayer ();
 								}	
 								if (jump) {
-										rigidbody2D.AddForce (new Vector2 (0f, jumpForce));	
+										GetComponent<Rigidbody2D>().AddForce (new Vector2 (0f, jumpForce));	
 										jump = false;
 										jumping = false;
 								}
@@ -207,8 +207,8 @@ public class EnemyAI : MonoBehaviour
 						}
 				} else {
 						animator.speed = 0;
-						rigidbody2D.velocity = Vector2.zero;
-						rigidbody2D.gravityScale = 0;
+						GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+						GetComponent<Rigidbody2D>().gravityScale = 0;
 				}
 		}
 		
@@ -228,7 +228,7 @@ public class EnemyAI : MonoBehaviour
 				Transform[] allChildren = GetComponentsInChildren<Transform> ();
 				foreach (Transform child in allChildren) {
 						if (child.tag == "Punch")
-								child.collider2D.enabled = true;
+								child.GetComponent<Collider2D>().enabled = true;
 						Invoke ("disablePunch", 0.2f);
 				}
 		}
@@ -241,7 +241,7 @@ public class EnemyAI : MonoBehaviour
 				Transform[] allChildren = GetComponentsInChildren<Transform> ();
 				foreach (Transform child in allChildren) {
 						if (child.tag == "Kick")
-								child.collider2D.enabled = true;
+								child.GetComponent<Collider2D>().enabled = true;
 						Invoke ("disableKick", 0.5f);
 				}
 
@@ -250,21 +250,21 @@ public class EnemyAI : MonoBehaviour
 		void MoveTowardsPlayer ()
 		{
 				if (cooldown == 0) {
-						if (player.transform.position.x < rigidbody2D.transform.position.x) {
+						if (player.transform.position.x < GetComponent<Rigidbody2D>().transform.position.x) {
 								moveHorizontal = -1;
-								rigidbody2D.velocity = new Vector2 (moveHorizontal * 15, rigidbody2D.velocity.y);
+								GetComponent<Rigidbody2D>().velocity = new Vector2 (moveHorizontal * 15, GetComponent<Rigidbody2D>().velocity.y);
 				
-						} else if (player.transform.position.x > rigidbody2D.transform.position.x) {
+						} else if (player.transform.position.x > GetComponent<Rigidbody2D>().transform.position.x) {
 								moveHorizontal = 1;
-								rigidbody2D.velocity = new Vector2 (moveHorizontal * 15, rigidbody2D.velocity.y);
+								GetComponent<Rigidbody2D>().velocity = new Vector2 (moveHorizontal * 15, GetComponent<Rigidbody2D>().velocity.y);
 						}
 	
 				} else {
 						cooldown--;
-						rigidbody2D.velocity = Vector2.zero;
+						GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 				}
 
-				if (player.transform.position.y > rigidbody2D.transform.position.y + 10 && grounded && !jump) {
+				if (player.transform.position.y > GetComponent<Rigidbody2D>().transform.position.y + 10 && grounded && !jump) {
 						int rand = Random.Range (0, 3);
 						if (rand == 1 && !jump && !jumping)
 								Invoke ("Jump", .05f);
@@ -274,21 +274,21 @@ public class EnemyAI : MonoBehaviour
 		void MoveAwayFromPlayer ()
 		{
 				if (cooldown == 0) {
-						if (player.transform.position.x < rigidbody2D.transform.position.x) {
+						if (player.transform.position.x < GetComponent<Rigidbody2D>().transform.position.x) {
 								moveHorizontal = 1;
-								rigidbody2D.velocity = new Vector2 (moveHorizontal * 15, rigidbody2D.velocity.y);
+								GetComponent<Rigidbody2D>().velocity = new Vector2 (moveHorizontal * 15, GetComponent<Rigidbody2D>().velocity.y);
 				
-						} else if (player.transform.position.x > rigidbody2D.transform.position.x) {
+						} else if (player.transform.position.x > GetComponent<Rigidbody2D>().transform.position.x) {
 								moveHorizontal = -1;
-								rigidbody2D.velocity = new Vector2 (moveHorizontal * 15, rigidbody2D.velocity.y);
+								GetComponent<Rigidbody2D>().velocity = new Vector2 (moveHorizontal * 15, GetComponent<Rigidbody2D>().velocity.y);
 						}
 			
 				} else {
 						cooldown--;
-						rigidbody2D.velocity = Vector2.zero;
+						GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 				}
 		
-				if (player.transform.position.y > rigidbody2D.transform.position.y + 10 && grounded && !jump) {
+				if (player.transform.position.y > GetComponent<Rigidbody2D>().transform.position.y + 10 && grounded && !jump) {
 						int rand = Random.Range (0, 3);
 						if (rand == 1)
 								Invoke ("Jump", .05f);
@@ -313,7 +313,7 @@ public class EnemyAI : MonoBehaviour
 				Transform[] allChildren = GetComponentsInChildren<Transform> ();
 				foreach (Transform child in allChildren) {
 						if (child.tag == "Kick")
-								child.collider2D.enabled = false;
+								child.GetComponent<Collider2D>().enabled = false;
 				}
 		}
 		void disablePunch ()
@@ -324,7 +324,7 @@ public class EnemyAI : MonoBehaviour
 				Transform[] allChildren = GetComponentsInChildren<Transform> ();
 				foreach (Transform child in allChildren) {
 						if (child.tag == "Punch")
-								child.collider2D.enabled = false;
+								child.GetComponent<Collider2D>().enabled = false;
 				}
 		}
 		bool GetBlock ()

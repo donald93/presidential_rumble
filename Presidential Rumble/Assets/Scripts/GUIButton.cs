@@ -41,7 +41,7 @@ public class GUIButton : MonoBehaviour
 
 		public void changeScenes ()
 		{
-				audio.Play ();
+				GetComponent<AudioSource>().Play ();
 				Invoke ("switchScenes", 0.5f);
 		}
 

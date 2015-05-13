@@ -47,7 +47,7 @@ public class EnemyCollisions : MonoBehaviour
 						}
 
 						recoil = true;
-						audio.PlayOneShot (punchHit);
+						GetComponent<AudioSource>().PlayOneShot (punchHit);
 						invincible = true;
 						Invoke ("disableInvincible", .5f);
 						GUI.SendMessage ("updateEnemyHealth", healthPoints);
@@ -78,7 +78,7 @@ public class EnemyCollisions : MonoBehaviour
 
 				foreach (Transform child in allChildren) {
 						if (child.tag == "Kick" || child.tag == "Punch")
-								child.collider2D.enabled = false;
+								child.GetComponent<Collider2D>().enabled = false;
 				}
 		}
 }

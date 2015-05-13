@@ -33,7 +33,7 @@ public class Player2Controller : MonoBehaviour
 				
 				if (!Globals.paused) {
 						animator.speed = 1;
-						rigidbody2D.gravityScale = 15;
+						GetComponent<Rigidbody2D>().gravityScale = 15;
 						grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
 
 						if (animator) {
@@ -68,7 +68,7 @@ public class Player2Controller : MonoBehaviour
 										jumpStraight = false;
 										animator.SetBool ("Jumping", true);
 										framesSinceJump = 0;
-										audio.PlayOneShot (jumpSound);
+										GetComponent<AudioSource>().PlayOneShot (jumpSound);
 								}
 			
 								if (framesSinceJump > 0 && grounded) {
@@ -86,7 +86,7 @@ public class Player2Controller : MonoBehaviour
 										Transform[] allChildren = GetComponentsInChildren<Transform> ();
 										foreach (Transform child in allChildren) {
 												if (child.tag == "Punch")
-														child.collider2D.enabled = true;
+														child.GetComponent<Collider2D>().enabled = true;
 												Invoke ("disablePunch", 0.2f);
 										}
 								} 
@@ -99,7 +99,7 @@ public class Player2Controller : MonoBehaviour
 										Transform[] allChildren = GetComponentsInChildren<Transform> ();
 										foreach (Transform child in allChildren) {
 												if (child.tag == "Kick")
-														child.collider2D.enabled = true;
+														child.GetComponent<Collider2D>().enabled = true;
 												Invoke ("disableKick", 0.4f);
 										}
 								}
@@ -118,7 +118,7 @@ public class Player2Controller : MonoBehaviour
 
 				} else {
 						animator.speed = 0;
-						rigidbody2D.gravityScale = 0;
+						GetComponent<Rigidbody2D>().gravityScale = 0;
 				}
 		}
 
@@ -126,7 +126,7 @@ public class Player2Controller : MonoBehaviour
 		void FixedUpdate ()
 		{
 				if (Globals.paused) {
-						rigidbody2D.velocity = Vector2.zero;
+						GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 				}
 
 				if (!Globals.paused) {
@@ -141,25 +141,25 @@ public class Player2Controller : MonoBehaviour
 
 						if (jumping) {
 								if (jumpStraight) {
-										rigidbody2D.velocity = new Vector2 (0, rigidbody2D.velocity.y);
+										GetComponent<Rigidbody2D>().velocity = new Vector2 (0, GetComponent<Rigidbody2D>().velocity.y);
 										if (moveHorizontal > 0 || moveHorizontal < 0)
 												jumpStraight = false;
 								} else if (!goingLeft) {
 										if (moveHorizontal > 0) {
-												rigidbody2D.velocity = new Vector2 (25 * moveHorizontal, rigidbody2D.velocity.y);
+												GetComponent<Rigidbody2D>().velocity = new Vector2 (25 * moveHorizontal, GetComponent<Rigidbody2D>().velocity.y);
 										} else
-												rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x - 0.25f, rigidbody2D.velocity.y);
+												GetComponent<Rigidbody2D>().velocity = new Vector2 (GetComponent<Rigidbody2D>().velocity.x - 0.25f, GetComponent<Rigidbody2D>().velocity.y);
 								} else {
 										if (moveHorizontal < 0) {
-												rigidbody2D.velocity = new Vector2 (25 * moveHorizontal, rigidbody2D.velocity.y);
+												GetComponent<Rigidbody2D>().velocity = new Vector2 (25 * moveHorizontal, GetComponent<Rigidbody2D>().velocity.y);
 										} else
-												rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x + 0.25f, rigidbody2D.velocity.y);
+												GetComponent<Rigidbody2D>().velocity = new Vector2 (GetComponent<Rigidbody2D>().velocity.x + 0.25f, GetComponent<Rigidbody2D>().velocity.y);
 								}
 
 						} else if (crouch || attacking && !jumping || block) 
-								rigidbody2D.velocity = new Vector2 (moveHorizontal * 0, rigidbody2D.velocity.y);
+								GetComponent<Rigidbody2D>().velocity = new Vector2 (moveHorizontal * 0, GetComponent<Rigidbody2D>().velocity.y);
 						else {
-								rigidbody2D.velocity = new Vector2 (moveHorizontal * 25, rigidbody2D.velocity.y);
+								GetComponent<Rigidbody2D>().velocity = new Vector2 (moveHorizontal * 25, GetComponent<Rigidbody2D>().velocity.y);
 								if (moveHorizontal > 0)
 										goingLeft = false;
 								else
@@ -169,7 +169,7 @@ public class Player2Controller : MonoBehaviour
 						if (jump) {
 								if (moveHorizontal == 0)
 										jumpStraight = true;
-								rigidbody2D.AddForce (new Vector2 (0f, jumpForce));	
+								GetComponent<Rigidbody2D>().AddForce (new Vector2 (0f, jumpForce));	
 								jump = false;
 						}
 
@@ -195,7 +195,7 @@ public class Player2Controller : MonoBehaviour
 								healthPoints = 1;
 						} else
 								healthPoints = 10;
-						audio.PlayOneShot (punchHit);
+						GetComponent<AudioSource>().PlayOneShot (punchHit);
 				}
 
 				if (collider.gameObject.tag == "Kick" && !invincible) {
@@ -207,7 +207,7 @@ public class Player2Controller : MonoBehaviour
 								healthPoints = 1;
 						} else
 								healthPoints = 15;
-						audio.PlayOneShot (punchHit);
+						GetComponent<AudioSource>().PlayOneShot (punchHit);
 				}
 
 			
@@ -226,7 +226,7 @@ public class Player2Controller : MonoBehaviour
 				Transform[] allChildren = GetComponentsInChildren<Transform> ();
 				foreach (Transform child in allChildren) {
 						if (child.tag == "Punch")
-								child.collider2D.enabled = false;
+								child.GetComponent<Collider2D>().enabled = false;
 				}
 		}
 
@@ -237,7 +237,7 @@ public class Player2Controller : MonoBehaviour
 				Transform[] allChildren = GetComponentsInChildren<Transform> ();
 				foreach (Transform child in allChildren) {
 						if (child.tag == "Kick")
-								child.collider2D.enabled = false;
+								child.GetComponent<Collider2D>().enabled = false;
 				}
 		}
 
@@ -256,7 +256,7 @@ public class Player2Controller : MonoBehaviour
 
 				foreach (Transform child in allChildren) {
 						if (child.tag == "Kick" || child.tag == "Punch")
-								child.collider2D.enabled = false;
+								child.GetComponent<Collider2D>().enabled = false;
 				}
 		}
 }
